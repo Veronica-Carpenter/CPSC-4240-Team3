@@ -1,11 +1,11 @@
 import Mongoose from "mongoose";
 import {DataAccess} from './../DataAccess';
-import {IUserModel} from '../interfaces/IUserModel';
+import {ICourseModel} from '../interfaces/ICourseModel';
 
 let mongooseConnection = DataAccess.mongooseConnection;
 let mongooseObj = DataAccess.mongooseInstance;
 
-class UserModel{
+class CourseModel{
     public schema: any;
     public model: any;
 
@@ -17,19 +17,14 @@ class UserModel{
     public createSchema(){
         this.schema = new Mongoose.Schema(
             {
-                userId: Number,
-                userName: String,
-                password: String,
-                fname: String,
-                lname: String,
-                email: String,
-                userCategory: String
-            }, {collection: 'users'}
+                courseId: Number,
+                courseName: String
+            }, {collection: 'courses'}
         )
     }
 
     public createModel(){
-        this.model = mongooseConnection.model<IUserModel>("Users", this.schema);
+        this.model = mongooseConnection.model<ICourseModel>("Courses", this.schema);
     }
 }
-export {UserModel};
+export {CourseModel};
