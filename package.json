@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Veronica-Carpenter/CPSC-4240-Team3#readme",
   "dependencies": {
+    "express": "^4.18.1",
     "mongoose": "^6.3.1"
   }
 }
