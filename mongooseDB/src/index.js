@@ -4,6 +4,7 @@ var User = require('./models/user');
 var Professor = require('./models/professorModel');
 var app = express();
 app.use(express.json());
+// setting up endpoints
 app.post('/users', function (req, res) {
     console.log(req.body);
     var user = new User(req.body);
@@ -34,6 +35,24 @@ app.get('/users/:id', function (req, res) {
         res.send(user);
     })["catch"](function (error) {
         res.status(500);
+        res.send(error);
+    });
+});
+app.patch('/users/:id', function (req, res) {
+    var _id = req.params.id;
+    User.findByIdAndUpdate({ _id: _id }, req.body, {
+        "new": true,
+        runValidators: true
+    }).then(function (user) {
+        if (!user) {
+            res.status(404);
+            return res.send();
+        }
+        console.log('user updated: ');
+        console.log(user);
+        res.send(user);
+    })["catch"](function (error) {
+        res.status(400);
         res.send(error);
     });
 });

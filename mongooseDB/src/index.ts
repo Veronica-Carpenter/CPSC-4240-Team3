@@ -45,6 +45,25 @@ app.get('/users/:id', (req, res) => {
     })
 })
 
+app.patch('/users/:id', (req, res) => {
+    const _id = req.params.id
+    User.findByIdAndUpdate({_id}, req.body, {
+        new: true,
+        runValidators: true
+    }).then((user) => {
+        if (!user) {
+            res.status(404)
+            return res.send()
+        }
+        console.log('user updated: ')
+        console.log(user)
+        res.send(user)
+    }).catch((error) => {
+        res.status(400)
+        res.send(error)
+    })
+})
+
 app.post('/professors', (req, res) => {
     console.log(req.body)
     const professor = new Professor(req.body)
