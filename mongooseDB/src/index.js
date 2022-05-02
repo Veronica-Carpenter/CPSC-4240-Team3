@@ -15,6 +15,28 @@ app.post('/users', function (req, res) {
         res.send(error);
     });
 });
+app.get('/users', function (req, res) {
+    User.find({}).then(function (users) {
+        console.log(users);
+        res.send(users);
+    })["catch"](function (error) {
+        res.status(500);
+        res.send(error);
+    });
+});
+app.get('/users/:id', function (req, res) {
+    var _id = req.params.id;
+    User.findById({ _id: _id }).then(function (user) {
+        if (!user) {
+            res.status(404);
+            return res.send();
+        }
+        res.send(user);
+    })["catch"](function (error) {
+        res.status(500);
+        res.send(error);
+    });
+});
 app.post('/professors', function (req, res) {
     console.log(req.body);
     var professor = new Professor(req.body);

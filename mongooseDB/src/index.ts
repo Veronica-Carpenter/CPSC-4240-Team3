@@ -7,6 +7,8 @@ const app = express()
 
 app.use(express.json())
 
+// setting up endpoints
+
 app.post('/users', (req, res) => {
     console.log(req.body)
     const user = new User(req.body)
@@ -15,6 +17,30 @@ app.post('/users', (req, res) => {
     }).catch((error) => {
         console.log(error)
         res.status(400)
+        res.send(error)
+    })
+})
+
+app.get('/users', (req,res) => {
+    User.find({}).then((users) => {
+        console.log(users)
+        res.send(users)
+    }).catch((error) => {
+        res.status(500)
+        res.send(error)
+    })
+})
+
+app.get('/users/:id', (req, res) => {
+    const _id = req.params.id
+    User.findById({_id}).then((user) => {
+        if (!user) {
+            res.status(404)
+            return res.send()
+        }
+        res.send(user)
+    }).catch((error) => {
+        res.status(500)
         res.send(error)
     })
 })
