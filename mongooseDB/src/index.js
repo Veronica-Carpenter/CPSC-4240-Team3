@@ -12,6 +12,6 @@ app.post('/users', function (req, res) {
         res.send(error);
     });
 });
-app.listen(8080, function () {
-    console.log('app is up and running on port 8080');
+app.listen(3000, function () {
+    console.log('app is up and running on port 3000');
 });
