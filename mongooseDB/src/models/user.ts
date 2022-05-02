@@ -1,7 +1,7 @@
 let mongoose = require('mongoose')
 const validator = require('validator')
 
-const User = mongoose.model('userModel', {
+const User = mongoose.model('user', {
     userId: {
         type: Number,
         required: true,

@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var validator = require('validator');
-var User = mongoose.model('userModel', {
+var User = mongoose.model('user', {
     userId: {
         type: Number,
         required: true,
