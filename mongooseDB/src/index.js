@@ -41,6 +41,24 @@ app.get('/users/:id', function (req, res) {
         res.send(error);
     });
 });
+app.patch('/users/:id', function (req, res) {
+    var _id = req.params.id;
+    User.findByIdAndUpdate({ _id: _id }, req.body, {
+        "new": true,
+        runValidators: true
+    }).then(function (user) {
+        if (!user) {
+            res.status(404);
+            return res.send();
+        }
+        console.log('user updated: ');
+        console.log(user);
+        res.send(user);
+    })["catch"](function (error) {
+        res.status(400);
+        res.send(error);
+    });
+});
 app.post('/professors', function (req, res) {
     console.log(req.body);
     var professor = new Professor(req.body);
