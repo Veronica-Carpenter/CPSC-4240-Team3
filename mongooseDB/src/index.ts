@@ -5,6 +5,7 @@ require('./db/mongoose')
 const User = require('./models/user')
 const Professor = require('./models/professorModel')
 const Course = require('./models/courseModel')
+const Lecture = require('./models/lectureModel')
 
 const app = express()
 
@@ -84,6 +85,18 @@ app.post('/courses', (req, res) => {
     const course = new Course (req.body)
     course.save().then(() => {
         res.send(course)
+    }).catch((error) => {
+        console.log(error)
+        res.status(400)
+        res.send(error)
+    })
+})
+
+app.post("/lectures", (req, res)=>{
+    console.log(req.body)
+    const lecture = new Lecture (req.body)
+    lecture.save().then(()=>{
+        res.send(lecture)
     }).catch((error) => {
         console.log(error)
         res.status(400)

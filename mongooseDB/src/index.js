@@ -5,6 +5,7 @@ require('./db/mongoose');
 var User = require('./models/user');
 var Professor = require('./models/professorModel');
 var Course = require('./models/courseModel');
+var Lecture = require('./models/lectureModel');
 var app = express();
 app.use(express.json());
 // setting up endpoints
@@ -75,6 +76,17 @@ app.post('/courses', function (req, res) {
     var course = new Course(req.body);
     course.save().then(function () {
         res.send(course);
+    })["catch"](function (error) {
+        console.log(error);
+        res.status(400);
+        res.send(error);
+    });
+});
+app.post("/lectures", function (req, res) {
+    console.log(req.body);
+    var lecture = new Lecture(req.body);
+    lecture.save().then(function () {
+        res.send(lecture);
     })["catch"](function (error) {
         console.log(error);
         res.status(400);
