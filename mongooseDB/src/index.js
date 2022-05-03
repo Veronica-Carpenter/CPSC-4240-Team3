@@ -1,5 +1,3 @@
-"use strict";
-exports.__esModule = true;
 var express = require('express');
 require('./db/mongoose');
 var User = require('./models/user');
@@ -13,6 +11,7 @@ app.post('/users', function (req, res) {
     console.log(req.body);
     var user = new User(req.body);
     user.save().then(function () {
+        console.log("user created: " + user);
         res.send(user);
     })["catch"](function (error) {
         console.log(error);
@@ -22,7 +21,7 @@ app.post('/users', function (req, res) {
 });
 app.get('/users', function (req, res) {
     User.find({}).then(function (users) {
-        console.log(users);
+        console.log("list of users fetched: " + users);
         res.send(users);
     })["catch"](function (error) {
         res.status(500);
@@ -36,6 +35,7 @@ app.get('/users/:id', function (req, res) {
             res.status(404);
             return res.send();
         }
+        console.log("user fetched by Id: " + user);
         res.send(user);
     })["catch"](function (error) {
         res.status(500);

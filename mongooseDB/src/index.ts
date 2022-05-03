@@ -1,5 +1,3 @@
-import req from "express/lib/request"
-
 const express = require('express')
 require('./db/mongoose')
 const User = require('./models/user')
@@ -17,6 +15,7 @@ app.post('/users', (req, res) => {
     console.log(req.body)
     const user = new User(req.body)
     user.save().then(() => {
+        console.log("user created: " + user)
         res.send(user)
     }).catch((error) => {
         console.log(error)
@@ -27,7 +26,7 @@ app.post('/users', (req, res) => {
 
 app.get('/users', (req,res) => {
     User.find({}).then((users) => {
-        console.log(users)
+        console.log("list of users fetched: " + users)
         res.send(users)
     }).catch((error) => {
         res.status(500)
@@ -42,6 +41,7 @@ app.get('/users/:id', (req, res) => {
             res.status(404)
             return res.send()
         }
+        console.log("user fetched by Id: " + user)
         res.send(user)
     }).catch((error) => {
         res.status(500)
