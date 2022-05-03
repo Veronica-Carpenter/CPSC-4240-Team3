@@ -1,9 +1,13 @@
+"use strict";
+exports.__esModule = true;
 var express = require('express');
 require('./db/mongoose');
 var User = require('./models/user');
 var Professor = require('./models/professorModel');
+var Course = require('./models/courseModel');
 var app = express();
 app.use(express.json());
+// setting up endpoints
 app.post('/users', function (req, res) {
     console.log(req.body);
     var user = new User(req.body);
@@ -47,6 +51,21 @@ app.post('/professors', function (req, res) {
         res.status(400);
         res.send(error);
     });
+});
+app.post('/courses', function (req, res) {
+    console.log(req.body);
+    var course = new Course(req.body);
+    course.save().then(function () {
+        res.send(course);
+    })["catch"](function (error) {
+        console.log(error);
+        res.status(400);
+        res.send(error);
+    });
+});
+app.get('/courses', function (req, res) {
+    console.log('Query All Courses');
+    Course.retrieveAllCourses(res);
 });
 app.listen(8080, function () {
     console.log('app is up and running on port 8080');

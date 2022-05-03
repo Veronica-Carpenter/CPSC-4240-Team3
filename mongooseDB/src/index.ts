@@ -1,7 +1,10 @@
+import req from "express/lib/request"
+
 const express = require('express')
 require('./db/mongoose')
 const User = require('./models/user')
 const Professor = require('./models/professorModel')
+const Course = require('./models/courseModel')
 
 const app = express()
 
@@ -56,6 +59,19 @@ app.post('/professors', (req, res) => {
         res.send(error)
     })
 })
+
+app.post('/courses', (req, res) => {
+    console.log(req.body)
+    const course = new Course (req.body)
+    course.save().then(() => {
+        res.send(course)
+    }).catch((error) => {
+        console.log(error)
+        res.status(400)
+        res.send(error)
+    })
+})
+
 
 app.listen(8080, () => {
     console.log('app is up and running on port 8080')
