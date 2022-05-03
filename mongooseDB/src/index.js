@@ -81,10 +81,6 @@ app.post('/courses', function (req, res) {
         res.send(error);
     });
 });
-app.get('/courses', function (req, res) {
-    console.log('Query All Courses');
-    Course.retrieveAllCourses(res);
-});
 app.listen(8080, function () {
     console.log('app is up and running on port 8080');
 });
