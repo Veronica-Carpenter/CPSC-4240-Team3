@@ -1,11 +1,9 @@
 "use strict";
 exports.__esModule = true;
 exports.App = void 0;
-var express = require('express');
-// const Professor = require('./models/professorModel')
+var express = require("express");
 var usermodel_1 = require("./models/usermodel");
 var courseModel_1 = require("./models/courseModel");
-// const Lecture = require('./models/lectureModel')
 var bodyParser = require("body-parser");
 var professorModel_1 = require("./models/professorModel");
 var lectureModel_1 = require("./models/lectureModel");
@@ -32,6 +30,7 @@ var App = /** @class */ (function () {
     App.prototype.routes = function () {
         var _this = this;
         var router = express.Router();
+        // Add a new user
         router.post('/users', function (req, res) {
             var user = req.body;
             var userList = new _this.Users.model(user);
@@ -43,14 +42,17 @@ var App = /** @class */ (function () {
                 res.send(error);
             });
         });
+        // Get all the users
         router.get('/users', function (req, res) {
             _this.Users.retrieveUserLists(res);
         });
+        // Get a user by id
         router.get('/users/:id', function (req, res) {
             var id = req.params.id;
             console.log('Getting a user with id : ' + id);
             _this.Users.retrieveASingleUser(res, { id: id });
         });
+        // Add a new course
         router.post('/courses', function (req, res) {
             var course = req.body;
             var courseList = new _this.Courses.model(course);
@@ -122,7 +124,6 @@ var App = /** @class */ (function () {
         router.get('/students', function (req, res) {
             _this.Students.retrieveStudentLists(res);
         });
-        this.expressApp.use('/', router);
         //Get a student by id
         router.get('/students/:id', function (req, res) {
             var id = req.params.id;
@@ -145,68 +146,15 @@ var App = /** @class */ (function () {
         router.get('/attendances', function (req, res) {
             _this.Attendances.retrieveAttendanceLists(res);
         });
-        this.expressApp.use('/', router);
         //Get an attendance by student id
         router.get('/attendances/:id', function (req, res) {
             var id = req.params.id;
             console.log('Getting a attendance with id : ' + id);
             _this.Attendances.retrieveASingleAttendance(res, { studentId: id });
         });
+        this.expressApp.use('/', router);
+        this.expressApp.use('/', express.static("../public"));
     };
     return App;
 }());
 exports.App = App;
-// app.get('/users/:id', (req, res) => {
-//     const _id = req.params.id
-//     User.findById({_id}).then((user) => {
-//         if (!user) {
-//             res.status(404)
-//             return res.send()
-//         }
-//         console.log("user fetched by Id: " + user)
-//         res.send(user)
-//     }).catch((error) => {
-//         res.status(500)
-//         res.send(error)
-//     })
-// })
-// app.patch('/users/:id', (req, res) => {
-//     const _id = req.params.id
-//     User.findByIdAndUpdate({_id}, req.body, {
-//         new: true,
-//         runValidators: true
-//     }).then((user) => {
-//         if (!user) {
-//             res.status(404)
-//             return res.send()
-//         }
-//         console.log('user updated: ')
-//         console.log(user)
-//         res.send(user)
-//     }).catch((error) => {
-//         res.status(400)
-//         res.send(error)
-//     })
-// })
-// app.post('/professors', (req, res) => {
-//     console.log(req.body)
-//     const professor = new Professor(req.body)
-//     professor.save().then(() => {
-//         res.send(professor)
-//     }).catch((error) => {
-//         console.log(error)
-//         res.status(400)
-//         res.send(error)
-//     })
-// })
-// app.post("/lectures", (req, res)=>{
-//     console.log(req.body)
-//     const lecture = new Lecture (req.body)
-//     lecture.save().then(()=>{
-//         res.send(lecture)
-//     }).catch((error) => {
-//         console.log(error)
-//         res.status(400)
-//         res.send(error)
-//     })
-// })

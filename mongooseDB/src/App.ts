@@ -1,13 +1,12 @@
-const express = require('express')
-// const Professor = require('./models/professorModel')
+import * as express from 'express';
 import {userModel} from './models/usermodel';
 import {courseModel} from './models/courseModel';
-// const Lecture = require('./models/lectureModel')
 import * as bodyParser from 'body-parser';
 import { professorModel } from './models/professorModel';
 import { lectureModel } from './models/lectureModel';
-import {studentModel} from './models/studentModel'
+import {studentModel} from './models/studentModel';
 import { attendanceModel } from './models/attendanceModel';
+
 // setting up endpoints
 
 class App {
@@ -41,6 +40,7 @@ class App {
     private routes(): void {
         let router = express.Router();
 
+        // Add a new user
         router.post('/users', (req, res) => {
             var user = req.body
             let userList = new this.Users.model(user);
@@ -51,18 +51,21 @@ class App {
                 res.status(400)
                 res.send(error)
             })
-        })
+        });
 
+        // Get all the users
         router.get('/users', (req, res) => {
             this.Users.retrieveUserLists(res);
         });
 
+        // Get a user by id
         router.get('/users/:id', (req, res) => {
             var id = req.params.id;
             console.log('Getting a user with id : ' + id);
             this.Users.retrieveASingleUser(res, {id});
         });
 
+        // Add a new course
         router.post('/courses', (req, res) => {
             var course = req.body
             let courseList = new this.Courses.model(course);
@@ -86,7 +89,7 @@ class App {
                 res.status(400)
                 res.send(error)
             })
-        })
+        });
 
         //Get all professors
         router.get('/professors', (req, res) => {
@@ -100,7 +103,6 @@ class App {
             this.Professors.retrieveASingleProfessor(res, {professorId:id});
         });
 
-
          //Add a new lecture
          router.post('/lectures', (req, res) => {
             var lecture = req.body
@@ -112,7 +114,7 @@ class App {
                 res.status(400)
                 res.send(error)
             })
-        })
+        });
 
         //Get all lectures
         router.get('/lectures', (req, res) => {
@@ -137,13 +139,12 @@ class App {
                 res.status(400)
                 res.send(error)
             })
-        })
+        });
 
         //Get all students
         router.get('/students', (req, res) => {
             this.Students.retrieveStudentLists(res);
         });
-        this.expressApp.use('/', router);
 
         //Get a student by id
         router.get('/students/:id', (req, res) => {
@@ -163,13 +164,12 @@ class App {
                 res.status(400)
                 res.send(error)
             })
-        })
+        });
 
         //Get all attendances
         router.get('/attendances', (req, res) => {
             this.Attendances.retrieveAttendanceLists(res);
         });
-        this.expressApp.use('/', router);
 
         //Get an attendance by student id
         router.get('/attendances/:id', (req, res) => {
@@ -177,69 +177,10 @@ class App {
             console.log('Getting a attendance with id : ' + id);
             this.Attendances.retrieveASingleAttendance(res, {studentId:id});
         });
+
+        this.expressApp.use('/', router);
+        this.expressApp.use('/', express.static("../public"));
     }
 }
 
 export {App};
-
-
-
-// app.get('/users/:id', (req, res) => {
-//     const _id = req.params.id
-//     User.findById({_id}).then((user) => {
-//         if (!user) {
-//             res.status(404)
-//             return res.send()
-//         }
-//         console.log("user fetched by Id: " + user)
-//         res.send(user)
-//     }).catch((error) => {
-//         res.status(500)
-//         res.send(error)
-//     })
-// })
-
-// app.patch('/users/:id', (req, res) => {
-//     const _id = req.params.id
-//     User.findByIdAndUpdate({_id}, req.body, {
-//         new: true,
-//         runValidators: true
-//     }).then((user) => {
-//         if (!user) {
-//             res.status(404)
-//             return res.send()
-//         }
-//         console.log('user updated: ')
-//         console.log(user)
-//         res.send(user)
-//     }).catch((error) => {
-//         res.status(400)
-//         res.send(error)
-//     })
-// })
-
-// app.post('/professors', (req, res) => {
-//     console.log(req.body)
-//     const professor = new Professor(req.body)
-//     professor.save().then(() => {
-//         res.send(professor)
-//     }).catch((error) => {
-//         console.log(error)
-//         res.status(400)
-//         res.send(error)
-//     })
-// })
-
-
-
-// app.post("/lectures", (req, res)=>{
-//     console.log(req.body)
-//     const lecture = new Lecture (req.body)
-//     lecture.save().then(()=>{
-//         res.send(lecture)
-//     }).catch((error) => {
-//         console.log(error)
-//         res.status(400)
-//         res.send(error)
-//     })
-// })
