@@ -1,34 +1,50 @@
+import Mongoose = require("mongoose");
+import {DataAccess} from './../DataAccess';
+import {IlectureModel} from '../interfaces/IlectureModel';
 
-let mongoose = require('mongoose')
-const validator = require('validator')
+let mongooseConnection = DataAccess.mongooseConnection;
+let mongooseObj = DataAccess.mongooseInstance;
 
-const lectureModel = mongoose.model('lecture', {
-    lectureId: {
-        type: Number,
-        required: true,
-        trim: true
-    },
-    courseId: {
-        type: Number,
-        required: true,
-        trim: true
-    },
-    courseName: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    date:{
-        type: Date,
-        required: true,
-        trim: true
-    },
-    secureCode: {
-        type: Number,
-        required: true,
-        trim: true
+class lectureModel {
+    public schema:any;
+    public model:any;
+
+    public constructor() {
+        this.createSchema();
+        this.createModel();
     }
-})
 
+    public createSchema(): void {
+        this.schema = new Mongoose.Schema(
+            {
+                lectureId: Number,
+                courseId: Number,
+                courseName: String,
+                date: Date,
+                secureCode: Number
+            }
+        );
+    }
 
-module.exports = lectureModel
+    public createModel(): void {
+        this.model = mongooseConnection.model<IlectureModel>("Lecture", this.schema);
+    }
+
+    public retrieveLectureLists(res:any): any {
+        var findResult = this.model.find({});
+        console.log('list of lectures fetched: ');
+        findResult.exec( (err, userArray) => {
+            console.log(userArray);
+            res.json(userArray);
+        });
+    }
+
+    public retrieveASingleLecture(res:any, filter:Object) {
+        var findResult = this.model.findOne(filter);
+        findResult.exec( (err, userArray) => {
+            console.log(userArray);
+            res.json(userArray);
+        });
+    }
+}
+export {lectureModel};

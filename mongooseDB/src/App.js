@@ -8,6 +8,7 @@ var courseModel_1 = require("./models/courseModel");
 // const Lecture = require('./models/lectureModel')
 var bodyParser = require("body-parser");
 var professorModel_1 = require("./models/professorModel");
+var lectureModel_1 = require("./models/lectureModel");
 // setting up endpoints
 var App = /** @class */ (function () {
     function App() {
@@ -18,6 +19,7 @@ var App = /** @class */ (function () {
         this.Users = new usermodel_1.userModel();
         this.Courses = new courseModel_1.courseModel();
         this.Professors = new professorModel_1.professorModel();
+        this.Lectures = new lectureModel_1.lectureModel();
     }
     App.prototype.middleware = function () {
         this.expressApp.use(bodyParser.json());
@@ -77,6 +79,28 @@ var App = /** @class */ (function () {
             var id = req.params.id;
             console.log('Getting a professor with id : ' + id);
             _this.Professors.retrieveASingleProfessor(res, { professorId: id });
+        });
+        //Add a new lecture
+        router.post('/lectures', function (req, res) {
+            var lecture = req.body;
+            var lectureList = new _this.Lectures.model(lecture);
+            lectureList.save().then(function () {
+                console.log(lectureList);
+                res.send(lectureList);
+            })["catch"](function (error) {
+                res.status(400);
+                res.send(error);
+            });
+        });
+        //Get all lectures
+        router.get('/lectures', function (req, res) {
+            _this.Lectures.retrieveLectureLists(res);
+        });
+        //Get a lecture by id
+        router.get('/lectures/:id', function (req, res) {
+            var id = req.params.id;
+            console.log('Getting a lecture with id : ' + id);
+            _this.Lectures.retrieveASingleLecture(res, { lectureId: id });
         });
         this.expressApp.use('/', router);
     };
