@@ -1,18 +1,30 @@
-let mongoose = require('mongoose')
-const validator = require('validator')
+import Mongoose = require("mongoose");
+import {DataAccess} from './../DataAccess';
+import {IcourseModel} from '../interfaces/IcourseModel';
 
-const Course = mongoose.model('course', {
-    courseId: {
-        type: Number,
-        required: true,
-        trim: true
-    },
-    courseName: {
-        type: String,
-        required: true,
-        trim: true
+let mongooseConnection = DataAccess.mongooseConnection;
+let mongooseObj = DataAccess.mongooseInstance;
+
+class courseModel {
+    public schema:any;
+    public model:any;
+
+    public constructor() {
+        this.createSchema();
+        this.createModel();
     }
-})
 
+    public createSchema(): void {
+        this.schema = new Mongoose.Schema(
+            {
+                courseId: Number,
+                courseName: String
+            }
+        );
+    }
 
-module.exports = Course
+    public createModel(): void {
+        this.model = mongooseConnection.model<IcourseModel>("Course", this.schema);
+    }
+}
+export {courseModel};
