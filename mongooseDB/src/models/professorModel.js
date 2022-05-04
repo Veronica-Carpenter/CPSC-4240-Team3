@@ -1,42 +1,47 @@
-var mongoose = require('mongoose');
-var validator = require('validator');
-var professorModel = mongoose.model('professor', {
-    professorId: {
-        type: Number,
-        required: true,
-        trim: true
-    },
-    fname: {
-        type: String,
-        trim: true
-    },
-    lname: {
-        type: String,
-        trim: true
-    },
-    email: {
-        type: String,
-        required: true,
-        trim: true,
-        lowercase: true,
-        validate: function (value) {
-            if (!validator.isEmail(value)) {
-                throw new Error('Email is invalid');
-            }
-        }
-    },
-    courseList: [
-        {
-            courseId: {
-                type: Number,
-                required: true,
-                trim: true
-            },
-            courseName: {
-                type: String,
-                trim: true
-            }
-        }
-    ]
-});
-module.exports = professorModel;
+"use strict";
+exports.__esModule = true;
+exports.professorModel = void 0;
+var Mongoose = require("mongoose");
+var DataAccess_1 = require("../DataAccess");
+var mongooseConnection = DataAccess_1.DataAccess.mongooseConnection;
+var mongooseObj = DataAccess_1.DataAccess.mongooseInstance;
+var professorModel = /** @class */ (function () {
+    function professorModel() {
+        this.createSchema();
+        this.createModel();
+    }
+    professorModel.prototype.createSchema = function () {
+        this.schema = new Mongoose.Schema({
+            professorId: Number,
+            fname: String,
+            lname: String,
+            email: String,
+            courseList: [
+                {
+                    courseId: Number,
+                    courseName: String
+                }
+            ]
+        });
+    };
+    professorModel.prototype.createModel = function () {
+        this.model = mongooseConnection.model("Professor", this.schema);
+    };
+    professorModel.prototype.retrieveProfessorLists = function (res) {
+        var findResult = this.model.find({});
+        console.log('list of professors fetched: ');
+        findResult.exec(function (err, userArray) {
+            console.log(userArray);
+            res.json(userArray);
+        });
+    };
+    professorModel.prototype.retrieveASingleProfessor = function (res, filter) {
+        var findResult = this.model.findOne(filter);
+        findResult.exec(function (err, userArray) {
+            console.log(userArray);
+            res.json(userArray);
+        });
+    };
+    return professorModel;
+}());
+exports.professorModel = professorModel;

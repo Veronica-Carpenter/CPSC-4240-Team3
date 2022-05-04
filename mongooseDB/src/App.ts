@@ -4,6 +4,7 @@ import {userModel} from './models/usermodel';
 import {courseModel} from './models/courseModel';
 // const Lecture = require('./models/lectureModel')
 import * as bodyParser from 'body-parser';
+import { professorModel } from './models/professorModel';
 
 // setting up endpoints
 
@@ -11,6 +12,7 @@ class App {
     public expressApp = express.Application;
     public Users:userModel;
     public Courses:courseModel;
+    public Professors: professorModel;
 
     constructor() {
         this.expressApp = express();
@@ -19,6 +21,7 @@ class App {
 
         this.Users = new userModel();
         this.Courses = new courseModel();
+        this.Professors = new professorModel();
     }
 
     private middleware(): void {
@@ -61,6 +64,31 @@ class App {
                 res.status(400)
                 res.send(error)
             })
+        });
+
+        //Add a new professor
+        router.post('/professors', (req, res) => {
+            var professor = req.body
+            let professorList = new this.Professors.model(professor);
+            professorList.save().then(() => {
+                console.log(professorList)
+                res.send(professorList)
+            }).catch((error) => {
+                res.status(400)
+                res.send(error)
+            })
+        })
+
+        //Get all professors
+        router.get('/professors', (req, res) => {
+            this.Professors.retrieveProfessorLists(res);
+        });
+
+        //Get a professor by id
+        router.get('/professors/:id', (req, res) => {
+            var id = req.params.id;
+            console.log('Getting a professor with id : ' + id);
+            this.Professors.retrieveASingleProfessor(res, {professorId:id});
         });
 
         this.expressApp.use('/', router);
