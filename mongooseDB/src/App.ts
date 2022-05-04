@@ -7,6 +7,7 @@ import * as bodyParser from 'body-parser';
 import { professorModel } from './models/professorModel';
 import { lectureModel } from './models/lectureModel';
 import {studentModel} from './models/studentModel'
+import { attendanceModel } from './models/attendanceModel';
 // setting up endpoints
 
 class App {
@@ -16,6 +17,7 @@ class App {
     public Professors: professorModel;
     public Lectures: lectureModel;
     public Students: studentModel;
+    public Attendances: attendanceModel;
 
 
     constructor() {
@@ -28,6 +30,7 @@ class App {
         this.Professors = new professorModel();
         this.Lectures = new lectureModel();
         this.Students = new studentModel();
+        this.Attendances = new attendanceModel();
     }
 
     private middleware(): void {
@@ -147,6 +150,32 @@ class App {
             var id = req.params.id;
             console.log('Getting a student with id : ' + id);
             this.Students.retrieveASingleStudent(res, {studentId:id});
+        });
+
+        //Add a new attendance record 
+        router.post('/attendances', (req, res) => {
+            var attendance = req.body
+            let attendanceList = new this.Attendances.model(attendance);
+            attendanceList.save().then(() => {
+                console.log(attendanceList)
+                res.send(attendanceList)
+            }).catch((error) => {
+                res.status(400)
+                res.send(error)
+            })
+        })
+
+        //Get all attendances
+        router.get('/attendances', (req, res) => {
+            this.Attendances.retrieveAttendanceLists(res);
+        });
+        this.expressApp.use('/', router);
+
+        //Get an attendance by student id
+        router.get('/attendances/:id', (req, res) => {
+            var id = req.params.id;
+            console.log('Getting a attendance with id : ' + id);
+            this.Attendances.retrieveASingleAttendance(res, {studentId:id});
         });
     }
 }

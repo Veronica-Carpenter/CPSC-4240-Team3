@@ -10,6 +10,7 @@ var bodyParser = require("body-parser");
 var professorModel_1 = require("./models/professorModel");
 var lectureModel_1 = require("./models/lectureModel");
 var studentModel_1 = require("./models/studentModel");
+var attendanceModel_1 = require("./models/attendanceModel");
 // setting up endpoints
 var App = /** @class */ (function () {
     function App() {
@@ -22,6 +23,7 @@ var App = /** @class */ (function () {
         this.Professors = new professorModel_1.professorModel();
         this.Lectures = new lectureModel_1.lectureModel();
         this.Students = new studentModel_1.studentModel();
+        this.Attendances = new attendanceModel_1.attendanceModel();
     }
     App.prototype.middleware = function () {
         this.expressApp.use(bodyParser.json());
@@ -126,6 +128,29 @@ var App = /** @class */ (function () {
             var id = req.params.id;
             console.log('Getting a student with id : ' + id);
             _this.Students.retrieveASingleStudent(res, { studentId: id });
+        });
+        //Add a new attendance record 
+        router.post('/attendances', function (req, res) {
+            var attendance = req.body;
+            var attendanceList = new _this.Attendances.model(attendance);
+            attendanceList.save().then(function () {
+                console.log(attendanceList);
+                res.send(attendanceList);
+            })["catch"](function (error) {
+                res.status(400);
+                res.send(error);
+            });
+        });
+        //Get all attendances
+        router.get('/attendances', function (req, res) {
+            _this.Attendances.retrieveAttendanceLists(res);
+        });
+        this.expressApp.use('/', router);
+        //Get an attendance by student id
+        router.get('/attendances/:id', function (req, res) {
+            var id = req.params.id;
+            console.log('Getting a attendance with id : ' + id);
+            _this.Attendances.retrieveASingleAttendance(res, { studentId: id });
         });
     };
     return App;
