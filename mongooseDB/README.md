@@ -14,12 +14,13 @@ Make sure to start mongodb server before running following commands:
 
 To load scripts: 
 
-- To connect to attendance-tracker on 27017
+- To connect to attendance-tracker db server on 27017
     /Users/shipravalecha/Desktop/mongodb/bin/mongod -port 27017 --dbpath=/Users/shipravalecha/Desktop/mongodb-data
 
 - In new terminal, go to path mongodb and run below commands: 
     ./mongo --port 27017 --authenticationDatabase admin
     load ('/Users/shipravalecha/Desktop/Seattle University/SaaS/Team3App/CPSC-4240-Team3/mongooseDB/src/createDB/AttendanceData.js');
+    load ('/Users/shipravalecha/Desktop/Seattle University/SaaS/Team3App/CPSC-4240-Team3/mongooseDB/src/createDB/UsersData.js');
     exit
 
 1. install prerequisites: npm install
