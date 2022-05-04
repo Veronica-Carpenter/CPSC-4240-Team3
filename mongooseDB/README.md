@@ -10,6 +10,17 @@ File content:
 Make sure you install the node.js server and Mongo DB sofware from the side.  Ensure your path variable contains the execution path of the node.js and mongo binary.
 
 Make sure to start mongodb server before running following commands:
+    /Users/shipravalecha/Desktop/mongodb/bin/mongod --dbpath=/Users/shipravalecha/Desktop/mongodb-data
+
+To load scripts: 
+
+- To connect to attendance-tracker on 27017
+    /Users/shipravalecha/Desktop/mongodb/bin/mongod -port 27017 --dbpath=/Users/shipravalecha/Desktop/mongodb-data
+
+- In new terminal, go to path mongodb- 
+    ./mongo --port 27017 --authenticationDatabase admin
+    load ('/Users/shipravalecha/Desktop/Seattle University/SaaS/Team3App/CPSC-4240-Team3/mongooseDB/src/createDB/AttendanceData.js');
+    exit
 
 1. install prerequisites: npm install
 
