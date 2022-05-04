@@ -35,15 +35,15 @@ class userModel {
     public retrieveUserLists(res:any): any {
         var findResult = this.model.find({});
         console.log('list of users fetched: ');
-        findResult.exec( (err, userArray) => {
+        findResult.exec((err, userArray) => {
             console.log(userArray);
             res.json(userArray);
         });
     }
 
-    public retrieveASingleUser(res:any, filter:Object) {
-        var findResult = this.model.findOne(filter);
-        findResult.exec( (err, userArray) => {
+    public retrieveASingleUser(res:any, filter: {id : number}) {
+        var findResult = this.model.findById(filter.id);
+        findResult.exec((err, userArray) => {
             console.log(userArray);
             res.json(userArray);
         });
