@@ -1,6 +1,5 @@
 db = db.getSiblingDB('attendance-tracker')
 
-
 db.createCollection('lectures')
 lecturesCollection = db.getCollection("lectures")
 lecturesCollection.remove({})
