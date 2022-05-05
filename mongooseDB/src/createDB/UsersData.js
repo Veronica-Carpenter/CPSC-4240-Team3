@@ -81,3 +81,25 @@ usersCollection.insert(
         userCategory: "Student"
     }
 )
+usersCollection.insert(
+    {
+        userId: 7,
+        userName: "professorshafiq",
+        password: "555",
+        fname: "Shafiq",
+        lname: "Ahmad",
+        email: "shafiq.ahmad@edu.edu",
+        userCategory: "Professor"
+    }
+)
+usersCollection.insert(
+    {
+        userId: 8,
+        userName: "professorlinh",
+        password: "666",
+        fname: "Linh",
+        lname: "Tran",
+        email: "linh.tran@edu.edu",
+        userCategory: "Professor"
+    }
+)
