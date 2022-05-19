@@ -1,0 +1,30 @@
+{
+  "name": "cpsc-4240-team3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha 'test/*.js' --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Veronica-Carpenter/CPSC-4240-Team3.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Veronica-Carpenter/CPSC-4240-Team3/issues"
+  },
+  "homepage": "https://github.com/Veronica-Carpenter/CPSC-4240-Team3#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "express": "^4.18.1",
+    "hbs": "^4.2.0",
+    "mongodb": "^4.5.0",
+    "mongoose": "^6.3.2",
+    "validator": "^13.7.0"
+  },
+  "devDependencies": {
+    "mocha": "^10.0.0"
+  }
+}
