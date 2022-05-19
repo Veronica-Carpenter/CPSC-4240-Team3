@@ -1,9 +1,3 @@
 package-lock.json
-createDB/
-curlCommands/
-dbCommands/
-e2e/
 node_modules/
-docs/
-db/
 .DS_Store
