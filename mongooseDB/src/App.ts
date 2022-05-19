@@ -1,5 +1,4 @@
 import * as express from 'express';
-import {userModel} from './models/usermodel';
 import {courseModel} from './models/courseModel';
 import * as bodyParser from 'body-parser';
 import { professorModel } from './models/professorModel';
@@ -11,7 +10,6 @@ import { attendanceModel } from './models/attendanceModel';
 
 class App {
     public expressApp = express.Application;
-    public Users:userModel;
     public Courses:courseModel;
     public Professors: professorModel;
     public Lectures: lectureModel;
@@ -24,7 +22,6 @@ class App {
         this.middleware();
         this.routes();
 
-        this.Users = new userModel();
         this.Courses = new courseModel();
         this.Professors = new professorModel();
         this.Lectures = new lectureModel();
@@ -40,46 +37,8 @@ class App {
     private routes(): void {
         let router = express.Router();
 
-        // Add a new user
-        router.post('/users', (req, res) => {
-            var user = req.body
-            let userList = new this.Users.model(user);
-            userList.save().then(() => {
-                console.log(userList)
-                res.send(userList)
-            }).catch((error) => {
-                res.status(400)
-                res.send(error)
-            })
-        });
-
-        // Get all the users
-        router.get('/users', (req, res) => {
-            this.Users.retrieveUserLists(res);
-        });
-
-        // Get a user by id
-        router.get('/users/:id', (req, res) => {
-            var id = req.params.id;
-            console.log('Getting a user with id : ' + id);
-            this.Users.retrieveASingleUser(res, {id});
-        });
-
-        // Add a new course
-        router.post('/courses', (req, res) => {
-            var course = req.body
-            let courseList = new this.Courses.model(course);
-            courseList.save().then(() => {
-                console.log(courseList)
-                res.send(courseList)
-            }).catch((error) => {
-                res.status(400)
-                res.send(error)
-            })
-        });
-
-        //Add a new professor
-        router.post('/professors', (req, res) => {
+         //Add a new professor
+         router.post('/professors', (req, res) => {
             var professor = req.body
             let professorList = new this.Professors.model(professor);
             professorList.save().then(() => {
@@ -101,31 +60,6 @@ class App {
             var id = req.params.id;
             console.log('Getting a professor with id : ' + id);
             this.Professors.retrieveASingleProfessor(res, {professorId:id});
-        });
-
-         //Add a new lecture
-         router.post('/lectures', (req, res) => {
-            var lecture = req.body
-            let lectureList = new this.Lectures.model(lecture);
-            lectureList.save().then(() => {
-                console.log(lectureList)
-                res.send(lectureList)
-            }).catch((error) => {
-                res.status(400)
-                res.send(error)
-            })
-        });
-
-        //Get all lectures
-        router.get('/lectures', (req, res) => {
-            this.Lectures.retrieveLectureLists(res);
-        });
-
-        //Get a lecture by id
-        router.get('/lectures/:id', (req, res) => {
-            var id = req.params.id;
-            console.log('Getting a lecture with id : ' + id);
-            this.Lectures.retrieveASingleLecture(res, {lectureId:id});
         });
 
         //Add a new student
@@ -151,6 +85,56 @@ class App {
             var id = req.params.id;
             console.log('Getting a student with id : ' + id);
             this.Students.retrieveASingleStudent(res, {studentId:id});
+        });
+
+        // Add a new course
+        router.post('/courses', (req, res) => {
+            var course = req.body
+            let courseList = new this.Courses.model(course);
+            courseList.save().then(() => {
+                console.log(courseList)
+                res.send(courseList)
+            }).catch((error) => {
+                res.status(400)
+                res.send(error)
+            })
+        });
+
+        //Get all courses
+        router.get('/courses', (req, res) => {
+            this.Courses.retrieveCourseLists(res);
+        });
+
+        // Get a course by id
+        router.get('/courses/:id', (req, res) => {
+            var id = req.params.id;
+            console.log('Getting a course with id : ' + id);
+            this.Courses.retrieveASingleCourse(res, {id});
+        });
+
+         //Add a new lecture
+         router.post('/lectures', (req, res) => {
+            var lecture = req.body
+            let lectureList = new this.Lectures.model(lecture);
+            lectureList.save().then(() => {
+                console.log(lectureList)
+                res.send(lectureList)
+            }).catch((error) => {
+                res.status(400)
+                res.send(error)
+            })
+        });
+
+        //Get all lectures
+        router.get('/lectures', (req, res) => {
+            this.Lectures.retrieveLectureLists(res);
+        });
+
+        //Get a lecture by id
+        router.get('/lectures/:id', (req, res) => {
+            var id = req.params.id;
+            console.log('Getting a lecture with id : ' + id);
+            this.Lectures.retrieveASingleLecture(res, {lectureId:id});
         });
 
         //Add a new attendance record 

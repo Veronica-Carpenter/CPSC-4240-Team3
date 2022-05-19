@@ -2,7 +2,6 @@
 exports.__esModule = true;
 exports.App = void 0;
 var express = require("express");
-var usermodel_1 = require("./models/usermodel");
 var courseModel_1 = require("./models/courseModel");
 var bodyParser = require("body-parser");
 var professorModel_1 = require("./models/professorModel");
@@ -16,7 +15,6 @@ var App = /** @class */ (function () {
         this.expressApp = express();
         this.middleware();
         this.routes();
-        this.Users = new usermodel_1.userModel();
         this.Courses = new courseModel_1.courseModel();
         this.Professors = new professorModel_1.professorModel();
         this.Lectures = new lectureModel_1.lectureModel();
@@ -30,40 +28,6 @@ var App = /** @class */ (function () {
     App.prototype.routes = function () {
         var _this = this;
         var router = express.Router();
-        // Add a new user
-        router.post('/users', function (req, res) {
-            var user = req.body;
-            var userList = new _this.Users.model(user);
-            userList.save().then(function () {
-                console.log(userList);
-                res.send(userList);
-            })["catch"](function (error) {
-                res.status(400);
-                res.send(error);
-            });
-        });
-        // Get all the users
-        router.get('/users', function (req, res) {
-            _this.Users.retrieveUserLists(res);
-        });
-        // Get a user by id
-        router.get('/users/:id', function (req, res) {
-            var id = req.params.id;
-            console.log('Getting a user with id : ' + id);
-            _this.Users.retrieveASingleUser(res, { id: id });
-        });
-        // Add a new course
-        router.post('/courses', function (req, res) {
-            var course = req.body;
-            var courseList = new _this.Courses.model(course);
-            courseList.save().then(function () {
-                console.log(courseList);
-                res.send(courseList);
-            })["catch"](function (error) {
-                res.status(400);
-                res.send(error);
-            });
-        });
         //Add a new professor
         router.post('/professors', function (req, res) {
             var professor = req.body;
@@ -86,28 +50,6 @@ var App = /** @class */ (function () {
             console.log('Getting a professor with id : ' + id);
             _this.Professors.retrieveASingleProfessor(res, { professorId: id });
         });
-        //Add a new lecture
-        router.post('/lectures', function (req, res) {
-            var lecture = req.body;
-            var lectureList = new _this.Lectures.model(lecture);
-            lectureList.save().then(function () {
-                console.log(lectureList);
-                res.send(lectureList);
-            })["catch"](function (error) {
-                res.status(400);
-                res.send(error);
-            });
-        });
-        //Get all lectures
-        router.get('/lectures', function (req, res) {
-            _this.Lectures.retrieveLectureLists(res);
-        });
-        //Get a lecture by id
-        router.get('/lectures/:id', function (req, res) {
-            var id = req.params.id;
-            console.log('Getting a lecture with id : ' + id);
-            _this.Lectures.retrieveASingleLecture(res, { lectureId: id });
-        });
         //Add a new student
         router.post('/students', function (req, res) {
             var student = req.body;
@@ -129,6 +71,50 @@ var App = /** @class */ (function () {
             var id = req.params.id;
             console.log('Getting a student with id : ' + id);
             _this.Students.retrieveASingleStudent(res, { studentId: id });
+        });
+        // Add a new course
+        router.post('/courses', function (req, res) {
+            var course = req.body;
+            var courseList = new _this.Courses.model(course);
+            courseList.save().then(function () {
+                console.log(courseList);
+                res.send(courseList);
+            })["catch"](function (error) {
+                res.status(400);
+                res.send(error);
+            });
+        });
+        //Get all courses
+        router.get('/courses', function (req, res) {
+            _this.Courses.retrieveCourseLists(res);
+        });
+        // Get a course by id
+        router.get('/courses/:id', function (req, res) {
+            var id = req.params.id;
+            console.log('Getting a course with id : ' + id);
+            _this.Courses.retrieveASingleCourse(res, { id: id });
+        });
+        //Add a new lecture
+        router.post('/lectures', function (req, res) {
+            var lecture = req.body;
+            var lectureList = new _this.Lectures.model(lecture);
+            lectureList.save().then(function () {
+                console.log(lectureList);
+                res.send(lectureList);
+            })["catch"](function (error) {
+                res.status(400);
+                res.send(error);
+            });
+        });
+        //Get all lectures
+        router.get('/lectures', function (req, res) {
+            _this.Lectures.retrieveLectureLists(res);
+        });
+        //Get a lecture by id
+        router.get('/lectures/:id', function (req, res) {
+            var id = req.params.id;
+            console.log('Getting a lecture with id : ' + id);
+            _this.Lectures.retrieveASingleLecture(res, { lectureId: id });
         });
         //Add a new attendance record 
         router.post('/attendances', function (req, res) {

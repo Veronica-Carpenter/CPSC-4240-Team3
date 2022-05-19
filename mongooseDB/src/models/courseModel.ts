@@ -23,6 +23,23 @@ class courseModel {
         );
     }
 
+    public retrieveCourseLists(res:any): any {
+        var findResult = this.model.find({});
+        console.log('list of courses fetched: ');
+        findResult.exec((err, courseArray) => {
+            console.log(courseArray);
+            res.json(courseArray);
+        });
+    }
+
+    public retrieveASingleCourse(res:any, filter: {id : number}) {
+        var findResult = this.model.findById(filter.id);
+        findResult.exec((err, courseArray) => {
+            console.log(courseArray);
+            res.json(courseArray);
+        });
+    }
+
     public createModel(): void {
         this.model = mongooseConnection.model<IcourseModel>("Course", this.schema);
     }

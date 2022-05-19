@@ -16,6 +16,21 @@ var courseModel = /** @class */ (function () {
             courseName: String
         });
     };
+    courseModel.prototype.retrieveCourseLists = function (res) {
+        var findResult = this.model.find({});
+        console.log('list of courses fetched: ');
+        findResult.exec(function (err, courseArray) {
+            console.log(courseArray);
+            res.json(courseArray);
+        });
+    };
+    courseModel.prototype.retrieveASingleCourse = function (res, filter) {
+        var findResult = this.model.findById(filter.id);
+        findResult.exec(function (err, courseArray) {
+            console.log(courseArray);
+            res.json(courseArray);
+        });
+    };
     courseModel.prototype.createModel = function () {
         this.model = mongooseConnection.model("Course", this.schema);
     };
