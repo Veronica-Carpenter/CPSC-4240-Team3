@@ -55,6 +55,9 @@ class studentModel {
     public retrieveASingleStudent(res:any, filter: {id: number}) {
         var findResult = this.model.findById(filter.id);
         findResult.exec( (err, studentArray) => {
+            if (err) {
+                res.status(500).send({error: 'enter a valid ID'})
+            }
             console.log(studentArray);
             res.json(studentArray);
         });

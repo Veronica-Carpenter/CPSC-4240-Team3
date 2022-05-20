@@ -11,7 +11,6 @@ var attendanceModel_1 = require("./models/attendanceModel");
 // setting up endpoints
 var App = /** @class */ (function () {
     function App() {
-        this.expressApp = express.Application;
         this.expressApp = express();
         this.middleware();
         this.routes();

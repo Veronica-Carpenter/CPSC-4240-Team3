@@ -38,6 +38,9 @@ var professorModel = /** @class */ (function () {
     professorModel.prototype.retrieveASingleProfessor = function (res, filter) {
         var findResult = this.model.findById(filter.id);
         findResult.exec(function (err, userArray) {
+            if (err) {
+                res.status(500).send({ error: 'enter a valid ID' });
+            }
             console.log(userArray);
             res.json(userArray);
         });

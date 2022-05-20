@@ -9,7 +9,7 @@ import { attendanceModel } from './models/attendanceModel';
 // setting up endpoints
 
 class App {
-    public expressApp = express.Application;
+    public expressApp: express.Application;
     public Courses:courseModel;
     public Professors: professorModel;
     public Lectures: lectureModel;

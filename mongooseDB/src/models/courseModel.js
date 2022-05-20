@@ -27,6 +27,9 @@ var courseModel = /** @class */ (function () {
     courseModel.prototype.retrieveASingleCourse = function (res, filter) {
         var findResult = this.model.findById(filter.id);
         findResult.exec(function (err, courseArray) {
+            if (err) {
+                res.status(500).send({ error: 'enter a valid ID' });
+            }
             console.log(courseArray);
             res.json(courseArray);
         });

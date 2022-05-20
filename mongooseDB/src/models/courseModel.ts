@@ -35,6 +35,9 @@ class courseModel {
     public retrieveASingleCourse(res:any, filter: {id : number}) {
         var findResult = this.model.findById(filter.id);
         findResult.exec((err, courseArray) => {
+            if (err) {
+                res.status(500).send({error: 'enter a valid ID'})
+            }
             console.log(courseArray);
             res.json(courseArray);
         });

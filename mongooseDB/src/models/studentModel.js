@@ -46,6 +46,9 @@ var studentModel = /** @class */ (function () {
     studentModel.prototype.retrieveASingleStudent = function (res, filter) {
         var findResult = this.model.findById(filter.id);
         findResult.exec(function (err, studentArray) {
+            if (err) {
+                res.status(500).send({ error: 'enter a valid ID' });
+            }
             console.log(studentArray);
             res.json(studentArray);
         });

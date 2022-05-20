@@ -47,6 +47,9 @@ class professorModel {
     public retrieveASingleProfessor(res:any, filter: {id: Number}) {
         var findResult = this.model.findById(filter.id);
         findResult.exec( (err, userArray) => {
+            if (err) {
+                res.status(500).send({error: 'enter a valid ID'})
+            }
             console.log(userArray);
             res.json(userArray);
         });
