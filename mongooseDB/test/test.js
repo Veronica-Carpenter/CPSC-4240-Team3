@@ -7,6 +7,7 @@ var expect = chai.expect;
 var should = chai.should();
 
 var http = require('http');
+const { hasSubscribers } = require('diagnostics_channel');
 chai.use(chaiHttp);
 
 describe('Testing API routes', () => {
@@ -46,6 +47,16 @@ describe('Testing API routes', () => {
         });
     })
 
+    it('should not get all the students if the route is wrong', (done) => {
+        chai.request("http://localhost:8080")
+            .get("/student")
+            .end((err, response) => {
+                console.log('status: ' + response.status)
+                response.should.have.status(404);
+            done();
+        })
+    });
+
     // Test the GET professor routes
     describe("Get all professors", () => {
 
@@ -80,6 +91,16 @@ describe('Testing API routes', () => {
         });
     });
 
+    it('should not get all the professors if the route is wrong', (done) => {
+        chai.request("http://localhost:8080")
+            .get("/professor")
+            .end((err, response) => {
+                console.log('status: ' + response.status)
+                response.should.have.status(404);
+            done();
+        })
+    });
+
     // Test the GET courses routes
     describe("Get all courses", () => {
 
@@ -112,8 +133,18 @@ describe('Testing API routes', () => {
         });
     });
 
+    it('should not get all the courses if the route is wrong', (done) => {
+        chai.request("http://localhost:8080")
+            .get("/course")
+            .end((err, response) => {
+                console.log('status: ' + response.status)
+                response.should.have.status(404);
+            done();
+        })
+    });
+
     // Test the GET lectures routes
-    describe("Get all courses", () => {
+    describe("Get all lectures", () => {
 
         var requestResult;
         var response; 
@@ -144,5 +175,15 @@ describe('Testing API routes', () => {
             expect(requestResult[0]).to.include.keys('date');
             expect(requestResult[0]).to.include.keys('secureCode');
         });
+    });
+
+    it('should not get all the lectures if the route is wrong', (done) => {
+        chai.request("http://localhost:8080")
+            .get("/lecture")
+            .end((err, response) => {
+                console.log('status: ' + response.status)
+                response.should.have.status(404);
+            done();
+        })
     });
 })
