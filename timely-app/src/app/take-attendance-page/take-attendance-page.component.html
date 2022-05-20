@@ -1,1 +1,20 @@
-<p>take-attendance-page works!</p>
+
+<p>Student ID: </p>
+<input 
+    type = "text" 
+    #boxStudentID   
+    (keyup) ="getStudentId(boxStudentID.value)" 
+    placeholder="Enter student ID" 
+    name="studentId"/>
+
+<p>Code</p>
+<input 
+    type = "text" 
+    #boxCode 
+    (keyup) ="getCode(boxCode.value)" 
+    placeholder="Enter code" 
+    name="code"/>
+
+<button (click)="submitButton()">
+    Submit
+</button>
