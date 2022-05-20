@@ -3,7 +3,7 @@ import {courseModel} from './models/courseModel';
 import * as bodyParser from 'body-parser';
 import { professorModel } from './models/professorModel';
 import { lectureModel } from './models/lectureModel';
-import {studentModel} from './models/studentModel';
+import { studentModel } from './models/studentModel';
 import { attendanceModel } from './models/attendanceModel';
 
 // setting up endpoints

@@ -44,7 +44,7 @@ class professorModel {
         });
     }
 
-    public retrieveASingleProfessor(res:any, filter: {id: Number}) {
+    public retrieveASingleProfessor(res:any, filter: {id: any}) {
         var findResult = this.model.findById(filter.id);
         findResult.exec( (err, userArray) => {
             if (err) {

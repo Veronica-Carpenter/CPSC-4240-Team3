@@ -38,7 +38,7 @@ class attendanceModel {
         });
     }
 
-    public retrieveASingleAttendance(res:any, filter: {id: Number}) {
+    public retrieveASingleAttendance(res:any, filter: {id: any}) {
         var findResult = this.model.findById(filter.id);
         findResult.exec( (err, userArray) => {
             if (err) {

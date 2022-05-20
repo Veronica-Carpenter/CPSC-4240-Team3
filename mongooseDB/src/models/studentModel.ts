@@ -52,7 +52,7 @@ class studentModel {
         });
     }
 
-    public retrieveASingleStudent(res:any, filter: {id: number}) {
+    public retrieveASingleStudent(res:any, filter: {id: any}) {
         var findResult = this.model.findById(filter.id);
         findResult.exec( (err, studentArray) => {
             if (err) {

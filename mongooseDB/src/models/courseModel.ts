@@ -32,7 +32,7 @@ class courseModel {
         });
     }
 
-    public retrieveASingleCourse(res:any, filter: {id : number}) {
+    public retrieveASingleCourse(res:any, filter: {id : any}) {
         var findResult = this.model.findById(filter.id);
         findResult.exec((err, courseArray) => {
             if (err) {
