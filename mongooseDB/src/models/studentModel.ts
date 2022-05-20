@@ -46,17 +46,17 @@ class studentModel {
     public retrieveStudentLists(res:any): any {
         var findResult = this.model.find({});
         console.log('list of students fetched: ');
-        findResult.exec( (err, userArray) => {
-            console.log(userArray);
-            res.json(userArray);
+        findResult.exec( (err, studentArray) => {
+            console.log(studentArray);
+            res.json(studentArray);
         });
     }
 
-    public retrieveASingleStudent(res:any, filter:Object) {
-        var findResult = this.model.findOne(filter);
-        findResult.exec( (err, userArray) => {
-            console.log(userArray);
-            res.json(userArray);
+    public retrieveASingleStudent(res:any, filter: {id: number}) {
+        var findResult = this.model.findById(filter.id);
+        findResult.exec( (err, studentArray) => {
+            console.log(studentArray);
+            res.json(studentArray);
         });
     }
 }

@@ -48,7 +48,7 @@ var App = /** @class */ (function () {
         router.get('/professors/:id', function (req, res) {
             var id = req.params.id;
             console.log('Getting a professor with id : ' + id);
-            _this.Professors.retrieveASingleProfessor(res, { professorId: id });
+            _this.Professors.retrieveASingleProfessor(res, { id: id });
         });
         //Add a new student
         router.post('/students', function (req, res) {
@@ -70,7 +70,7 @@ var App = /** @class */ (function () {
         router.get('/students/:id', function (req, res) {
             var id = req.params.id;
             console.log('Getting a student with id : ' + id);
-            _this.Students.retrieveASingleStudent(res, { studentId: id });
+            _this.Students.retrieveASingleStudent(res, { id: id });
         });
         // Add a new course
         router.post('/courses', function (req, res) {
@@ -114,7 +114,7 @@ var App = /** @class */ (function () {
         router.get('/lectures/:id', function (req, res) {
             var id = req.params.id;
             console.log('Getting a lecture with id : ' + id);
-            _this.Lectures.retrieveASingleLecture(res, { lectureId: id });
+            _this.Lectures.retrieveASingleLecture(res, { id: id });
         });
         //Add a new attendance record 
         router.post('/attendances', function (req, res) {
@@ -136,7 +136,7 @@ var App = /** @class */ (function () {
         router.get('/attendances/:id', function (req, res) {
             var id = req.params.id;
             console.log('Getting a attendance with id : ' + id);
-            _this.Attendances.retrieveASingleAttendance(res, { studentId: id });
+            _this.Attendances.retrieveASingleAttendance(res, { id: id });
         });
         this.expressApp.use('/', router);
         this.expressApp.use('/', express.static("../public"));

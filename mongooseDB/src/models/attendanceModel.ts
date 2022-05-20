@@ -38,8 +38,8 @@ class attendanceModel {
         });
     }
 
-    public retrieveASingleAttendance(res:any, filter:Object) {
-        var findResult = this.model.findOne(filter);
+    public retrieveASingleAttendance(res:any, filter: {id: Number}) {
+        var findResult = this.model.findById(filter.id);
         findResult.exec( (err, userArray) => {
             console.log(userArray);
             res.json(userArray);

@@ -38,16 +38,16 @@ var studentModel = /** @class */ (function () {
     studentModel.prototype.retrieveStudentLists = function (res) {
         var findResult = this.model.find({});
         console.log('list of students fetched: ');
-        findResult.exec(function (err, userArray) {
-            console.log(userArray);
-            res.json(userArray);
+        findResult.exec(function (err, studentArray) {
+            console.log(studentArray);
+            res.json(studentArray);
         });
     };
     studentModel.prototype.retrieveASingleStudent = function (res, filter) {
-        var findResult = this.model.findOne(filter);
-        findResult.exec(function (err, userArray) {
-            console.log(userArray);
-            res.json(userArray);
+        var findResult = this.model.findById(filter.id);
+        findResult.exec(function (err, studentArray) {
+            console.log(studentArray);
+            res.json(studentArray);
         });
     };
     return studentModel;

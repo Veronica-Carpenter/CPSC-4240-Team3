@@ -36,7 +36,7 @@ var professorModel = /** @class */ (function () {
         });
     };
     professorModel.prototype.retrieveASingleProfessor = function (res, filter) {
-        var findResult = this.model.findOne(filter);
+        var findResult = this.model.findById(filter.id);
         findResult.exec(function (err, userArray) {
             console.log(userArray);
             res.json(userArray);

@@ -59,7 +59,7 @@ class App {
         router.get('/professors/:id', (req, res) => {
             var id = req.params.id;
             console.log('Getting a professor with id : ' + id);
-            this.Professors.retrieveASingleProfessor(res, {professorId:id});
+            this.Professors.retrieveASingleProfessor(res, {id});
         });
 
         //Add a new student
@@ -84,7 +84,7 @@ class App {
         router.get('/students/:id', (req, res) => {
             var id = req.params.id;
             console.log('Getting a student with id : ' + id);
-            this.Students.retrieveASingleStudent(res, {studentId:id});
+            this.Students.retrieveASingleStudent(res, {id});
         });
 
         // Add a new course
@@ -134,7 +134,7 @@ class App {
         router.get('/lectures/:id', (req, res) => {
             var id = req.params.id;
             console.log('Getting a lecture with id : ' + id);
-            this.Lectures.retrieveASingleLecture(res, {lectureId:id});
+            this.Lectures.retrieveASingleLecture(res, {id});
         });
 
         //Add a new attendance record 
@@ -159,7 +159,7 @@ class App {
         router.get('/attendances/:id', (req, res) => {
             var id = req.params.id;
             console.log('Getting a attendance with id : ' + id);
-            this.Attendances.retrieveASingleAttendance(res, {studentId:id});
+            this.Attendances.retrieveASingleAttendance(res, {id});
         });
 
         this.expressApp.use('/', router);
