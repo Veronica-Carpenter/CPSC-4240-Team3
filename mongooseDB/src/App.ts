@@ -137,6 +137,13 @@ class App {
             this.Lectures.retrieveASingleLecture(res, {id});
         });
 
+        //Get a lecture by secure code
+        router.get('/lectures/code/:secureCode', (req, res) => {
+            var code = req.params.secureCode;
+            console.log('Getting a lecture with secure code: ' + code);
+            this.Lectures.retrieveASingleLectureByCode(res, {secureCode: code});
+        });
+
         //Add a new attendance record 
         router.post('/attendances', (req, res) => {
             var attendance = req.body

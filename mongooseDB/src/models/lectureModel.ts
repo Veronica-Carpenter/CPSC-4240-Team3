@@ -49,5 +49,18 @@ class lectureModel {
             res.json(userArray);
         });
     }
+
+    public retrieveASingleLectureByCode(res:any, filter: Object) {
+        var findResult = this.model.findOne(filter);
+        findResult.exec( (err, userArray) => {
+            if (err) {
+                res.status(500).send({error: 'enter a valid secure code'})
+            }
+            console.log(userArray);
+            res.json(userArray);
+        });
+    }
+
+    
 }
 export {lectureModel};

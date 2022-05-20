@@ -115,6 +115,12 @@ var App = /** @class */ (function () {
             console.log('Getting a lecture with id : ' + id);
             _this.Lectures.retrieveASingleLecture(res, { id: id });
         });
+        //Get a lecture by secure code
+        router.get('/lectures/code/:secureCode', function (req, res) {
+            var code = req.params.secureCode;
+            console.log('Getting a lecture with secure code: ' + code);
+            _this.Lectures.retrieveASingleLectureByCode(res, { secureCode: code });
+        });
         //Add a new attendance record 
         router.post('/attendances', function (req, res) {
             var attendance = req.body;
