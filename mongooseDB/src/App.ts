@@ -98,6 +98,7 @@ class App {
         router.post('/courses', (req, res) => {
             var course = req.body
             let courseList = new this.Courses.model(course);
+            
             courseList.save().then(() => {
                 console.log(courseList)
                 res.send(courseList)

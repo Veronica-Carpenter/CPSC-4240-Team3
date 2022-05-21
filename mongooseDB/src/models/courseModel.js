@@ -18,7 +18,7 @@ var courseModel = /** @class */ (function () {
                 day1: String,
                 day2: String
             },
-            courseTime: Date
+            courseTime: String
         });
     };
     courseModel.prototype.retrieveCourseLists = function (res) {

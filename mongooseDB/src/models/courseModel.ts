@@ -23,7 +23,7 @@ class courseModel {
                     day1: String,
                     day2: String
                 },
-                courseTime: Date
+                courseTime: String
             }
         );
     }
@@ -39,6 +39,7 @@ class courseModel {
 
     public retrieveASingleCourse(res:any, filter: {id : any}) {
         var findResult = this.model.findById(filter.id);
+        
         findResult.exec((err, courseArray) => {
             if (err) {
                 res.status(500).send({error: 'enter a valid ID'})
