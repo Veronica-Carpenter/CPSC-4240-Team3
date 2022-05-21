@@ -10,11 +10,13 @@ var should = chai.should();
 var http = require('http');
 
 const { studentModel } = require('../src/models/studentModel');
+const { professorModel } = require('../src/models/professorModel');
 
 chai.use(chaiHttp);
 
 describe('Testing API routes', () => {
 
+    // Test GET routes
     describe('Test GET/ routes', () => {
 
         // Test the GET student routes
@@ -73,7 +75,7 @@ describe('Testing API routes', () => {
             it('should return array of object with more than 1 object', () => {
                 response.should.have.status(200);
                 response.body.should.be.an('array');
-                response.body.length.should.be.eq(4);
+                response.body.length.should.be.eq(3);
                 response.body.should.not.be.a('string');
             });
 
@@ -153,6 +155,7 @@ describe('Testing API routes', () => {
         });
     });
 
+    // Test GET/ routes with wrong URL
     describe('Test GET/ routes if URL is wrong', () => {
 
         it('should not get all the students if the route is wrong', (done) => {
@@ -196,6 +199,7 @@ describe('Testing API routes', () => {
         });
     });
 
+    // Test POST/ routes
     describe('Test POST/ routes', () => {
 
         // Test the POST student route
@@ -245,6 +249,7 @@ describe('Testing API routes', () => {
         });
     });
 
+    // Tets GET/:id routes
     describe('Test GET/:id routes', () => {
 
         // get a student by Id
@@ -264,6 +269,31 @@ describe('Testing API routes', () => {
                         res.should.have.status(200);
                         res.body.should.be.a('object');
                         res.body.should.have.property('studentId');
+                        res.body.should.have.property('fname');
+                        res.body.should.have.property('lname');
+                        res.body.should.have.property('email');
+                    done();    
+                });
+           });
+        });
+
+        // get a professor by Id
+        it('get a professor by id', (done) => {
+            let professor = new professorModel();
+            let professorToBeInserted = {
+                professorId : 999,
+                fname: "ABC",
+                lname: "ABC",
+                email: "abc@sample.edu"
+            };
+            professor.model(professorToBeInserted).save((err, res) => {
+                chai.request("http://localhost:8080")
+                    .get('/professors/' + res._id)
+                    .send(professor)
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('professorId');
                         res.body.should.have.property('fname');
                         res.body.should.have.property('lname');
                         res.body.should.have.property('email');
