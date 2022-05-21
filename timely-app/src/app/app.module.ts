@@ -5,11 +5,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TakeAttendancePageComponent } from './take-attendance-page/take-attendance-page.component';
+import { ProfessorHomePageComponent } from './professor-home-page/professor-home-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TakeAttendancePageComponent
+    TakeAttendancePageComponent,
+    ProfessorHomePageComponent
   ],
   imports: [
     BrowserModule,

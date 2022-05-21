@@ -12,10 +12,23 @@ var studentModel = /** @class */ (function () {
     }
     studentModel.prototype.createSchema = function () {
         this.schema = new Mongoose.Schema({
-            studentId: Number,
-            fname: String,
-            lname: String,
-            email: String,
+            studentId: {
+                type: Number,
+                required: true,
+                unique: true
+            },
+            fname: {
+                type: String,
+                required: true
+            },
+            lname: {
+                type: String,
+                required: true
+            },
+            email: {
+                type: String,
+                required: true
+            },
             courseList: [
                 {
                     courseId: Number,
