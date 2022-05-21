@@ -197,13 +197,13 @@ describe('Testing API routes', () => {
     });
 
     describe('Test POST/ routes', () => {
-        
+
         // Test the POST student route
         describe("Post a student", () => {
 
             it('should post a student', (done) => {
                 let student = {
-                    studentId : 106,
+                    studentId : 101,
                     fname: "Shipra",
                     lname: "Shipra",
                     email: "shipra@sample.edu"
@@ -242,6 +242,34 @@ describe('Testing API routes', () => {
                     done();
                 });
             });
+        });
+    });
+
+    describe('Test GET/:id routes', () => {
+
+        // get a student by Id
+        it('get a student by id', (done) => {
+            let student = new studentModel();
+            let studenttobeInserted = {
+                studentId : 102,
+                fname: "Shipra",
+                lname: "Shipra",
+                email: "shipra@sample.edu"
+            };
+            student.model(studenttobeInserted).save((err, res) => {
+                chai.request("http://localhost:8080")
+                    .get('/students/' + res._id)
+                    .send(student)
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('studentId');
+                        res.body.should.have.property('fname');
+                        res.body.should.have.property('lname');
+                        res.body.should.have.property('email');
+                    done();    
+                });
+           });
         });
     });
 });
