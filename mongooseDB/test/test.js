@@ -1,16 +1,65 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var app = require('../src/App');
+var mongoose = require('mongoose');
 
 var assert = chai.assert;
 var expect = chai.expect;
 var should = chai.should();
 
 var http = require('http');
-const { hasSubscribers } = require('diagnostics_channel');
+
+const { studentModel } = require('../src/models/studentModel');
+
 chai.use(chaiHttp);
 
 describe('Testing API routes', () => {
+
+        // Test the POST routes
+        describe("Post a student", () => {
+
+            it('should post a student', (done) => {
+                let student = {
+                    studentId : 106,
+                    fname: "Shipra",
+                    lname: "Shipra",
+                    email: "shipra@sample.edu"
+                }
+    
+                chai.request("http://localhost:8080")
+                    .post('/students')
+                    .send(student)
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('studentId');
+                        res.body.should.have.property('fname');
+                        res.body.should.have.property('lname');
+                        res.body.should.have.property('email');
+                    done();
+                });
+            });
+    
+            it('should not post a student without studentId, fname, lname and email', (done) => {
+                let student = {
+                    studentId : 999,
+                    fname: "Shipra",
+                    lname: "Shipra"
+                }
+    
+                chai.request("http://localhost:8080")
+                    .post('/students')
+                    .send(student)
+                    .end((err, res) => {
+                        res.should.have.status(400);
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('errors');
+                        res.body.errors.should.have.property('email');
+                        res.body.errors.email.should.have.property('kind').eq('required');
+                    done();
+                });
+            });
+        });
 
     // Test the GET student routes
     describe("Get all students", () => {
@@ -33,7 +82,7 @@ describe('Testing API routes', () => {
         it('should return array of object with more than 1 object', () => {
             response.should.have.status(200);
             response.body.should.be.an('array');
-            response.body.length.should.be.eq(7);
+            response.body.length.should.above(1);
             response.body.should.not.be.a('string');
         });
 
@@ -45,7 +94,7 @@ describe('Testing API routes', () => {
             expect(requestResult[0]).to.have.deep.property('courseList').that.is.a('array');
             expect(requestResult[0]).to.have.deep.property('attendanceList').that.is.a('array');
         });
-    })
+    });
 
     it('should not get all the students if the route is wrong', (done) => {
         chai.request("http://localhost:8080")
@@ -54,7 +103,7 @@ describe('Testing API routes', () => {
                 console.log('status: ' + response.status)
                 response.should.have.status(404);
             done();
-        })
+        });
     });
 
     // Test the GET professor routes
@@ -98,7 +147,7 @@ describe('Testing API routes', () => {
                 console.log('status: ' + response.status)
                 response.should.have.status(404);
             done();
-        })
+        });
     });
 
     // Test the GET courses routes
@@ -140,10 +189,10 @@ describe('Testing API routes', () => {
                 console.log('status: ' + response.status)
                 response.should.have.status(404);
             done();
-        })
+        });
     });
 
-    // Test the GET lectures routes
+    // // Test the GET lectures routes
     describe("Get all lectures", () => {
 
         var requestResult;
@@ -184,6 +233,6 @@ describe('Testing API routes', () => {
                 console.log('status: ' + response.status)
                 response.should.have.status(404);
             done();
-        })
+        });
     });
-})
+});
