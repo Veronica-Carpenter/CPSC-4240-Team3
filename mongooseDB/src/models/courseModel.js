@@ -13,7 +13,12 @@ var courseModel = /** @class */ (function () {
     courseModel.prototype.createSchema = function () {
         this.schema = new Mongoose.Schema({
             courseId: Number,
-            courseName: String
+            courseName: String,
+            courseDays: {
+                day1: String,
+                day2: String
+            },
+            courseTime: Date
         });
     };
     courseModel.prototype.retrieveCourseLists = function (res) {

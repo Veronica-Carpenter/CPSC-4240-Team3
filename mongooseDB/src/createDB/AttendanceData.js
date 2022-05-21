@@ -7,37 +7,66 @@ coursesCollection.remove({})
 coursesCollection.insert(
     {
         courseId: 1,
-        courseName: "CPSC 4310: Machine Learning"
+        courseName: "CPSC 4310: Machine Learning",
+        courseDays: {
+            day1: 'Monday',
+            day2: 'Wednesday'
+        },
+        courseTime: '3:30 pm - 5:40 pm'
     }
 )
 coursesCollection.insert(
     {
         courseId: 2,
-        courseName: "CPSC 4240: Software as a Service"
+        courseName: "CPSC 4240: Software as a Service",
+        courseDays: {
+            day1: 'Monday',
+            day2: 'Tuesday'
+        },
+        courseTime: '6:00 pm - 8:40 pm'
     }
 )
 coursesCollection.insert(
     {
         courseId: 3,
-        courseName: "CPSC 4220: User Experience Design"
+        courseName: "CPSC 4220: User Experience Design",
+        courseDays: {
+            day1: 'Tuesday',
+            day2: 'Wednesday'
+        },
+        courseTime: '3:30 pm - 5:40 pm'
     }
 )
 coursesCollection.insert(
     {
         courseId: 4,
-        courseName: "CPSC 4260: Refactoring & Software Design"
+        courseName: "CPSC 4260: Refactoring & Software Design",
+        courseDays: {
+            day1: 'Wednesday',
+            day2: 'Thursday'
+        },
+        courseTime: '3:30 pm - 5:40 pm'
     }
 )
 coursesCollection.insert(
     {
         courseId: 5,
-        courseName: "CPSC 4300: Phys Database Design and Opt"
+        courseName: "CPSC 4300: Phys Database Design and Opt",
+        courseDays: {
+            day1: 'Wednesday',
+            day2: 'Friday'
+        },
+        courseTime: '6:00 pm - 8:30 pm'
     }
 )
 coursesCollection.insert(
     {
         courseId: 6,
-        courseName: "CPSC 4510 Computer Networks"
+        courseName: "CPSC 4510 Computer Networks",
+        courseDays: {
+            day1: 'Friday'
+        },
+        courseTime: '3:30 pm - 5:40 pm'
     }
 )
 
