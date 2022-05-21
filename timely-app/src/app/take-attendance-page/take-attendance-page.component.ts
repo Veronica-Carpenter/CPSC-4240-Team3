@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LectureClass } from '../lecture-class';
+import { TimelyAPIService } from '../timely-api.service';
 
 @Component({
   selector: 'app-take-attendance-page',
@@ -9,7 +11,8 @@ export class TakeAttendancePageComponent implements OnInit {
 
   studentID: number = 0;
   code: number = 0;
-  constructor() { }
+  lectureResult: Array<LectureClass> = [];
+  constructor(private apiService: TimelyAPIService) { }
 
   ngOnInit(): void {
   }
@@ -38,8 +41,16 @@ export class TakeAttendancePageComponent implements OnInit {
 
   submitButton(){
     console.log("student id: " + this.studentID + "; session code: "+this.code);
+    this.getLecture();
   }
 
-  
+  getLecture(){
+    this.apiService.getLectureByCode(this.code).subscribe((result: LectureClass[])=>
+    {
+      this.lectureResult = result;
+      console.log("list results: " + JSON.stringify(result));
+    }
+    );
+  }
 
 }
