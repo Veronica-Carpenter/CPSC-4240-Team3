@@ -32,6 +32,13 @@ class App {
     private middleware(): void {
         this.expressApp.use(bodyParser.json());
         this.expressApp.use(bodyParser.urlencoded({ extended: false }));
+
+        //This will allow CORS permission for localhost:4200
+        this.expressApp.use(function(req, res, next){
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+            next();
+        });
     }
 
     private routes(): void {

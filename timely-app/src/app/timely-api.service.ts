@@ -10,6 +10,6 @@ export class TimelyAPIService {
   constructor(private http: HttpClient) { }
 
   getLectureByCode(code:number){
-    return this.http.get<LectureClass[]>(this.hostURL + 'lectures/code/' + code + '.json');
+    return this.http.get<LectureClass[]>(this.hostURL + 'lectures/code/' + code);
   }
 }
