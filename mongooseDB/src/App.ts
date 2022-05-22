@@ -94,6 +94,22 @@ class App {
             this.Students.retrieveASingleStudent(res, {id});
         });
 
+        // Delete a student by student Id
+        router.delete('/students/', async (req, res) => {
+            var id = req.query.studentId;
+            console.log('Deleting a student by Student ID: ' + id);
+            try {
+                const student = await this.Students.model.remove({studentId: id})
+                if (!student) {
+                    return res.status(404).send()
+                }
+                console.log('Student deleted!')
+                res.status(200).send('Student deleted!')
+            } catch(error) {
+                res.status(500).send()
+            }
+        });
+
         // Delete a student by Id
         router.delete('/students/:id', async (req, res) => {
             var id = req.params.id;
@@ -111,6 +127,22 @@ class App {
         });
 
         //Update a student by its Id
+        router.patch('/students/update', async (req, res) => {
+            var id = req.query.studentId;
+            console.log('Updating a student by its ID: ' + id);
+            try {
+                const student = await this.Students.model.update({studentId: id}, req.body, { new: true, runValidators: true})
+                if (!student) {
+                    return res.status(404).send()                
+                }
+                console.log(student)
+                res.status(200).send(student)
+            } catch(e) {
+                res.status(400).send(e);
+            }
+        });
+
+        //Update a student by its Id
         router.patch('/students/:id', async (req, res) => {
             var id = req.params.id;
             console.log('Updating a student by its ID: ' + id);
@@ -124,7 +156,7 @@ class App {
             } catch(e) {
                 res.status(400).send(e);
             }
-        })
+        });
 
         // Add a new course
         router.post('/courses', (req, res) => {

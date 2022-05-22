@@ -113,9 +113,37 @@ var App = /** @class */ (function () {
             console.log('Getting a student with id : ' + id);
             _this.Students.retrieveASingleStudent(res, { id: id });
         });
+        // Delete a student by student Id
+        router["delete"]('/students/', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var id, student, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        id = req.query.studentId;
+                        console.log('Deleting a student by Student ID: ' + id);
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.Students.model.remove({ studentId: id })];
+                    case 2:
+                        student = _a.sent();
+                        if (!student) {
+                            return [2 /*return*/, res.status(404).send()];
+                        }
+                        console.log('Student deleted!');
+                        res.status(200).send('Student deleted!');
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_1 = _a.sent();
+                        res.status(500).send();
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        }); });
         // Delete a student by Id
         router["delete"]('/students/:id', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var id, student, error_1;
+            var id, student, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -133,7 +161,7 @@ var App = /** @class */ (function () {
                         res.status(200).send(student);
                         return [3 /*break*/, 4];
                     case 3:
-                        error_1 = _a.sent();
+                        error_2 = _a.sent();
                         res.status(500).send();
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/];
@@ -141,8 +169,36 @@ var App = /** @class */ (function () {
             });
         }); });
         //Update a student by its Id
-        router.patch('/students/:id', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        router.patch('/students/update', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var id, student, e_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        id = req.query.studentId;
+                        console.log('Updating a student by its ID: ' + id);
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.Students.model.update({ studentId: id }, req.body, { "new": true, runValidators: true })];
+                    case 2:
+                        student = _a.sent();
+                        if (!student) {
+                            return [2 /*return*/, res.status(404).send()];
+                        }
+                        console.log(student);
+                        res.status(200).send(student);
+                        return [3 /*break*/, 4];
+                    case 3:
+                        e_1 = _a.sent();
+                        res.status(400).send(e_1);
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        }); });
+        //Update a student by its Id
+        router.patch('/students/:id', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var id, student, e_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -161,8 +217,8 @@ var App = /** @class */ (function () {
                         res.status(200).send(student);
                         return [3 /*break*/, 4];
                     case 3:
-                        e_1 = _a.sent();
-                        res.status(400).send(e_1);
+                        e_2 = _a.sent();
+                        res.status(400).send(e_2);
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/];
                 }
