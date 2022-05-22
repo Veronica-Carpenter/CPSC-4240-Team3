@@ -12,6 +12,7 @@ import { AddStudentsComponent } from './add-students/add-students.component';
 import { DeleteStudentsComponent } from './delete-students/delete-students.component';
 import { DeletionConfirmComponent } from './deletion-confirm/deletion-confirm.component';
 import { AttendanceSubmittedPageComponent } from './attendance-submitted-page/attendance-submitted-page.component';
+import { UpdateStudentsComponent } from './update-students/update-students.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AttendanceSubmittedPageComponent } from './attendance-submitted-page/at
     AddStudentsComponent,
     DeleteStudentsComponent,
     DeletionConfirmComponent,
-    AttendanceSubmittedPageComponent
+    AttendanceSubmittedPageComponent,
+    UpdateStudentsComponent
   ],
   imports: [
     BrowserModule,
