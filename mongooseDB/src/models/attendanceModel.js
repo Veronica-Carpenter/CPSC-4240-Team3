@@ -15,14 +15,18 @@ var attendanceModel = /** @class */ (function () {
             lectureId: Number,
             date: Date,
             studentId: Number,
-            status: String
+            status: String,
+            Student: {
+                type: Mongoose.Schema.Types.ObjectId,
+                ref: "Student"
+            }
         });
     };
     attendanceModel.prototype.createModel = function () {
         this.model = mongooseConnection.model("Attendance", this.schema);
     };
     attendanceModel.prototype.retrieveAttendanceLists = function (res) {
-        var findResult = this.model.find({});
+        var findResult = this.model.find({}).populate("Student");
         console.log('list of attendances fetched: ');
         findResult.exec(function (err, userArray) {
             console.log(userArray);
@@ -30,7 +34,7 @@ var attendanceModel = /** @class */ (function () {
         });
     };
     attendanceModel.prototype.retrieveASingleAttendance = function (res, filter) {
-        var findResult = this.model.findById(filter.id);
+        var findResult = this.model.findById(filter.id).populate("Student");
         findResult.exec(function (err, userArray) {
             if (err) {
                 res.status(500).send({ error: 'enter a valid ID' });

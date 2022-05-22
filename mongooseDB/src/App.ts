@@ -176,6 +176,27 @@ class App {
             }
         });
 
+        // map attendances to students
+        router.post('/mapStudenttoAttendance', async (req, res) => {
+            let { attendanceId, studentId } = req.body
+            
+            let attendance = await this.Attendances.model.findById(attendanceId)
+            let student = await this.Students.model.findById(studentId)
+            
+            attendance.Student = studentId
+            student.attendanceList.push(attendanceId)
+
+            try 
+            {
+                await this.Attendances.model.findByIdAndUpdate({_id:  attendanceId}, attendance, { new: true, runValidators: true})
+                await this.Students.model.findByIdAndUpdate({_id: studentId}, student, { new: true, runValidators: true})
+                res.status(200).send("Mapped")
+                
+            } catch(e) {
+                res.status(400).send(e);
+            }
+        });
+
         // Add a new course
         router.post('/courses', (req, res) => {
             var course = req.body

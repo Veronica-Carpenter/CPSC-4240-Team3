@@ -248,11 +248,45 @@ var App = /** @class */ (function () {
                         return [4 /*yield*/, this.Professors.model.findByIdAndUpdate({ _id: professorId }, professor, { "new": true, runValidators: true })];
                     case 5:
                         _b.sent();
-                        res.status(200).send("Done");
+                        res.status(200).send("Mapped");
                         return [3 /*break*/, 7];
                     case 6:
                         e_3 = _b.sent();
                         res.status(400).send(e_3);
+                        return [3 /*break*/, 7];
+                    case 7: return [2 /*return*/];
+                }
+            });
+        }); });
+        // map attendances to students
+        router.post('/mapStudenttoAttendance', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var _a, attendanceId, studentId, attendance, student, e_4;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = req.body, attendanceId = _a.attendanceId, studentId = _a.studentId;
+                        return [4 /*yield*/, this.Attendances.model.findById(attendanceId)];
+                    case 1:
+                        attendance = _b.sent();
+                        return [4 /*yield*/, this.Students.model.findById(studentId)];
+                    case 2:
+                        student = _b.sent();
+                        attendance.Student = studentId;
+                        student.attendanceList.push(attendanceId);
+                        _b.label = 3;
+                    case 3:
+                        _b.trys.push([3, 6, , 7]);
+                        return [4 /*yield*/, this.Attendances.model.findByIdAndUpdate({ _id: attendanceId }, attendance, { "new": true, runValidators: true })];
+                    case 4:
+                        _b.sent();
+                        return [4 /*yield*/, this.Students.model.findByIdAndUpdate({ _id: studentId }, student, { "new": true, runValidators: true })];
+                    case 5:
+                        _b.sent();
+                        res.status(200).send("Mapped");
+                        return [3 /*break*/, 7];
+                    case 6:
+                        e_4 = _b.sent();
+                        res.status(400).send(e_4);
                         return [3 /*break*/, 7];
                     case 7: return [2 /*return*/];
                 }

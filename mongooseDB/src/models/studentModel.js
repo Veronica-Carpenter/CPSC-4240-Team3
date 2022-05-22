@@ -37,10 +37,8 @@ var studentModel = /** @class */ (function () {
             ],
             attendanceList: [
                 {
-                    lectureId: Number,
-                    date: Date,
-                    studentId: Number,
-                    status: String
+                    type: Mongoose.Schema.Types.ObjectId,
+                    ref: "Attendance"
                 }
             ]
         });
@@ -49,7 +47,7 @@ var studentModel = /** @class */ (function () {
         this.model = mongooseConnection.model("Student", this.schema);
     };
     studentModel.prototype.retrieveStudentLists = function (res) {
-        var findResult = this.model.find({});
+        var findResult = this.model.find({}).populate("attendanceList");
         console.log('list of students fetched: ');
         findResult.exec(function (err, studentArray) {
             console.log(studentArray);
@@ -57,7 +55,7 @@ var studentModel = /** @class */ (function () {
         });
     };
     studentModel.prototype.retrieveAStudentById = function (res, filter) {
-        var findResult = this.model.findById(filter.id);
+        var findResult = this.model.findById(filter.id).populate("attendanceList");
         findResult.exec(function (err, studentArray) {
             if (err) {
                 res.status(500).send({ error: 'enter a valid ID' });
