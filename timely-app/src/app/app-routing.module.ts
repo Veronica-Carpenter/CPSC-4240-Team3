@@ -7,6 +7,7 @@ import { AddStudentsComponent} from './add-students/add-students.component';
 import { DeleteStudentsComponent} from './delete-students/delete-students.component';
 import { DeletionConfirmComponent} from './deletion-confirm/deletion-confirm.component';
 import { AttendanceSubmittedPageComponent } from './attendance-submitted-page/attendance-submitted-page.component';
+import { UpdateStudentsComponent } from './update-students/update-students.component';
 
 const routes: Routes = [
   { path: 'welcomePage', component: WelcomePageComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'DeleteStudents', component: DeleteStudentsComponent},
   { path: 'DeletionConfirm', component: DeletionConfirmComponent},
   { path: 'attendanceSubmittedPage', component: AttendanceSubmittedPageComponent},
+  { path: 'UpdateStudents', component: UpdateStudentsComponent}
 ];
 
 @NgModule({
