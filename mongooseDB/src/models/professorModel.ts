@@ -49,7 +49,7 @@ class professorModel {
     }
 
     public retrieveProfessorLists(res:any): any {
-        var findResult = this.model.find({});
+        var findResult = this.model.find({}).populate("courseList");
         console.log('list of professors fetched: ');
         findResult.exec( (err, userArray) => {
             console.log(userArray);

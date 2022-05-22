@@ -40,7 +40,7 @@ var professorModel = /** @class */ (function () {
         this.model = mongooseConnection.model("Professor", this.schema);
     };
     professorModel.prototype.retrieveProfessorLists = function (res) {
-        var findResult = this.model.find({});
+        var findResult = this.model.find({}).populate("courseList");
         console.log('list of professors fetched: ');
         findResult.exec(function (err, userArray) {
             console.log(userArray);
