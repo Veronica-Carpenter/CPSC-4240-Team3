@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { TakeAttendancePageComponent } from './take-attendance-page/take-attendance-page.component';
 import { ProfessorHomePageComponent } from './professor-home-page/professor-home-page.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
+import { ProfessorCoursePageComponent } from './professor-course-page/professor-course-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TakeAttendancePageComponent,
     ProfessorHomePageComponent,
-    WelcomePageComponent
+    WelcomePageComponent,
+    ProfessorCoursePageComponent
   ],
   imports: [
     BrowserModule,
