@@ -9,6 +9,12 @@
 
 <div class="alert alert-primary" role="alert">
     <h4 class="text-center">List of Classes - Spring Quarter</h4>
+    <div class = "text-center">
+    <a [routerLink]="['/UpdateStudents']" class="btn btn-lg btn-warning" role="button">Update Students</a>
+    <br>
+    <br>
+    <a [routerLink]="['/DeleteStudents']" class="btn btn-lg btn-warning" role="button">Delete Students</a>
+    </div>
 </div>
 <!-- Table -->
 <table class="table" style="font-size:10pt;">
@@ -16,27 +22,27 @@
         <tr>
             <th>Student Name</th>
             <th>Student ID</th>
-            <th>Action</th>
+
         </tr>
         <tr>
             <td>Alex</td>
             <td>234434</td>
-            <a [routerLink]="['/DeleteStudents']" class="btn btn-lg btn-warning" role="button">Add</a>
+            
         </tr>
         <tr>
             <td>Erica</td>
             <td>321453</td>
-            <a [routerLink]="['/DeleteStudents']" class="btn btn-lg btn-warning" role="button">Add</a>
+            
         </tr>
         <tr>
             <td>Bunny</td>
             <td>876321</td>
-            <a [routerLink]="['/DeleteStudents']" class="btn btn-lg btn-warning" role="button">Add</a>
+       
         </tr>
         <tr>
             <td>Jane</td>
             <td>145718</td>
-            <a [routerLink]="['/DeleteStudents']" class="btn btn-lg btn-warning" role="button">Add</a>
+
         </tr>
     </thead>
     <tbody id='tasks'>
