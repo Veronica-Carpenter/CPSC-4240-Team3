@@ -94,6 +94,38 @@ class App {
             this.Students.retrieveASingleStudent(res, {id});
         });
 
+        // Delete a student by Id
+        router.delete('/students/:id', async (req, res) => {
+            var id = req.params.id;
+            console.log('Deleting a student by ID: ' + id);
+            try {
+                const student = await this.Students.model.findByIdAndDelete(id)
+                
+                if (!student) {
+                    return res.status(404).send()
+                }
+                res.status(200).send(student)
+            } catch(error) {
+                res.status(500).send()
+            }
+        });
+
+        //Update a student by its Id
+        router.patch('/students/:id', async (req, res) => {
+            var id = req.params.id;
+            console.log('Updating a student by its ID: ' + id);
+            try {
+                const student = await this.Students.model.findByIdAndUpdate(id, req.body, { new: true, runValidators: true})
+                if (!student) {
+                    return res.status(404).send()                
+                }
+                console.log(student)
+                res.status(200).send(student)
+            } catch(e) {
+                res.status(400).send(e);
+            }
+        })
+
         // Add a new course
         router.post('/courses', (req, res) => {
             var course = req.body
