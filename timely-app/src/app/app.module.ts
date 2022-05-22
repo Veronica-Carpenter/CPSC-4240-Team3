@@ -8,6 +8,9 @@ import { TakeAttendancePageComponent } from './take-attendance-page/take-attenda
 import { ProfessorHomePageComponent } from './professor-home-page/professor-home-page.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { ProfessorCoursePageComponent } from './professor-course-page/professor-course-page.component';
+import { AddStudentsComponent } from './add-students/add-students.component';
+import { DeleteStudentsComponent } from './delete-students/delete-students.component';
+import { DeletionConfirmComponent } from './deletion-confirm/deletion-confirm.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +18,10 @@ import { ProfessorCoursePageComponent } from './professor-course-page/professor-
     TakeAttendancePageComponent,
     ProfessorHomePageComponent,
     WelcomePageComponent,
-    ProfessorCoursePageComponent
+    ProfessorCoursePageComponent,
+    AddStudentsComponent,
+    DeleteStudentsComponent,
+    DeletionConfirmComponent
   ],
   imports: [
     BrowserModule,
