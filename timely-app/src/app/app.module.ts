@@ -11,6 +11,7 @@ import { ProfessorCoursePageComponent } from './professor-course-page/professor-
 import { AddStudentsComponent } from './add-students/add-students.component';
 import { DeleteStudentsComponent } from './delete-students/delete-students.component';
 import { DeletionConfirmComponent } from './deletion-confirm/deletion-confirm.component';
+import { AttendanceSubmittedPageComponent } from './attendance-submitted-page/attendance-submitted-page.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { DeletionConfirmComponent } from './deletion-confirm/deletion-confirm.co
     ProfessorCoursePageComponent,
     AddStudentsComponent,
     DeleteStudentsComponent,
-    DeletionConfirmComponent
+    DeletionConfirmComponent,
+    AttendanceSubmittedPageComponent
   ],
   imports: [
     BrowserModule,
