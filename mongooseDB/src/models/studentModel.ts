@@ -2,6 +2,7 @@ import Mongoose = require("mongoose");
 import {DataAccess} from '../DataAccess';
 import {IstudentModel} from '../interfaces/IstudentModel';
 
+
 let mongooseConnection = DataAccess.mongooseConnection;
 let mongooseObj = DataAccess.mongooseInstance;
 
@@ -65,7 +66,7 @@ class studentModel {
         });
     }
 
-    public retrieveASingleStudent(res:any, filter: {id: any}) {
+    public retrieveAStudentById(res:any, filter: {id: any}) {
         var findResult = this.model.findById(filter.id);
         findResult.exec( (err, studentArray) => {
             if (err) {

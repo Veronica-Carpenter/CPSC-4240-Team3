@@ -56,7 +56,7 @@ var studentModel = /** @class */ (function () {
             res.json(studentArray);
         });
     };
-    studentModel.prototype.retrieveASingleStudent = function (res, filter) {
+    studentModel.prototype.retrieveAStudentById = function (res, filter) {
         var findResult = this.model.findById(filter.id);
         findResult.exec(function (err, studentArray) {
             if (err) {

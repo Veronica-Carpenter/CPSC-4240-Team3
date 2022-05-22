@@ -43,8 +43,8 @@ class App {
 
     private routes(): void {
         let router = express.Router();
-
-         //Add a new professor
+        
+         //create professor
          router.post('/professors', (req, res) => {
             var professor = req.body
             let professorList = new this.Professors.model(professor);
@@ -91,7 +91,7 @@ class App {
         router.get('/students/:id', (req, res) => {
             var id = req.params.id;
             console.log('Getting a student with id : ' + id);
-            this.Students.retrieveASingleStudent(res, {id});
+            this.Students.retrieveAStudentById(res, {id});
         });
 
         // Delete a student by student Id
@@ -110,7 +110,7 @@ class App {
             }
         });
 
-        // Delete a student by Id
+        // Delete a student by its Id
         router.delete('/students/:id', async (req, res) => {
             var id = req.params.id;
             console.log('Deleting a student by ID: ' + id);
@@ -126,7 +126,7 @@ class App {
             }
         });
 
-        //Update a student by its Id
+        //Update a student by its student Id
         router.patch('/students/update', async (req, res) => {
             var id = req.query.studentId;
             console.log('Updating a student by its ID: ' + id);
@@ -158,11 +158,29 @@ class App {
             }
         });
 
+        // map courses to professors
+        router.post('/mapCourseToProfessor', async (req, res) => {
+            let { courseId, professorId } = req.body
+            
+            let course = await this.Courses.model.findById(courseId)
+            let professor = await this.Professors.model.findById(professorId)
+            
+            course.Professor = professorId
+            professor.courseList.push(courseId)
+            try {
+            await this.Courses.model.findByIdAndUpdate({_id:  courseId}, course, { new: true, runValidators: true})
+            await this.Professors.model.findByIdAndUpdate({_id: professorId}, professor, { new: true, runValidators: true})
+            res.status(200).send("Mapped")
+            } catch(e) {
+                res.status(400).send(e);
+            }
+        });
+
         // Add a new course
         router.post('/courses', (req, res) => {
             var course = req.body
             let courseList = new this.Courses.model(course);
-            
+
             courseList.save().then(() => {
                 console.log(courseList)
                 res.send(courseList)

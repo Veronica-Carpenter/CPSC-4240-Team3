@@ -29,12 +29,11 @@ var professorModel = /** @class */ (function () {
                 type: String,
                 required: true
             },
-            courseList: [
-                {
-                    courseId: Number,
-                    courseName: String
-                }
-            ]
+            courseList: [{
+                    type: Mongoose.Schema.Types.ObjectId,
+                    ref: "Course",
+                    required: true
+                }]
         });
     };
     professorModel.prototype.createModel = function () {
@@ -49,7 +48,7 @@ var professorModel = /** @class */ (function () {
         });
     };
     professorModel.prototype.retrieveASingleProfessor = function (res, filter) {
-        var findResult = this.model.findById(filter.id);
+        var findResult = this.model.findById(filter.id).populate("courseList");
         findResult.exec(function (err, userArray) {
             if (err) {
                 res.status(500).send({ error: 'enter a valid ID' });

@@ -1,6 +1,7 @@
 import Mongoose = require("mongoose");
 import {DataAccess} from '../DataAccess';
 import {IprofessorModel} from '../interfaces/IprofessorModel';
+import { courseModel } from "./courseModel";
 
 let mongooseConnection = DataAccess.mongooseConnection;
 let mongooseObj = DataAccess.mongooseInstance;
@@ -34,12 +35,11 @@ class professorModel {
                     type: String,
                     required: true
                 },
-                courseList :[
-                    {
-                        courseId: Number,
-                        courseName: String
-                    }
-                ]
+                courseList :  [{
+                 type:    Mongoose.Schema.Types.ObjectId,
+                 ref: "Course",
+                 required: true
+                }]
             }
         );
     }
@@ -58,7 +58,7 @@ class professorModel {
     }
 
     public retrieveASingleProfessor(res:any, filter: {id: any}) {
-        var findResult = this.model.findById(filter.id);
+        var findResult = this.model.findById(filter.id).populate("courseList");
         findResult.exec( (err, userArray) => {
             if (err) {
                 res.status(500).send({error: 'enter a valid ID'})

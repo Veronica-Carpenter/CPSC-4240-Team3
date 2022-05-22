@@ -69,7 +69,7 @@ var App = /** @class */ (function () {
     App.prototype.routes = function () {
         var _this = this;
         var router = express.Router();
-        //Add a new professor
+        //create professor
         router.post('/professors', function (req, res) {
             var professor = req.body;
             var professorList = new _this.Professors.model(professor);
@@ -111,7 +111,7 @@ var App = /** @class */ (function () {
         router.get('/students/:id', function (req, res) {
             var id = req.params.id;
             console.log('Getting a student with id : ' + id);
-            _this.Students.retrieveASingleStudent(res, { id: id });
+            _this.Students.retrieveAStudentById(res, { id: id });
         });
         // Delete a student by student Id
         router["delete"]('/students/', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
@@ -141,7 +141,7 @@ var App = /** @class */ (function () {
                 }
             });
         }); });
-        // Delete a student by Id
+        // Delete a student by its Id
         router["delete"]('/students/:id', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var id, student, error_2;
             return __generator(this, function (_a) {
@@ -168,7 +168,7 @@ var App = /** @class */ (function () {
                 }
             });
         }); });
-        //Update a student by its Id
+        //Update a student by its student Id
         router.patch('/students/update', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var id, student, e_1;
             return __generator(this, function (_a) {
@@ -221,6 +221,40 @@ var App = /** @class */ (function () {
                         res.status(400).send(e_2);
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/];
+                }
+            });
+        }); });
+        // map courses to professors
+        router.post('/mapCourseToProfessor', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var _a, courseId, professorId, course, professor, e_3;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = req.body, courseId = _a.courseId, professorId = _a.professorId;
+                        return [4 /*yield*/, this.Courses.model.findById(courseId)];
+                    case 1:
+                        course = _b.sent();
+                        return [4 /*yield*/, this.Professors.model.findById(professorId)];
+                    case 2:
+                        professor = _b.sent();
+                        course.Professor = professorId;
+                        professor.courseList.push(courseId);
+                        _b.label = 3;
+                    case 3:
+                        _b.trys.push([3, 6, , 7]);
+                        return [4 /*yield*/, this.Courses.model.findByIdAndUpdate({ _id: courseId }, course, { "new": true, runValidators: true })];
+                    case 4:
+                        _b.sent();
+                        return [4 /*yield*/, this.Professors.model.findByIdAndUpdate({ _id: professorId }, professor, { "new": true, runValidators: true })];
+                    case 5:
+                        _b.sent();
+                        res.status(200).send("Done");
+                        return [3 /*break*/, 7];
+                    case 6:
+                        e_3 = _b.sent();
+                        res.status(400).send(e_3);
+                        return [3 /*break*/, 7];
+                    case 7: return [2 /*return*/];
                 }
             });
         }); });
