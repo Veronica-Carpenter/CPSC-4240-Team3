@@ -371,7 +371,7 @@ attendancesCollection.remove({})
 attendancesCollection.insert(
 {
     lectureId: 1,
-    date: 01-01-2022,
+    date: "01-01-2022",
     status: 'Present',
     Student: {}
 }
@@ -380,7 +380,7 @@ attendancesCollection.insert(
 attendancesCollection.insert(
     {
         lectureId: 2,
-        date: 02-01-2022,
+        date: "02-01-2022",
         status: 'Absent',
         Student: {}
     }
@@ -389,7 +389,7 @@ attendancesCollection.insert(
 attendancesCollection.insert(
     {
         lectureId: 3,
-        date: 03-01-2022,
+        date: "03-01-2022",
         status: 'Absent',
         Student: {}
     }
@@ -398,7 +398,7 @@ attendancesCollection.insert(
     attendancesCollection.insert(
         {
             lectureId: 4,
-            date: 04-01-2022,
+            date: "04-01-2022",
             status: 'Present',
             Student: {}
         }
@@ -408,7 +408,7 @@ attendancesCollection.insert(
 attendancesCollection.insert(
     {
         lectureId: 5,
-        date: 05-01-2022,
+        date: "05-01-2022",
         status: 'Absent',
         Student: {}
     }
@@ -418,7 +418,7 @@ attendancesCollection.insert(
 attendancesCollection.insert(
     {
         lectureId: 6,
-        date: 02-01-2022,
+        date: "06-01-2022",
         status: 'Present',
         Student: {}
     }

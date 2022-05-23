@@ -59,8 +59,27 @@
                 <th scope="row">{{ student.fname }} </th>
                 <td colspan="1" class = "text-center">{{ student.lname}}</td>  
                 <td colspan="1" class = "text-center">{{ student.studentId}}</td> 
-                <td style="font-family: wingdings;color: green;font-weight:bold;text-align:center; font-size: 170%;" ngif="attendanceDict[student.studentId].includes(1); else notFound1" > &#252;</td>
-                <ng-template #notfound1>      
+                <td style="color: green;font-weight:bold;text-align:center; font-size: 170%;" ngif="attendanceDict[student.studentId].includes(1); else notFound1" > {{attendanceDict[student.studentId].includes(1)}}</td>
+                <!-- <ng-template #notfound1>      
+                    <td style="font-family: wingdings;color: red;text-align:center; font-size: 120%;"> No</td>
+                </ng-template> -->
+                <td style="color: green;font-weight:bold;text-align:center; font-size: 170%;" ngif="attendanceDict[student.studentId].includes(2); else notFound1" > {{attendanceDict[student.studentId].includes(2)}}</td>
+                <td style="color: green;font-weight:bold;text-align:center; font-size: 170%;" ngif="attendanceDict[student.studentId].includes(3); else notFound1" > {{attendanceDict[student.studentId].includes(3)}}</td>
+                <td style="color: green;font-weight:bold;text-align:center; font-size: 170%;" ngif="attendanceDict[student.studentId].includes(4); else notFound1" > {{attendanceDict[student.studentId].includes(4)}}</td>
+                <td style="color: green;font-weight:bold;text-align:center; font-size: 170%;" ngif="attendanceDict[student.studentId].includes(5); else notFound1" > {{attendanceDict[student.studentId].includes(5)}}</td>
+                <td style="color: green;font-weight:bold;text-align:center; font-size: 170%;" ngif="attendanceDict[student.studentId].includes(6); else notFound1" > {{attendanceDict[student.studentId].includes(6)}}</td>
+                <td style="color: green;font-weight:bold;text-align:center; font-size: 170%;" ngif="attendanceDict[student.studentId].includes(7); else notFound1" > {{attendanceDict[student.studentId].includes(7)}}</td>
+                <td style="color: green;font-weight:bold;text-align:center; font-size: 170%;" ngif="attendanceDict[student.studentId].includes(8); else notFound1" > {{attendanceDict[student.studentId].includes(8)}}</td>
+                <td style="color: green;font-weight:bold;text-align:center; font-size: 170%;" ngif="attendanceDict[student.studentId].includes(9); else notFound1" > {{attendanceDict[student.studentId].includes(9)}}</td>
+                <td style="color: green;font-weight:bold;text-align:center; font-size: 170%;" ngif="attendanceDict[student.studentId].includes(10); else notFound1" > {{attendanceDict[student.studentId].includes(10)}}</td>
+                <td style="color: green;font-weight:bold;text-align:center; font-size: 170%;" ngif="attendanceDict[student.studentId].includes(11); else notFound1" > {{attendanceDict[student.studentId].includes(11)}}</td>
+                <td style="color: green;font-weight:bold;text-align:center; font-size: 170%;" ngif="attendanceDict[student.studentId].includes(12); else notFound1" > {{attendanceDict[student.studentId].includes(12)}}</td>
+                <td style="color: green;font-weight:bold;text-align:center; font-size: 170%;" ngif="attendanceDict[student.studentId].includes(13); else notFound1" > {{attendanceDict[student.studentId].includes(13)}}</td>
+                <td style="color: green;font-weight:bold;text-align:center; font-size: 170%;" ngif="attendanceDict[student.studentId].includes(14); else notFound1" > {{attendanceDict[student.studentId].includes(14)}}</td>
+                
+                
+                <!-- <td style="font-family: wingdings;color: green;font-weight:bold;text-align:center; font-size: 170%;" ngif="attendanceDict[student.studentId].includes(1); else notFound1" > &#252;</td> -->
+                <!-- <ng-template #notfound1>      
                     <td style="font-family: wingdings;color: red;text-align:center; font-size: 120%;">&#10060;</td>
                 </ng-template>
                 <td style="font-family: wingdings;color: green;font-weight:bold;text-align:center; font-size: 170%;" ngif="attendanceDict[student.studentId].includes(2); else notFound1" > &#252;</td>
@@ -71,6 +90,14 @@
                 <ng-template #notfound1>      
                     <td style="font-family: wingdings;color: red;text-align:center; font-size: 120%;">&#10060;</td>
                 </ng-template>
+                <td style="font-family: wingdings;color: green;font-weight:bold;text-align:center; font-size: 170%;" ngif="attendanceDict[student.studentId].includes(4); else notFound1" > &#252;</td>
+                <ng-template #notfound1>      
+                    <td style="font-family: wingdings;color: red;text-align:center; font-size: 120%;">&#10060;</td>
+                </ng-template>
+                <td style="font-family: wingdings;color: green;font-weight:bold;text-align:center; font-size: 170%;" ngif="attendanceDict[student.studentId].includes(5); else notFound1" > &#252;</td>
+                <ng-template #notfound1>      
+                    <td style="font-family: wingdings;color: red;text-align:center; font-size: 120%;">&#10060;</td>
+                </ng-template> -->
             <!-- <td style="font-family: wingdings;color: green;font-weight:bold;text-align:center; font-size: 170%;">
                 </td>
             <td style="font-family: wingdings;color: red;text-align:center; font-size: 120%;">&#10060;</td>

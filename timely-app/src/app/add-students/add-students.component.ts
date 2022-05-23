@@ -37,7 +37,7 @@ export class AddStudentsComponent implements OnInit {
             this.apiService.getLecturesByCourse(this.courseId).toPromise().then((result : any) => {
              let courseLectures = result.map((res : LectureClass) => res.lectureId)
              if(courseLectures.includes(lectureId)) {
-             this.attendanceDict[studentId] = this.attendanceDict[studentId] ? this.attendanceDict[studentId].push(lectureId) : [lectureId]
+             this.attendanceDict[studentId] = this.attendanceDict[studentId]? [...this.attendanceDict[studentId], lectureId] : [lectureId]
              }
             })
         }
