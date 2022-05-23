@@ -14,7 +14,6 @@ var lectureModel = /** @class */ (function () {
         this.schema = new Mongoose.Schema({
             lectureId: Number,
             courseId: Number,
-            courseName: String,
             date: Date,
             secureCode: Number
         });
@@ -48,6 +47,16 @@ var lectureModel = /** @class */ (function () {
             }
             console.log(userArray);
             res.json(userArray);
+        });
+    };
+    lectureModel.prototype.retrieveLecturesByCourse = function (res, _a) {
+        var courseId = _a.courseId;
+        var findResult = this.model.find({ courseId: courseId });
+        findResult.exec(function (err, lectureArray) {
+            if (err) {
+                res.status(500).send({ error: 'enter a valid secure code' });
+            }
+            res.json(lectureArray);
         });
     };
     return lectureModel;

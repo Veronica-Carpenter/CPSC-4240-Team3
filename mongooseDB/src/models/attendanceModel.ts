@@ -22,7 +22,8 @@ class attendanceModel {
                 status: String,
                 Student: {
                     type: Mongoose.Schema.Types.ObjectId,
-                    ref: "Student"
+                    ref: "Student",
+                    required: true
                 }
             }
         );

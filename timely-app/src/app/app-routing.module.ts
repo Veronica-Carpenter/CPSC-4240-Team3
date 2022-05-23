@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/welcomePage', pathMatch: 'full' },
   { path: 'ProfessorHomePageComponent', component: ProfessorHomePageComponent},
   { path: 'takeAttendance', component: TakeAttendancePageComponent},
-  { path: 'AddStudents', component: AddStudentsComponent},
+  { path: 'AddStudents/:courseId', component: AddStudentsComponent, pathMatch: 'full'},
   { path: 'DeleteStudents', component: DeleteStudentsComponent},
   { path: 'DeletionConfirm', component: DeletionConfirmComponent},
   { path: 'attendanceSubmittedPage', component: AttendanceSubmittedPageComponent},

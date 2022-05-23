@@ -378,6 +378,12 @@ var App = /** @class */ (function () {
             console.log('Getting a lecture with secure code: ' + code);
             _this.Lectures.retrieveASingleLectureByCode(res, { secureCode: code });
         });
+        // Get lectures by course Id
+        router.get('/lectures/course/:courseId', function (req, res) {
+            var courseId = req.params.courseId;
+            _this.Lectures.retrieveLecturesByCourse(res, { courseId: courseId });
+        });
+        // get lectuers for a course and student id
         //Add a new attendance record 
         router.post('/attendances', function (req, res) {
             var attendance = req.body;

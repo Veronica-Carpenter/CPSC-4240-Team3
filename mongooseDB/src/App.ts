@@ -223,7 +223,6 @@ class App {
                 res.status(400).send(e);
             }
         });
-
         // Add a new course
         router.post('/courses', (req, res) => {
             var course = req.body
@@ -281,10 +280,17 @@ class App {
             console.log('Getting a lecture with secure code: ' + code);
             this.Lectures.retrieveASingleLectureByCode(res, {secureCode: code});
         });
+        // Get lectures by course Id
+        router.get('/lectures/course/:courseId', (req, res) => {
+            var courseId = req.params.courseId;
+            this.Lectures.retrieveLecturesByCourse(res, {courseId : courseId});
+        })
+        
+        // get lectuers for a course and student id
 
         //Add a new attendance record 
         router.post('/attendances', (req, res) => {
-            var attendance = req.body
+            var attendance = req.body 
             let attendanceList = new this.Attendances.model(attendance);
             attendanceList.save().then(() => {
                 console.log(attendanceList)

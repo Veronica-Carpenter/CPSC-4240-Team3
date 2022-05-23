@@ -39,7 +39,7 @@ class professorModel {
                  type:    Mongoose.Schema.Types.ObjectId,
                  ref: "Course",
                  required: true
-                }]
+                } ]
             }
         );
     }

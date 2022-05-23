@@ -18,8 +18,7 @@ class lectureModel {
         this.schema = new Mongoose.Schema(
             {
                 lectureId: Number,
-                courseId: Number,
-                courseName: String,
+                courseId : Number,
                 date: Date,
                 secureCode: Number
             }
@@ -60,7 +59,14 @@ class lectureModel {
             res.json(userArray);
         });
     }
-
-    
+    public retrieveLecturesByCourse(res, {courseId}) {
+        var findResult = this.model.find({courseId})
+        findResult.exec( (err, lectureArray) => {
+            if (err) {
+                res.status(500).send({error: 'enter a valid secure code'})
+            }
+            res.json(lectureArray);
+        });
+    }
 }
 export {lectureModel};

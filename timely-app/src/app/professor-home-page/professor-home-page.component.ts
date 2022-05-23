@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Course } from '../course';
+import { TimelyAPIService } from '../timely-api.service';
 
 @Component({
   selector: 'app-professor-home-page',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./professor-home-page.component.css']
 })
 export class ProfessorHomePageComponent implements OnInit {
-
-  constructor() { }
-
+  public courses : [Course]
+  constructor(private apiService: TimelyAPIService) { 
+  }
   ngOnInit(): void {
+    this.apiService.getAllCourses().toPromise().then((result : any) => {
+      this.courses = result
+      console.log(result)
+    })
   }
 
 }

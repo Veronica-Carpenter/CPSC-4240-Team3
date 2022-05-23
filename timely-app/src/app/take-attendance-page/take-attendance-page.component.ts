@@ -24,8 +24,10 @@ export class TakeAttendancePageComponent implements OnInit {
   invalidStudentIdMessageDisplay = false;
   deniedSubmissionDisplay = false;
 
-
-  constructor(private apiService: TimelyAPIService) { }
+  constructor(private apiService: TimelyAPIService) { 
+    this.apiService.getAllStudents().toPromise().then((result : any) => {
+    })
+  }
 
   ngOnInit() {
   }
