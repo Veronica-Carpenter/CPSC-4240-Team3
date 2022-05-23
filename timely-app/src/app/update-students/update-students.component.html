@@ -1,16 +1,13 @@
 <p>Student Name: </p>
-<input 
-    type = "text" 
-    #boxStudentID    
-    placeholder="Enter student Name" 
-    name="studentId"/>
+<input type="text" #boxStudentID placeholder="Enter student Name" name="studentId" />
 
 <p>Student ID: </p>
-<input 
-    type = "text" 
-    #boxCode 
-    placeholder="Enter Student ID" 
-    name="code"/>
+<input type="text" #boxCode placeholder="Enter Student ID" name="code" />
 
-    <a [routerLink]="['/DeletionConfirm']" class="btn btn-lg btn-warning" role="button">Submit</a>
+<p>Attendance: </p>
+<input type="text" #boxAttendance placeholder="Enter student Attendance" name="attendance" />
 
+<p>Date: </p>
+<input type="text" #boxStudentID placeholder="Enter date" name="date" />
+
+<a [routerLink]="['/DeletionConfirm']" class="btn btn-lg btn-warning" role="button">Submit</a>
