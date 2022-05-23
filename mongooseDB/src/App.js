@@ -258,9 +258,39 @@ var App = /** @class */ (function () {
                 }
             });
         }); });
+        // map courses to students
+        router.post('/mapCourseToStudent', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var _a, courseId, studentId, course, student, e_4;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = req.body, courseId = _a.courseId, studentId = _a.studentId;
+                        return [4 /*yield*/, this.Courses.model.findById(courseId)];
+                    case 1:
+                        course = _b.sent();
+                        return [4 /*yield*/, this.Students.model.findById(studentId)];
+                    case 2:
+                        student = _b.sent();
+                        student.courseList.push(courseId);
+                        _b.label = 3;
+                    case 3:
+                        _b.trys.push([3, 5, , 6]);
+                        return [4 /*yield*/, this.Students.model.findByIdAndUpdate({ _id: studentId }, student, { "new": true, runValidators: true })];
+                    case 4:
+                        _b.sent();
+                        res.status(200).send("Mapped");
+                        return [3 /*break*/, 6];
+                    case 5:
+                        e_4 = _b.sent();
+                        res.status(400).send(e_4);
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
+                }
+            });
+        }); });
         // map attendances to students
         router.post('/mapStudenttoAttendance', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var _a, attendanceId, studentId, attendance, student, e_4;
+            var _a, attendanceId, studentId, attendance, student, e_5;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -285,8 +315,8 @@ var App = /** @class */ (function () {
                         res.status(200).send("Mapped");
                         return [3 /*break*/, 7];
                     case 6:
-                        e_4 = _b.sent();
-                        res.status(400).send(e_4);
+                        e_5 = _b.sent();
+                        res.status(400).send(e_5);
                         return [3 /*break*/, 7];
                     case 7: return [2 /*return*/];
                 }

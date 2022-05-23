@@ -167,10 +167,30 @@ class App {
             
             course.Professor = professorId
             professor.courseList.push(courseId)
-            try {
-            await this.Courses.model.findByIdAndUpdate({_id:  courseId}, course, { new: true, runValidators: true})
-            await this.Professors.model.findByIdAndUpdate({_id: professorId}, professor, { new: true, runValidators: true})
-            res.status(200).send("Mapped")
+
+            try 
+            {
+                await this.Courses.model.findByIdAndUpdate({_id:  courseId}, course, { new: true, runValidators: true})
+                await this.Professors.model.findByIdAndUpdate({_id: professorId}, professor, { new: true, runValidators: true})
+                res.status(200).send("Mapped")
+            } catch(e) {
+                res.status(400).send(e);
+            }
+        });
+
+        // map courses to students
+        router.post('/mapCourseToStudent', async (req, res) => {
+            let { courseId, studentId } = req.body
+            
+            let course = await this.Courses.model.findById(courseId)
+            let student = await this.Students.model.findById(studentId)
+            
+            student.courseList.push(courseId)
+            
+            try 
+            {
+                await this.Students.model.findByIdAndUpdate({_id: studentId}, student, { new: true, runValidators: true})
+                res.status(200).send("Mapped")
             } catch(e) {
                 res.status(400).send(e);
             }

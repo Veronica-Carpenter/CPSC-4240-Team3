@@ -37,8 +37,8 @@ class studentModel {
                 },
                 courseList :[
                     {
-                        courseId: Number,
-                        courseName: String
+                        type: Mongoose.Schema.Types.ObjectId,
+                        ref: "Course"
                     }
                 ],
                 attendanceList: [
@@ -56,7 +56,7 @@ class studentModel {
     }
 
     public retrieveStudentLists(res:any): any {
-        var findResult = this.model.find({}).populate("attendanceList");
+        var findResult = this.model.find({}).populate("attendanceList").populate("courseList");
         console.log('list of students fetched: ');
         findResult.exec( (err, studentArray) => {
             console.log(studentArray);
@@ -65,7 +65,7 @@ class studentModel {
     }
 
     public retrieveAStudentById(res:any, filter: {id: any}) {
-        var findResult = this.model.findById(filter.id).populate("attendanceList");
+        var findResult = this.model.findById(filter.id).populate("attendanceList").populate("courseList");
         findResult.exec( (err, studentArray) => {
             if (err) {
                 res.status(500).send({error: 'enter a valid ID'})
