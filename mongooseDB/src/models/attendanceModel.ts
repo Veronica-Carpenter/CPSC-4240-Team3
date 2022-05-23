@@ -19,8 +19,11 @@ class attendanceModel {
             {
                 lectureId: Number,
                 date: Date,
-                studentId: Number,
-                status: String
+                status: String,
+                Student: {
+                    type: Mongoose.Schema.Types.ObjectId,
+                    ref: "Student"
+                }
             }
         );
     }
@@ -30,7 +33,7 @@ class attendanceModel {
     }
 
     public retrieveAttendanceLists(res:any): any {
-        var findResult = this.model.find({});
+        var findResult = this.model.find({}).populate("Student");
         console.log('list of attendances fetched: ');
         findResult.exec( (err, userArray) => {
             console.log(userArray);
@@ -39,7 +42,7 @@ class attendanceModel {
     }
 
     public retrieveASingleAttendance(res:any, filter: {id: any}) {
-        var findResult = this.model.findById(filter.id);
+        var findResult = this.model.findById(filter.id).populate("Student");
         findResult.exec( (err, userArray) => {
             if (err) {
                 res.status(500).send({error: 'enter a valid ID'})

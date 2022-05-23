@@ -18,11 +18,15 @@ var courseModel = /** @class */ (function () {
                 day1: String,
                 day2: String
             },
-            courseTime: String
+            courseTime: String,
+            Professor: {
+                type: Mongoose.Schema.Types.ObjectId,
+                ref: "Professor"
+            }
         });
     };
     courseModel.prototype.retrieveCourseLists = function (res) {
-        var findResult = this.model.find({});
+        var findResult = this.model.find({}).populate("Professor");
         console.log('list of courses fetched: ');
         findResult.exec(function (err, courseArray) {
             console.log(courseArray);
@@ -30,7 +34,7 @@ var courseModel = /** @class */ (function () {
         });
     };
     courseModel.prototype.retrieveASingleCourse = function (res, filter) {
-        var findResult = this.model.findById(filter.id);
+        var findResult = this.model.findById(filter.id).populate("Professor");
         findResult.exec(function (err, courseArray) {
             if (err) {
                 res.status(500).send({ error: 'enter a valid ID' });

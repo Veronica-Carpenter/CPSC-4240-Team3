@@ -2,6 +2,7 @@ import Mongoose = require("mongoose");
 import {DataAccess} from '../DataAccess';
 import {IstudentModel} from '../interfaces/IstudentModel';
 
+
 let mongooseConnection = DataAccess.mongooseConnection;
 let mongooseObj = DataAccess.mongooseInstance;
 
@@ -36,16 +37,14 @@ class studentModel {
                 },
                 courseList :[
                     {
-                        courseId: Number,
-                        courseName: String
+                        type: Mongoose.Schema.Types.ObjectId,
+                        ref: "Course"
                     }
                 ],
-                attendanceList:[
+                attendanceList: [
                     {
-                        lectureId: Number,
-                        date: Date,
-                        studentId: Number,
-                        status: String
+                        type: Mongoose.Schema.Types.ObjectId,
+                        ref: "Attendance"
                     }
                 ]
             }
@@ -57,7 +56,7 @@ class studentModel {
     }
 
     public retrieveStudentLists(res:any): any {
-        var findResult = this.model.find({});
+        var findResult = this.model.find({}).populate("attendanceList").populate("courseList");
         console.log('list of students fetched: ');
         findResult.exec( (err, studentArray) => {
             console.log(studentArray);
@@ -65,8 +64,8 @@ class studentModel {
         });
     }
 
-    public retrieveASingleStudent(res:any, filter: {id: any}) {
-        var findResult = this.model.findById(filter.id);
+    public retrieveAStudentById(res:any, filter: {id: any}) {
+        var findResult = this.model.findById(filter.id).populate("attendanceList").populate("courseList");
         findResult.exec( (err, studentArray) => {
             if (err) {
                 res.status(500).send({error: 'enter a valid ID'})

@@ -23,13 +23,17 @@ class courseModel {
                     day1: String,
                     day2: String
                 },
-                courseTime: String
+                courseTime: String,
+                Professor: {
+                    type:  Mongoose.Schema.Types.ObjectId,
+                    ref: "Professor"
+                }
             }
         );
     }
 
     public retrieveCourseLists(res:any): any {
-        var findResult = this.model.find({});
+        var findResult = this.model.find({}).populate("Professor");
         console.log('list of courses fetched: ');
         findResult.exec((err, courseArray) => {
             console.log(courseArray);
@@ -38,7 +42,7 @@ class courseModel {
     }
 
     public retrieveASingleCourse(res:any, filter: {id : any}) {
-        var findResult = this.model.findById(filter.id);
+        var findResult = this.model.findById(filter.id).populate("Professor");
         
         findResult.exec((err, courseArray) => {
             if (err) {
