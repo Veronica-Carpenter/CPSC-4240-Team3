@@ -13,6 +13,7 @@ import { DeleteStudentsComponent } from './delete-students/delete-students.compo
 import { DeletionConfirmComponent } from './deletion-confirm/deletion-confirm.component';
 import { AttendanceSubmittedPageComponent } from './attendance-submitted-page/attendance-submitted-page.component';
 import { UpdateStudentsComponent } from './update-students/update-students.component';
+import { UniqueCodeComponent } from './unique-code/unique-code.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { UpdateStudentsComponent } from './update-students/update-students.compo
     DeleteStudentsComponent,
     DeletionConfirmComponent,
     AttendanceSubmittedPageComponent,
-    UpdateStudentsComponent
+    UpdateStudentsComponent,
+    UniqueCodeComponent
   ],
   imports: [
     BrowserModule,
