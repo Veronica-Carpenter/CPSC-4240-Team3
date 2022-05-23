@@ -72,57 +72,67 @@ export class TakeAttendancePageComponent implements OnInit {
       this.studentResult = result;
       //let studentJSON = JSON.stringify(this.studentResult);
       console.log(this.studentResult)
-      if (result == null){
-        this.invalidStudentIdMessageDisplay = true;
-      }
+      
 
-      //Validating secure code by getting the lecture for this specific code
-      this.apiService.getLectureByCode(this.code).toPromise().then((result:any)=>
-      {
-        this.invalidCodeMessageDisplay = false;
-        this.lectureResult = result;
+      if(result != null){
 
-        //show message if secure code is wrong
-        if (result == null){
-          this.invalidCodeMessageDisplay = true;
-        }
-        let lectureId = this.lectureResult?.lectureId;
-        let takenDate = new Date (this.lectureResult?.date);
-        
-        
-        lectureDt = takenDate.getUTCDate();
-        lectureMonth = takenDate.getUTCMonth() + 1;
-        lectureYear = takenDate.getUTCFullYear();
+        //Validating secure code by getting the lecture for this specific code
+        this.apiService.getLectureByCode(this.code).toPromise().then((result:any)=>
+        {
+          this.invalidCodeMessageDisplay = false;
+          this.lectureResult = result;
+          
+          if(result != null)
+          {
+            let lectureId = this.lectureResult?.lectureId;
+            let takenDate = new Date (this.lectureResult?.date);
+            
+            
+            lectureDt = takenDate.getUTCDate();
+            lectureMonth = takenDate.getUTCMonth() + 1;
+            lectureYear = takenDate.getUTCFullYear();
 
 
-        console.log("lecture date: " + lectureDt);
-        console.log("lecture month : " + lectureMonth);
-        console.log("lecture year : " + lectureYear);
-        console.log("list results: " + JSON.stringify(result));
+            console.log("lecture date: " + lectureDt);
+            console.log("lecture month : " + lectureMonth);
+            console.log("lecture year : " + lectureYear);
+            console.log("list results: " + JSON.stringify(result));
 
-        if (lectureYear == takenYear && lectureMonth == takenMonth && lectureDt == takenDt){
-          console.log("Taken date == lecture date");
-          this.attendanceRecord = {
-            "Student": this.studentResult,
-            "date": takenDate,
-            "lectureId": lectureId,
-            "status": "ontime"
+            if (lectureYear == takenYear && lectureMonth == takenMonth && lectureDt == takenDt){
+              console.log("Taken date == lecture date");
+              this.attendanceRecord = {
+                "Student": this.studentResult,
+                "date": takenDate,
+                "lectureId": lectureId,
+                "status": "ontime"
+              }
+
+              //Call post API to add attendance record
+              this.apiService.addAttendanceRecord(this.attendanceRecord).toPromise().then((result: any) =>{
+                console.log("successfully add attendance");
+                this.formDisplay = false;
+                this.successfulMessageDisplay = true;
+              });
+            }
+            else{
+              console.log("taken date != lecture date");
+              this.formDisplay = false;
+              this.deniedSubmissionDisplay = true;
+            }
           }
 
-          //Call post API to add attendance record
-          this.apiService.addAttendanceRecord(this.attendanceRecord).toPromise().then((result: any) =>{
-            console.log("successfully add attendance");
-            this.formDisplay = false;
-            this.successfulMessageDisplay = true;
-          });
-        }
-        else{
-          console.log("taken date != lecture date");
-          this.formDisplay = false;
-          this.deniedSubmissionDisplay = true;
-        }
+          else{
+            //show message if secure code is wrong
+            this.invalidCodeMessageDisplay = true;
+          }
+          
+        });
       }
-    );
+
+      else {
+        this.invalidStudentIdMessageDisplay = true;
+      }
+      
 
     });
   }
