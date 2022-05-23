@@ -364,8 +364,8 @@ studentsCollection.insert(
 )
 
 db.createCollection('attendances')
-studentsCollection = db.getCollection("attendances")
-studentsCollection.remove({})
+attendancesCollection = db.getCollection("attendances")
+attendancesCollection.remove({})
 
 // Sarah's courses and attendance
 attendancesCollection.insert(
