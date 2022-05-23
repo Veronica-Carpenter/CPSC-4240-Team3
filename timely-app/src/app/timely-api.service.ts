@@ -10,6 +10,10 @@ export class TimelyAPIService {
   constructor(private http: HttpClient) { }
 
   getLectureByCode(code:number){
-    return this.http.get<LectureClass[]>(this.hostURL + 'lectures/code/' + code);
+    return this.http.get<LectureClass>(this.hostURL + 'lectures/code/' + code);
+  }
+
+  addAttendanceRecord(content:any){
+    return this.http.post(this.hostURL + 'attendances', content);
   }
 }

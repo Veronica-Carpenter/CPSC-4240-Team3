@@ -1,20 +1,26 @@
+<div *ngIf = "formDisplay">
+    <p>Student ID: </p>
+    <input 
+        type = "text" 
+        #boxStudentID   
+        (keyup) ="getStudentId(boxStudentID.value)" 
+        placeholder="Enter student ID" 
+        name="studentId"/>
 
-<p>Student ID: </p>
-<input 
-    type = "text" 
-    #boxStudentID   
-    (keyup) ="getStudentId(boxStudentID.value)" 
-    placeholder="Enter student ID" 
-    name="studentId"/>
+    <p>Code</p>
+    <input 
+        type = "text" 
+        #boxCode 
+        (keyup) ="getCode(boxCode.value)" 
+        placeholder="Enter code" 
+        name="code"/>
 
-<p>Code</p>
-<input 
-    type = "text" 
-    #boxCode 
-    (keyup) ="getCode(boxCode.value)" 
-    placeholder="Enter code" 
-    name="code"/>
+    <button (click)="submitButton()">
+        Submit
+    </button>
+</div>
 
-<button (click)="submitButton()" [routerLink]="['/attendanceSubmittedPage']">
-    Submit
-</button>
+<div *ngIf="successfulMessageDisplay">
+    <H1>Succesfully Submitted!</H1>
+
+</div>

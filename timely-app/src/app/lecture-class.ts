@@ -2,6 +2,6 @@ export interface LectureClass{
     lectureId: number,
     courseId: number,
     courseName: string,
-    date: Date,
+    date: string,
     secureCode: number
 }
