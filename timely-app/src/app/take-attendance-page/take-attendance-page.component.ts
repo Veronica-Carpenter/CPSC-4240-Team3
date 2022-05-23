@@ -53,8 +53,15 @@ export class TakeAttendancePageComponent implements OnInit {
       console.log("Session code need to be number")
     )
   }
+  reloadPage(){
+    window.location.reload();
+  }
 
   submitButton(){ 
+    //Turn off all error message
+    this.invalidCodeMessageDisplay = false;
+    this.invalidStudentIdMessageDisplay = false;
+
     //The current date that student take attendance
     let takenDate = new Date();
     let takenDt = takenDate.getDate();

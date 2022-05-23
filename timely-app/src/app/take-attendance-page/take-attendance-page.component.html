@@ -1,37 +1,63 @@
-<div *ngIf = "invalidCodeMessageDisplay">
-    Secure code is wrong. Please check it!
+<div class="container .ml-1 center">
+    <div class = "row row-center">
+        <div *ngIf = "invalidCodeMessageDisplay">
+            <p class="warningMessage">Secure code is wrong. Please check it!</p>
+        </div>
+
+        <div *ngIf = "invalidStudentIdMessageDisplay">
+            <p class="warningMessage">Student ID is wrong. Please check it!</p>
+        </div>
+    </div>
+
+    <div *ngIf="formDisplay">
+        <h5>Take Attendance</h5>
+        <div class="row row-center">
+            <label for="boxStudentID" class="col-sm-4">Student ID</label>
+            <div class="col-sm-8">
+                <input 
+                type = "text" 
+                class="form-control form-control-sm"
+                #boxStudentID   
+                (keyup) ="getStudentId(boxStudentID.value)" 
+                placeholder="Student ID" 
+                name="studentId"/>
+            </div>
+        </div>
+
+        <div class="row row-center">
+            <label for="boxCode" class="col-sm-4">Secure Code</label>
+            <div class="col-sm-8">
+                <input 
+                type = "text" 
+                class="form-control form-control-sm"
+                #boxCode 
+                (keyup) ="getCode(boxCode.value)" 
+                placeholder="Secure Code" 
+                name="code"/>
+            </div>
+        </div>
+
+        <button (click)="submitButton()" class="row submitButton btn btn-md btn-warning">
+            Submit
+        </button>
+    </div>
+
+    <div *ngIf="successfulMessageDisplay">
+        <h4>Succesfully Submitted!</h4>
+        <button class="row backButton btn btn-md btn-warning" (click)="reloadPage()" >Back to take-attendance page</button>
+    </div>
+    
+    <div *ngIf = "deniedSubmissionDisplay">
+        <h4>Sorry! The time for taking attendance for this class has been expired. </h4>
+        <button class="row backButton btn btn-md btn-warning" (click)="reloadPage()" >Back to take-attendance page</button>
+    </div>
+    
+
+
+      
 </div>
 
-<div *ngIf = "invalidStudentIdMessageDisplay">
-    Student ID is wrong. Please check it!
-</div>
-<div *ngIf = "formDisplay">
-    <p>Student ID: </p>
-    <input 
-        type = "text" 
-        #boxStudentID   
-        (keyup) ="getStudentId(boxStudentID.value)" 
-        placeholder="Enter student ID" 
-        name="studentId"/>
 
-    <p>Code</p>
-    <input 
-        type = "text" 
-        #boxCode 
-        (keyup) ="getCode(boxCode.value)" 
-        placeholder="Enter code" 
-        name="code"/>
-
-    <button (click)="submitButton()">
-        Submit
-    </button>
-</div>
-
-<div *ngIf="successfulMessageDisplay">
-    <H1>Succesfully Submitted!</H1>
-
-</div>
-
-<div *ngIf = "deniedSubmissionDisplay">
-    <h1>Sorry! The time for taking attendance for this class has been expired. </h1>
-</div>
+    
+    
+    
