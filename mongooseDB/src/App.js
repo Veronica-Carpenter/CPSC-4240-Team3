@@ -113,6 +113,12 @@ var App = /** @class */ (function () {
             console.log('Getting a student with id : ' + id);
             _this.Students.retrieveAStudentById(res, { id: id });
         });
+        //Get a student by student id
+        router.get('/students/studentId/:studentId', function (req, res) {
+            var studentId = req.params.studentId;
+            console.log('Getting a student withs studentId: ' + studentId);
+            _this.Students.retrieveASingleStudenteByStudentId(res, { studentId: studentId });
+        });
         // Delete a student by student Id
         router["delete"]('/students/', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var id, student, error_1;

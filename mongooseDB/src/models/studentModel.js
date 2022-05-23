@@ -64,6 +64,16 @@ var studentModel = /** @class */ (function () {
             res.json(studentArray);
         });
     };
+    studentModel.prototype.retrieveASingleStudenteByStudentId = function (res, filter) {
+        var findResult = this.model.findOne(filter);
+        findResult.exec(function (err, userArray) {
+            if (err) {
+                res.status(500).send({ error: 'enter a valid student Id' });
+            }
+            console.log(userArray);
+            res.json(userArray);
+        });
+    };
     return studentModel;
 }());
 exports.studentModel = studentModel;

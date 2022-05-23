@@ -94,6 +94,13 @@ class App {
             this.Students.retrieveAStudentById(res, {id});
         });
 
+        //Get a student by student id
+        router.get('/students/studentId/:studentId', (req, res) => {
+            var studentId = req.params.studentId;
+            console.log('Getting a student withs studentId: ' + studentId);
+            this.Students.retrieveASingleStudenteByStudentId(res, {studentId: studentId});
+        });
+
         // Delete a student by student Id
         router.delete('/students/', async (req, res) => {
             var id = req.query.studentId;
