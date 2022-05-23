@@ -14,7 +14,6 @@ var attendanceModel = /** @class */ (function () {
         this.schema = new Mongoose.Schema({
             lectureId: Number,
             date: Date,
-            studentId: Number,
             status: String,
             Student: {
                 type: Mongoose.Schema.Types.ObjectId,

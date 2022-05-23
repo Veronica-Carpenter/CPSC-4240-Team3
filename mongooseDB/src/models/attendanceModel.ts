@@ -19,7 +19,6 @@ class attendanceModel {
             {
                 lectureId: Number,
                 date: Date,
-                studentId: Number,
                 status: String,
                 Student: {
                     type: Mongoose.Schema.Types.ObjectId,
