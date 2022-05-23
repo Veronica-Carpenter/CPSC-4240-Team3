@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { take } from 'rxjs';
 import { LectureClass } from '../lecture-class';
+import { StudentClass } from '../student-class';
 import { TimelyAPIService } from '../timely-api.service';
 
 @Component({
@@ -13,13 +14,16 @@ export class TakeAttendancePageComponent implements OnInit {
   studentID: number = 0;
   code: number = 0;
   lectureResult: LectureClass;
+  studentResult: StudentClass;
   lectureDate: number = 0;
   attendanceRecord: any;
 
   formDisplay = true;
   successfulMessageDisplay = false;
   invalidCodeMessageDisplay = false;
+  invalidStudentIdMessageDisplay = false;
   deniedSubmissionDisplay = false;
+
 
   constructor(private apiService: TimelyAPIService) { }
 
@@ -48,7 +52,7 @@ export class TakeAttendancePageComponent implements OnInit {
     )
   }
 
-  submitButton(){    
+  submitButton(){ 
     //The current date that student take attendance
     let takenDate = new Date();
     let takenDt = takenDate.getDate();
@@ -63,55 +67,64 @@ export class TakeAttendancePageComponent implements OnInit {
     let lectureMonth;
     let lectureYear;
 
-    this.apiService.getLectureByCode(this.code).toPromise().then((result:any)=>
-    {
-      this.invalidCodeMessageDisplay = false;
-      this.lectureResult = result;
-
-      //show message if secure code is wrong
+    //Validating student id by getting student object by id
+    this.apiService.getStudentByStudentId(this.studentID).toPromise().then((result: any)=>{
+      this.studentResult = result;
+      //let studentJSON = JSON.stringify(this.studentResult);
+      console.log(this.studentResult)
       if (result == null){
-        this.invalidCodeMessageDisplay = true;
+        this.invalidStudentIdMessageDisplay = true;
       }
-      let lectureId = this.lectureResult?.lectureId;
-      let takenDate = new Date (this.lectureResult?.date);
-      
-      
-      lectureDt = takenDate.getUTCDate();
-      lectureMonth = takenDate.getUTCMonth() + 1;
-      lectureYear = takenDate.getUTCFullYear();
 
+      //Validating secure code by getting the lecture for this specific code
+      this.apiService.getLectureByCode(this.code).toPromise().then((result:any)=>
+      {
+        this.invalidCodeMessageDisplay = false;
+        this.lectureResult = result;
 
-      console.log("lecture date: " + lectureDt);
-      console.log("lecture month : " + lectureMonth);
-      console.log("lecture year : " + lectureYear);
-      console.log("list results: " + JSON.stringify(result));
-
-      if (lectureYear == takenYear && lectureMonth == takenMonth && lectureDt == takenDt){
-        console.log("Taken date == lecture date");
-        this.attendanceRecord = {
-          "studentId": this.studentID,
-          "date": takenDate,
-          "lectureId": lectureId,
-          "status": "ontime"
+        //show message if secure code is wrong
+        if (result == null){
+          this.invalidCodeMessageDisplay = true;
         }
+        let lectureId = this.lectureResult?.lectureId;
+        let takenDate = new Date (this.lectureResult?.date);
+        
+        
+        lectureDt = takenDate.getUTCDate();
+        lectureMonth = takenDate.getUTCMonth() + 1;
+        lectureYear = takenDate.getUTCFullYear();
 
-        //Call post API to add attendance record
-        this.apiService.addAttendanceRecord(this.attendanceRecord).toPromise().then((result: any) =>{
-          console.log("successfully add attendance");
+
+        console.log("lecture date: " + lectureDt);
+        console.log("lecture month : " + lectureMonth);
+        console.log("lecture year : " + lectureYear);
+        console.log("list results: " + JSON.stringify(result));
+
+        if (lectureYear == takenYear && lectureMonth == takenMonth && lectureDt == takenDt){
+          console.log("Taken date == lecture date");
+          this.attendanceRecord = {
+            "Student": this.studentResult,
+            "date": takenDate,
+            "lectureId": lectureId,
+            "status": "ontime"
+          }
+
+          //Call post API to add attendance record
+          this.apiService.addAttendanceRecord(this.attendanceRecord).toPromise().then((result: any) =>{
+            console.log("successfully add attendance");
+            this.formDisplay = false;
+            this.successfulMessageDisplay = true;
+          });
+        }
+        else{
+          console.log("taken date != lecture date");
           this.formDisplay = false;
-          this.successfulMessageDisplay = true;
-        });
+          this.deniedSubmissionDisplay = true;
+        }
       }
-      else{
-        console.log("taken date != lecture date");
-        this.formDisplay = false;
-        this.deniedSubmissionDisplay = true;
-      }
-    }
     );
-    
-    
- 
+
+    });
   }
 
   

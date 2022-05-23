@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { LectureClass } from './lecture-class';
+import { StudentClass } from './student-class';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,5 +16,9 @@ export class TimelyAPIService {
 
   addAttendanceRecord(content:any){
     return this.http.post(this.hostURL + 'attendances', content);
+  }
+
+  getStudentByStudentId(studentId: number){
+    return this.http.get<StudentClass>(this.hostURL + 'students/studentId/' + studentId);
   }
 }
