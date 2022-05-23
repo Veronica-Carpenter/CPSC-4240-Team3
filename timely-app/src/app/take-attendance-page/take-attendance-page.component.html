@@ -1,3 +1,6 @@
+<div *ngIf = "invalidCodeMessageDisplay">
+    Secure code is wrong. Please check it!
+</div>
 <div *ngIf = "formDisplay">
     <p>Student ID: </p>
     <input 
@@ -23,4 +26,8 @@
 <div *ngIf="successfulMessageDisplay">
     <H1>Succesfully Submitted!</H1>
 
+</div>
+
+<div *ngIf = "deniedSubmissionDisplay">
+    <h1>Sorry! The time for taking attendance for this class has been expired. </h1>
 </div>

@@ -12,13 +12,14 @@ export class TakeAttendancePageComponent implements OnInit {
 
   studentID: number = 0;
   code: number = 0;
-  
   lectureResult: LectureClass;
   lectureDate: number = 0;
+  attendanceRecord: any;
 
   formDisplay = true;
   successfulMessageDisplay = false;
-  attendanceRecord: any;
+  invalidCodeMessageDisplay = false;
+  deniedSubmissionDisplay = false;
 
   constructor(private apiService: TimelyAPIService) { }
 
@@ -47,9 +48,7 @@ export class TakeAttendancePageComponent implements OnInit {
     )
   }
 
-  submitButton(){
-    console.log("student id: " + this.studentID + "; session code: "+ this.code);
-    
+  submitButton(){    
     //The current date that student take attendance
     let takenDate = new Date();
     let takenDt = takenDate.getDate();
@@ -59,13 +58,20 @@ export class TakeAttendancePageComponent implements OnInit {
     console.log("Taken Month: " + takenMonth);
     console.log("Taken Year: " + takenYear);
 
+    //The lecture date
     let lectureDt;
     let lectureMonth;
     let lectureYear;
 
     this.apiService.getLectureByCode(this.code).toPromise().then((result:any)=>
     {
+      this.invalidCodeMessageDisplay = false;
       this.lectureResult = result;
+
+      //show message if secure code is wrong
+      if (result == null){
+        this.invalidCodeMessageDisplay = true;
+      }
       let lectureId = this.lectureResult?.lectureId;
       let takenDate = new Date (this.lectureResult?.date);
       
@@ -80,8 +86,6 @@ export class TakeAttendancePageComponent implements OnInit {
       console.log("lecture year : " + lectureYear);
       console.log("list results: " + JSON.stringify(result));
 
-      
-      //console.log("lecture date : " + this.lectureDate);
       if (lectureYear == takenYear && lectureMonth == takenMonth && lectureDt == takenDt){
         console.log("Taken date == lecture date");
         this.attendanceRecord = {
@@ -100,6 +104,8 @@ export class TakeAttendancePageComponent implements OnInit {
       }
       else{
         console.log("taken date != lecture date");
+        this.formDisplay = false;
+        this.deniedSubmissionDisplay = true;
       }
     }
     );
