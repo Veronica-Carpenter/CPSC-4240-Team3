@@ -19,7 +19,7 @@ To load scripts:
 
 - In new terminal, go to path mongodb and run below commands: 
     ./mongo --port 27017 --authenticationDatabase admin
-    load ('/Users/shipravalecha/Desktop/Seattle University/SaaS/Team3App/CPSC-4240-Team3/mongooseDB/src/createDB/AttendanceData.js');
+    load ('/Users/shipravalecha/Desktop/Seattle University/SaaS/Team3App/CPSC-4240-Team3/mongooseDB/src/createDB/AttendanceDatacopy.js');
     exit
 
 1. install prerequisites: npm install
