@@ -77,7 +77,7 @@ export class TakeAttendancePageComponent implements OnInit {
     let lectureYear;
 
     //Validating student id by getting student object by id
-    this.apiService.getStudentByStudentId(this.studentID).toPromise().then((result: any)=>{
+    this.apiService.getStudentByStudentId(this.studentID).subscribe((result: any)=>{
       this.studentResult = result;
       //let studentJSON = JSON.stringify(this.studentResult);
       console.log(this.studentResult)
@@ -86,7 +86,7 @@ export class TakeAttendancePageComponent implements OnInit {
       if(result != null){
 
         //Validating secure code by getting the lecture for this specific code
-        this.apiService.getLectureByCode(this.code).toPromise().then((result:any)=>
+        this.apiService.getLectureByCode(this.code).subscribe((result:any)=>
         {
           this.invalidCodeMessageDisplay = false;
           this.lectureResult = result;
@@ -117,7 +117,7 @@ export class TakeAttendancePageComponent implements OnInit {
               }
 
               //Call post API to add attendance record
-              this.apiService.addAttendanceRecord(this.attendanceRecord).toPromise().then((result: any) =>{
+              this.apiService.addAttendanceRecord(this.attendanceRecord).subscribe((result: any) =>{
                 console.log("successfully add attendance");
                 this.formDisplay = false;
                 this.successfulMessageDisplay = true;
