@@ -201,56 +201,6 @@ describe('Testing API routes', () => {
         });
     });
 
-    // Test POST/ routes
-    // describe('Test POST/ routes', () => {
-
-    //     // Test the POST student route
-    //     describe("Post a student", () => {
-
-    //         it('should post a student', (done) => {
-    //             let student = {
-    //                 studentId : 201,
-    //                 fname: "Shipra",
-    //                 lname: "Shipra",
-    //                 email: "shipra@sample.edu"
-    //             }
-    
-    //             chai.request("http://localhost:8080")
-    //                 .post('/students')
-    //                 .send(student)
-    //                 .end((err, res) => {
-    //                     res.should.have.status(200);
-    //                     res.body.should.be.a('object');
-    //                     res.body.should.have.property('studentId');
-    //                     res.body.should.have.property('fname');
-    //                     res.body.should.have.property('lname');
-    //                     res.body.should.have.property('email');
-    //                 done();
-    //             });
-    //         });
-    
-    //         it('should not post a student without studentId, fname, lname and email', (done) => {
-    //             let student = {
-    //                 studentId : 999,
-    //                 fname: "Shipra",
-    //                 lname: "Shipra"
-    //             }
-    
-    //             chai.request("http://localhost:8080")
-    //                 .post('/students')
-    //                 .send(student)
-    //                 .end((err, res) => {
-    //                     res.should.have.status(400);
-    //                     res.body.should.be.a('object');
-    //                     res.body.should.have.property('errors');
-    //                     res.body.errors.should.have.property('email');
-    //                     res.body.errors.email.should.have.property('kind').eq('required');
-    //                 done();
-    //             });
-    //         });
-    //     });
-    // });
-
     // Tets GET/:id routes
     describe('Test GET/:id routes', () => {
 
@@ -304,4 +254,54 @@ describe('Testing API routes', () => {
            });
         });
     });
+
+     // Test POST/ routes
+    // describe('Test POST/ routes', () => {
+
+    //     // Test the POST student route
+    //     describe("Post a student", () => {
+
+    //         it('should post a student', (done) => {
+    //             let student = {
+    //                 studentId : 201,
+    //                 fname: "Shipra",
+    //                 lname: "Shipra",
+    //                 email: "shipra@sample.edu"
+    //             }
+    
+    //             chai.request("http://localhost:8080")
+    //                 .post('/students')
+    //                 .send(student)
+    //                 .end((err, res) => {
+    //                     res.should.have.status(200);
+    //                     res.body.should.be.a('object');
+    //                     res.body.should.have.property('studentId');
+    //                     res.body.should.have.property('fname');
+    //                     res.body.should.have.property('lname');
+    //                     res.body.should.have.property('email');
+    //                 done();
+    //             });
+    //         });
+    
+    //         it('should not post a student without studentId, fname, lname and email', (done) => {
+    //             let student = {
+    //                 studentId : 999,
+    //                 fname: "Shipra",
+    //                 lname: "Shipra"
+    //             }
+    
+    //             chai.request("http://localhost:8080")
+    //                 .post('/students')
+    //                 .send(student)
+    //                 .end((err, res) => {
+    //                     res.should.have.status(400);
+    //                     res.body.should.be.a('object');
+    //                     res.body.should.have.property('errors');
+    //                     res.body.errors.should.have.property('email');
+    //                     res.body.errors.email.should.have.property('kind').eq('required');
+    //                 done();
+    //             });
+    //         });
+    //     });
+    // });
 });
