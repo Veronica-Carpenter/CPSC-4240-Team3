@@ -17,6 +17,8 @@ export class TakeAttendancePageComponent implements OnInit {
   studentResult: StudentClass;
   lectureDate: number = 0;
   attendanceRecord: any;
+  attendanceResult: any;
+  mapAttendancetoStudentContent: any;
 
   formDisplay = true;
   successfulMessageDisplay = false;
@@ -36,7 +38,7 @@ export class TakeAttendancePageComponent implements OnInit {
     //check if student id is number
     if(!isNaN(Number(val))){
       this.studentID = parseInt(val);
-      console.log("Student ID: " + this.studentID);
+      //console.log("Student ID: " + this.studentID);
     }
     else(
       console.log("Student ID need to be number")
@@ -47,7 +49,7 @@ export class TakeAttendancePageComponent implements OnInit {
     //check if code is number
     if(!isNaN(Number(val))){
       this.code = parseInt(val);
-      console.log("Session code: " + this.code);
+      //console.log("Session code: " + this.code);
     }
     else(
       console.log("Session code need to be number")
@@ -58,6 +60,9 @@ export class TakeAttendancePageComponent implements OnInit {
   }
 
   submitButton(){ 
+    let studentObjId :any ; 
+    let attendanceObjId;
+
     //Turn off all error message
     this.invalidCodeMessageDisplay = false;
     this.invalidStudentIdMessageDisplay = false;
@@ -82,10 +87,13 @@ export class TakeAttendancePageComponent implements OnInit {
       //let studentJSON = JSON.stringify(this.studentResult);
       console.log(this.studentResult)
       
+      
 
       if(result != null){
+        studentObjId = result?._id;
+        console.log("OBject id: " + studentObjId);
 
-        //Validating secure code by getting the lecture for this specific code
+        //Validating secure code by getting the lecture for this specific secure code
         this.apiService.getLectureByCode(this.code).subscribe((result:any)=>
         {
           this.invalidCodeMessageDisplay = false;
@@ -118,9 +126,22 @@ export class TakeAttendancePageComponent implements OnInit {
 
               //Call post API to add attendance record
               this.apiService.addAttendanceRecord(this.attendanceRecord).subscribe((result: any) =>{
+                attendanceObjId = result?._id;
+                console.log("Attendance Obj ID: "+ attendanceObjId);
                 console.log("successfully add attendance");
-                this.formDisplay = false;
-                this.successfulMessageDisplay = true;
+                this.mapAttendancetoStudentContent = {
+                  "attendanceId" : attendanceObjId,
+                  "studentId" : studentObjId
+                }
+                console.log(this.mapAttendancetoStudentContent);
+
+                //Call post API to map attendance to student
+                this.apiService.mapAttendanceToStudent(this.mapAttendancetoStudentContent).subscribe((result:any) =>{
+                  console.log("Mapped succesfully");
+                  this.formDisplay = false;
+                  this.successfulMessageDisplay = true;
+                });
+                
               });
             }
             else{
