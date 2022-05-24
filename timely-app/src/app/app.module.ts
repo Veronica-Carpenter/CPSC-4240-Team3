@@ -14,6 +14,7 @@ import { DeletionConfirmComponent } from './deletion-confirm/deletion-confirm.co
 import { AttendanceSubmittedPageComponent } from './attendance-submitted-page/attendance-submitted-page.component';
 import { UpdateStudentsComponent } from './update-students/update-students.component';
 import { UniqueCodeComponent } from './unique-code/unique-code.component';
+import { NewStudentPageComponent } from './new-student-page/new-student-page.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { UniqueCodeComponent } from './unique-code/unique-code.component';
     DeletionConfirmComponent,
     AttendanceSubmittedPageComponent,
     UpdateStudentsComponent,
-    UniqueCodeComponent
+    UniqueCodeComponent,
+    NewStudentPageComponent
   ],
   imports: [
     BrowserModule,
