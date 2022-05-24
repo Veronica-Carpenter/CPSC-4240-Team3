@@ -217,7 +217,10 @@ class App {
             {
                 await this.Attendances.model.findByIdAndUpdate({_id:  attendanceId}, attendance, { new: true, runValidators: true})
                 await this.Students.model.findByIdAndUpdate({_id: studentId}, student, { new: true, runValidators: true})
-                res.status(200).send("Mapped")
+                //res.status(200).send("Mapped")
+                res.status(201).json({
+                    message: 'Mapped',
+                })
                 
             } catch(e) {
                 res.status(400).send(e);

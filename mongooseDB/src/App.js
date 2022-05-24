@@ -315,10 +315,15 @@ var App = /** @class */ (function () {
                         return [4 /*yield*/, this.Attendances.model.findByIdAndUpdate({ _id: attendanceId }, attendance, { "new": true, runValidators: true })];
                     case 4:
                         _b.sent();
-                        return [4 /*yield*/, this.Students.model.findByIdAndUpdate({ _id: studentId }, student, { "new": true, runValidators: true })];
+                        return [4 /*yield*/, this.Students.model.findByIdAndUpdate({ _id: studentId }, student, { "new": true, runValidators: true })
+                            //res.status(200).send("Mapped")
+                        ];
                     case 5:
                         _b.sent();
-                        res.status(200).send("Mapped");
+                        //res.status(200).send("Mapped")
+                        res.status(201).json({
+                            message: 'Mapped'
+                        });
                         return [3 /*break*/, 7];
                     case 6:
                         e_5 = _b.sent();
