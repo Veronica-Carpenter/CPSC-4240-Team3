@@ -25,6 +25,7 @@
     "hbs": "^4.2.0",
     "mongodb": "^4.5.0",
     "mongoose": "^6.3.2",
+    "nanoid": "^3.3.4",
     "validator": "^13.7.0"
   },
   "devDependencies": {

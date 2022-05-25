@@ -1,0 +1,31 @@
+.center{
+    margin: auto;
+    width: 25%;
+    border:  3px solid green;
+    padding: 10px
+}
+
+.row-center{
+    margin-right: 10px;
+    margin-left: 15px;
+    padding: 10px;
+}
+
+.submitButton{
+    text-align: center;
+    margin-top:20px;
+    margin-left: 75%;
+    margin-bottom: 15px;
+}
+
+.warningMessage{
+    color: red;
+}
+
+.backButton{
+    text-align: center;
+    margin-top:20px;
+    margin-left: 40%;
+    margin-bottom: 15px;
+    margin-right: 10px;
+}
