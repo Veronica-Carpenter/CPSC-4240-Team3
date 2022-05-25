@@ -3,6 +3,10 @@ exports.__esModule = true;
 exports.lectureModel = void 0;
 var Mongoose = require("mongoose");
 var DataAccess_1 = require("./../DataAccess");
+//import { nanoid } from 'nanoid';
+var nanoid_1 = require("nanoid");
+//const {customAlphabet} = require ('nanoid');
+var nanoid = (0, nanoid_1.customAlphabet)('1234567890', 7);
 var mongooseConnection = DataAccess_1.DataAccess.mongooseConnection;
 var mongooseObj = DataAccess_1.DataAccess.mongooseInstance;
 var lectureModel = /** @class */ (function () {
@@ -12,10 +16,20 @@ var lectureModel = /** @class */ (function () {
     }
     lectureModel.prototype.createSchema = function () {
         this.schema = new Mongoose.Schema({
-            lectureId: Number,
+            lectureId: {
+                type: Number,
+                required: true,
+                "default": function () { return nanoid(); },
+                index: { unique: true }
+            },
             courseId: Number,
             date: Date,
-            secureCode: Number
+            secureCode: {
+                type: Number,
+                required: true,
+                "default": function () { return nanoid(); },
+                index: { unique: true }
+            }
         });
     };
     lectureModel.prototype.createModel = function () {

@@ -2,13 +2,16 @@ import Mongoose = require("mongoose");
 import {DataAccess} from './../DataAccess';
 import {IlectureModel} from '../interfaces/IlectureModel';
 
+import{customAlphabet} from 'nanoid';
+const nanoid = customAlphabet('1234567890', 7);
+
 let mongooseConnection = DataAccess.mongooseConnection;
 let mongooseObj = DataAccess.mongooseInstance;
 
 class lectureModel {
     public schema:any;
     public model:any;
-
+    
     public constructor() {
         this.createSchema();
         this.createModel();
@@ -17,10 +20,20 @@ class lectureModel {
     public createSchema(): void {
         this.schema = new Mongoose.Schema(
             {
-                lectureId: Number,
+                lectureId: {
+                    type: Number,
+                    required: true,
+                    default: () => nanoid(),
+                    index: {unique: true},
+                },
                 courseId : Number,
                 date: Date,
-                secureCode: Number
+                secureCode: {
+                    type: Number,
+                    required: true,
+                    default: () => nanoid(),
+                    index: {unique: true},
+                }
             }
         );
     }

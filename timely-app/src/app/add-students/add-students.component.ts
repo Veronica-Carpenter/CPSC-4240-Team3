@@ -46,20 +46,42 @@ export class AddStudentsComponent implements OnInit {
       })
       console.log("dict")
       console.log(this.attendanceDict)
-  })
-  const filterStudentsByCourse = (students : [Student], courseId: number) : Student[] => {
-    var arr : Student[] = [];
-    for(let student of students) {
-      let studentCourses  = student.courseList;
-      if(studentCourses) {
-      for(let course of studentCourses) {
-        if(course.courseId == courseId) {
-          arr.push(student)
+    })
+    const filterStudentsByCourse = (students : [Student], courseId: number) : Student[] => {
+      var arr : Student[] = [];
+      for(let student of students) {
+        let studentCourses  = student.courseList;
+        if(studentCourses) {
+        for(let course of studentCourses) {
+          if(course.courseId == courseId) {
+            arr.push(student)
+          }
         }
       }
     }
+      return arr
+    }
+  } 
+
+  generateCodeClick(){
+    let isNotUnique = true;
+    //Generate a random secure code from 1 t0 1000
+    let secureCode = Math.floor(Math.random() * 1000) + 1;
+    
+    //Check that secure code does not exist in the database
+    /* while(isNotUnique){
+      secureCode = Math.floor(Math.random() * 1000) + 1;
+      this.apiService.getLectureByCode(secureCode).subscribe((result:any)=>{
+        if(result == null){
+          isNotUnique = false;
+          console.log("Secure Code: " +secureCode);
+        }
+          
+      });
+    } */
+
+    console.log("Secure Code: " +secureCode);
+
+
   }
-    return arr
-  }
-}
 }
