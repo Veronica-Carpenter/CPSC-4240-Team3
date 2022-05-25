@@ -30,6 +30,9 @@ export class TimelyAPIService {
     return this.http.post(this.hostURL + 'mapStudenttoAttendance', content);
   }
 
+  addLecture(content: any){
+    return this.http.post(this.hostURL + 'lectures', content);
+  }
   getAllStudents() {
     return this.http.get<Student>(this.hostURL + 'students');
   }

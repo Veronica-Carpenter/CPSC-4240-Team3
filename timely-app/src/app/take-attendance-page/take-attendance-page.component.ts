@@ -72,6 +72,7 @@ export class TakeAttendancePageComponent implements OnInit {
     let takenDt = takenDate.getDate();
     let takenMonth = takenDate.getMonth() + 1;
     let takenYear = takenDate.getFullYear();
+    console.log("Date: " + takenDate);
     console.log("Taken Date: " + takenDt);
     console.log("Taken Month: " + takenMonth);
     console.log("Taken Year: " + takenYear);
@@ -103,12 +104,10 @@ export class TakeAttendancePageComponent implements OnInit {
           {
             let lectureId = this.lectureResult?.lectureId;
             let takenDate = new Date (this.lectureResult?.date);
-            
-            
-            lectureDt = takenDate.getUTCDate();
-            lectureMonth = takenDate.getUTCMonth() + 1;
-            lectureYear = takenDate.getUTCFullYear();
 
+            lectureDt = takenDate.getDate();
+            lectureMonth = takenDate.getMonth() + 1;
+            lectureYear = takenDate.getFullYear();
 
             console.log("lecture date: " + lectureDt);
             console.log("lecture month : " + lectureMonth);

@@ -16,6 +16,9 @@ export class AddStudentsComponent implements OnInit {
   public students : Student[] = [];
   public attendanceDict: any = {}
   private courseId: number;
+  secureCode: number;
+
+  codeDisplay = false;
   constructor(private apiService: TimelyAPIService, private activatedRoute: ActivatedRoute) { 
   }
 
@@ -64,24 +67,20 @@ export class AddStudentsComponent implements OnInit {
   } 
 
   generateCodeClick(){
-    let isNotUnique = true;
-    //Generate a random secure code from 1 t0 1000
-    let secureCode = Math.floor(Math.random() * 1000) + 1;
+    //The today date 
+    let todayDate = new Date();
+
+    let lectureObject={
+      "courseId" :this.courseId,
+      "date": todayDate
+    }
     
-    //Check that secure code does not exist in the database
-    /* while(isNotUnique){
-      secureCode = Math.floor(Math.random() * 1000) + 1;
-      this.apiService.getLectureByCode(secureCode).subscribe((result:any)=>{
-        if(result == null){
-          isNotUnique = false;
-          console.log("Secure Code: " +secureCode);
-        }
-          
-      });
-    } */
-
-    console.log("Secure Code: " +secureCode);
-
+    //Call POST API to add new lecture 
+    this.apiService.addLecture(lectureObject).subscribe((result:any)=>{
+      console.log("Lecture Result: "+ JSON.stringify(result));
+      this.secureCode = result?.secureCode;
+      this.codeDisplay = true;
+    });
 
   }
 }
