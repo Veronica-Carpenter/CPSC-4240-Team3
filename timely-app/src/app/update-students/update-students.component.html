@@ -1,13 +1,71 @@
-<p>Student Name: </p>
-<input type="text" #boxStudentID placeholder="Enter student Name" name="studentId" />
+<div class="container .ml-1 center">
+    <div class = "row row-center">
+    </div>
 
-<p>Student ID: </p>
-<input type="text" #boxCode placeholder="Enter Student ID" name="code" />
+    <div *ngIf="formDisplay">
+        <h5>Update attendance of a student</h5>
 
-<p>Attendance: </p>
-<input type="text" #boxAttendance placeholder="Enter student Attendance" name="attendance" />
+        <div class="row row-center">
+            <label for="boxStudentID" class="col-sm-4">Student ID</label>
+            <div class="col-sm-8">
+                <input 
+                type = "text" 
+                class="form-control form-control-sm"
+                placeholder="Student ID" 
+                name="studentId"/>
+            </div>
+        </div>
 
-<p>Date: </p>
-<input type="text" #boxDate placeholder="Enter date" name="date" />
+        <div class="row row-center">
+            <label for="boxStudentID" class="col-sm-4">Student FirstName</label>
+            <div class="col-sm-8">
+                <input 
+                type = "text" 
+                class="form-control form-control-sm"
+                placeholder="Student FirstName" 
+                name="fname"/>
+            </div>
+        </div>
 
-<a [routerLink]="['/DeletionConfirm']" class="btn btn-lg btn-warning" role="button">Submit</a>
+        <div class="row row-center">
+            <label for="boxStudentID" class="col-sm-4">Student LastName</label>
+            <div class="col-sm-8">
+                <input 
+                type = "text" 
+                class="form-control form-control-sm"
+                placeholder="Student LastName" 
+                name="lname"/>
+            </div>
+        </div>
+
+        <div class="row row-center">
+            <label for="boxStudentID" class="col-sm-4">Attendance</label>
+            <div class="col-sm-8">
+                <input 
+                type = "text" 
+                class="form-control form-control-sm"
+                placeholder="Student Attendance" 
+                name="lname"/>
+            </div>
+        </div>
+
+        <div class="row row-center">
+            <label for="boxStudentID" class="col-sm-4">Date</label>
+            <div class="col-sm-8">
+                <input 
+                type = "text" 
+                class="form-control form-control-sm"
+                placeholder="Date" 
+                name="lname"/>
+            </div>
+        </div>
+
+        <button (click)="submitButton()" class="row submitButton btn btn-md btn-warning">
+            Submit
+        </button>
+    </div>
+
+    <div *ngIf="successfulMessageDisplay">
+        <h4>Succesfully Submitted!</h4>
+    </div>    
+</div>
