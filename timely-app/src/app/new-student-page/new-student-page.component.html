@@ -1,7 +1,15 @@
 <div class="container .ml-1 center">
+
     <div class = "row row-center">
         <div *ngIf = "invalidStudentIdMessageDisplay">
-            <p class="warningMessage">Please enter student ID</p>
+            <p class="warningMessage">Please enter a number!</p>
+        </div>
+
+        <div *ngIf = "invalidStudentnameMessageDisplay">
+            <p class="warningMessage">Please enter string!</p>
+        </div>
+        <div *ngIf = "invalidStudentemailMessageDisplay">
+            <p class="warningMessage">Please enter valid email!</p>
         </div>
     </div>
 
@@ -66,8 +74,9 @@
     </div>
 
     <div *ngIf="successfulMessageDisplay">
-        <h4>Succesfully Submitted!</h4>
-    </div>    
+        <h4>Added a student succesfully!</h4>
+        <button class="row backButton btn btn-md btn-warning" (click)="reloadPage()" >Back to Form</button>
+    </div>
 </div>
 
 

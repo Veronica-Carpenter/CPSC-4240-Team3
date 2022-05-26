@@ -17,5 +17,4 @@ export class CourseListPage implements OnInit {
       console.log(result)
     })
   }
-
 }

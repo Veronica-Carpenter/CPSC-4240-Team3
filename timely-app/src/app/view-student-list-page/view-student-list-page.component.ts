@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Student } from '../student';
+import { TimelyAPIService } from '../timely-api.service';
 
 @Component({
   selector: 'app-view-student-list-page',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewStudentListPageComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  public students : [Student]
+  constructor(private apiService: TimelyAPIService) { 
+    
   }
-
+  ngOnInit(): void {
+    this.apiService.getAllStudents().toPromise().then((result : any) => {
+      this.students = result
+      console.log(result)
+    })
+  }
 }

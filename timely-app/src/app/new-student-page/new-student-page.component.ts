@@ -20,7 +20,8 @@ export class NewStudentPageComponent implements OnInit {
   formDisplay = true;
   successfulMessageDisplay = false;
   invalidStudentIdMessageDisplay = false;
-  deniedSubmissionDisplay = false;
+  invalidStudentnameMessageDisplay = false;
+  invalidStudentemailMessageDisplay = false;
 
   constructor(private apiService: TimelyAPIService) {
   }
@@ -32,24 +33,26 @@ export class NewStudentPageComponent implements OnInit {
 
     //check if student id is number
     if(!isNaN(Number(val))){
+      this.invalidStudentIdMessageDisplay = false;
       this.studentID = parseInt(val);
       console.log('studentId: ' + this.studentID);
     }
-    else(
-      console.log("Student ID should be a number")
-    )
+    else {
+      this.invalidStudentIdMessageDisplay = true;
+    }
   }
   
   getStudentfname(val: any){
 
     //check if student id is number
     if(typeof val == 'string' || val instanceof String) {
+      this.invalidStudentnameMessageDisplay = false;
       this.studentfname = val;
       console.log('studentfname: ' + this.studentfname);
     }
-    else(
-      console.log("Student first name should be a string")
-    )
+    else {
+      this.invalidStudentnameMessageDisplay = true;
+    }
   }
 
   getStudentlname(val: any){
@@ -59,21 +62,22 @@ export class NewStudentPageComponent implements OnInit {
       this.studentlname = val;
       console.log('studentlname: ' + this.studentlname);
     }
-    else(
-      console.log("Student last name should be a string")
-    )
+    else {
+      this.invalidStudentnameMessageDisplay = true;
+    }
   }
 
   getStudentemail(val: any){
 
     //check if student id is number
     if(typeof val == 'string' || val instanceof String) {
+      this.invalidStudentemailMessageDisplay = false;
       this.studentemail = val;
       console.log('studentemail: ' + this.studentemail);
     }
-    else(
-      console.log("Student email should be a string")
-    )
+    else {
+      this.invalidStudentemailMessageDisplay = true;
+    }
   }
 
   reloadPage(){
@@ -82,7 +86,6 @@ export class NewStudentPageComponent implements OnInit {
 
   submitButton() {
 
-    this.invalidStudentIdMessageDisplay = false;
     this.studentData = {
       "studentId": this.studentID,
       "fname": this.studentfname,
@@ -91,6 +94,8 @@ export class NewStudentPageComponent implements OnInit {
     }
    
     this.apiService.createAStudent(this.studentData).subscribe((result: any) => {
+      this.formDisplay = false;
+      this.successfulMessageDisplay = true;
       console.log('student data:' + this.studentData);
       console.log("student added succesfully!")
     });
