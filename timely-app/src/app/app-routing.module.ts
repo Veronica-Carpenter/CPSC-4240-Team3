@@ -12,6 +12,7 @@ import { AttendanceSubmittedPageComponent } from './attendance-submitted-page/at
 import { UpdateStudentsComponent } from './update-students/update-students.component';
 import { UniqueCodeComponent } from './unique-code/unique-code.component';
 import { NewStudentPageComponent } from './new-student-page/new-student-page.component';
+import { LectureAttendancePageComponent } from './lecture-attendance-page/lecture-attendance-page.component';
 
 const routes: Routes = [
   { path: 'welcomePage', component: WelcomePageComponent },
@@ -26,7 +27,8 @@ const routes: Routes = [
   { path: 'attendanceSubmittedPage', component: AttendanceSubmittedPageComponent},
   { path: 'UpdateStudents', component: UpdateStudentsComponent},
   { path: 'UniqueCode', component: UniqueCodeComponent},
-  { path:  'NewStudentPage', component:NewStudentPageComponent}
+  { path:  'NewStudentPage', component:NewStudentPageComponent},
+  {path: "LectureList/LectureId/:lectureId", component:LectureAttendancePageComponent}
 ];
 
 @NgModule({

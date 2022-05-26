@@ -13,6 +13,9 @@ export class LectureListPageComponent implements OnInit {
   lectureLists: LectureClass[];
   lectureDate: string;
   courseName: string;
+  lectureId: number;
+  radioClicked: boolean = false;
+  
 
   constructor(private apiService: TimelyAPIService, private activatedRoute: ActivatedRoute) { }
 
@@ -55,5 +58,15 @@ export class LectureListPageComponent implements OnInit {
   reloadPage(){
     window.location.reload();
   }
+
+  radioButtonClick(lectureId: number){
+    console.log("lectureId: " + lectureId)
+    this.lectureId = lectureId;
+    this.radioClicked = true;
+  }
+  link(){
+    return "/LectureList/LectureId/" + this.lectureId;
+  }
+
 
 }
