@@ -15,6 +15,10 @@ import { AttendanceSubmittedPageComponent } from './attendance-submitted-page/at
 import { UpdateStudentsComponent } from './update-students/update-students.component';
 import { UniqueCodeComponent } from './unique-code/unique-code.component';
 import { NewStudentPageComponent } from './new-student-page/new-student-page.component';
+import { LectureListPageComponent } from './lecture-list-page/lecture-list-page.component';
+import { LectureAttendancePageComponent } from './lecture-attendance-page/lecture-attendance-page.component';
+import { ViewStudentListPageComponent } from './view-student-list-page/view-student-list-page.component';
+import { StudentDetailsPageComponent } from './student-details-page/student-details-page.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,11 @@ import { NewStudentPageComponent } from './new-student-page/new-student-page.com
     AttendanceSubmittedPageComponent,
     UpdateStudentsComponent,
     UniqueCodeComponent,
-    NewStudentPageComponent
+    NewStudentPageComponent,
+    LectureListPageComponent,
+    LectureAttendancePageComponent,
+    ViewStudentListPageComponent,
+    StudentDetailsPageComponent
   ],
   imports: [
     BrowserModule,
