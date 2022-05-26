@@ -4,7 +4,9 @@ import { TakeAttendancePageComponent } from './take-attendance-page/take-attenda
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { CourseListPage } from './course-list-page/course-list-page.component';
 import { AddStudentsComponent} from './add-students/add-students.component';
+import { LectureListPageComponent } from '../app/lecture-list-page/lecture-list-page.component';
 import { DeleteStudentsComponent} from './delete-students/delete-students.component';
+import { ViewStudentListPageComponent } from '../app/view-student-list-page/view-student-list-page.component'
 import { DeletionConfirmComponent} from './deletion-confirm/deletion-confirm.component';
 import { AttendanceSubmittedPageComponent } from './attendance-submitted-page/attendance-submitted-page.component';
 import { UpdateStudentsComponent } from './update-students/update-students.component';
@@ -17,7 +19,9 @@ const routes: Routes = [
   { path: 'CourseListPage', component: CourseListPage},
   { path: 'takeAttendance', component: TakeAttendancePageComponent},
   { path: 'AddStudents/:courseId', component: AddStudentsComponent, pathMatch: 'full'},
+  { path: 'LectureList/:courseId', component: LectureListPageComponent, pathMatch: 'full'},
   { path: 'DeleteStudents', component: DeleteStudentsComponent},
+  { path: 'ViewStudentList', component: ViewStudentListPageComponent},
   { path: 'DeletionConfirm', component: DeletionConfirmComponent},
   { path: 'attendanceSubmittedPage', component: AttendanceSubmittedPageComponent},
   { path: 'UpdateStudents', component: UpdateStudentsComponent},

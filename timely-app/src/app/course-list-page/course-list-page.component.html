@@ -22,7 +22,7 @@
             <th scope="row">{{ course.courseName }} </th>
             <td colspan="1" class = "text-center">{{ course.courseDays.day1}} / {{course.courseDays.day2}}</td>  
             <td>{{course.courseTime}}</td>
-            <a [routerLink]="['/AddStudents', course.courseId]" class="btn btn-lg btn-warning" role="button">View Students List</a>
+            <a [routerLink]="['/LectureList', course.courseId]" class="btn btn-lg btn-warning" role="button">View Lectures</a>
         </tr>
     </thead>
     <tbody id='tasks'>
