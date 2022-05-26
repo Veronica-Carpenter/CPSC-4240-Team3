@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TakeAttendancePageComponent } from './take-attendance-page/take-attendance-page.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
-import { ProfessorHomePageComponent } from './professor-home-page/professor-home-page.component';
+import { CourseListPage } from './course-list-page/course-list-page.component';
 import { AddStudentsComponent} from './add-students/add-students.component';
 import { DeleteStudentsComponent} from './delete-students/delete-students.component';
 import { DeletionConfirmComponent} from './deletion-confirm/deletion-confirm.component';
@@ -14,7 +14,7 @@ import { NewStudentPageComponent } from './new-student-page/new-student-page.com
 const routes: Routes = [
   { path: 'welcomePage', component: WelcomePageComponent },
   { path: '', redirectTo: '/welcomePage', pathMatch: 'full' },
-  { path: 'ProfessorHomePageComponent', component: ProfessorHomePageComponent},
+  { path: 'CourseListPage', component: CourseListPage},
   { path: 'takeAttendance', component: TakeAttendancePageComponent},
   { path: 'AddStudents/:courseId', component: AddStudentsComponent, pathMatch: 'full'},
   { path: 'DeleteStudents', component: DeleteStudentsComponent},

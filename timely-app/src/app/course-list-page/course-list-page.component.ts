@@ -3,11 +3,11 @@ import { Course } from '../course';
 import { TimelyAPIService } from '../timely-api.service';
 
 @Component({
-  selector: 'app-professor-home-page',
-  templateUrl: './professor-home-page.component.html',
-  styleUrls: ['./professor-home-page.component.css']
+  selector: 'app-course-list-page',
+  templateUrl: './course-list-page.component.html',
+  styleUrls: ['./course-list-page.component.css']
 })
-export class ProfessorHomePageComponent implements OnInit {
+export class CourseListPage implements OnInit {
   public courses : [Course]
   constructor(private apiService: TimelyAPIService) { 
   }

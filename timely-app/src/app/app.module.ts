@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TakeAttendancePageComponent } from './take-attendance-page/take-attendance-page.component';
-import { ProfessorHomePageComponent } from './professor-home-page/professor-home-page.component';
+import { CourseListPage } from './course-list-page/course-list-page.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { ProfessorCoursePageComponent } from './professor-course-page/professor-course-page.component';
 import { AddStudentsComponent } from './add-students/add-students.component';
@@ -20,7 +20,7 @@ import { NewStudentPageComponent } from './new-student-page/new-student-page.com
   declarations: [
     AppComponent,
     TakeAttendancePageComponent,
-    ProfessorHomePageComponent,
+    CourseListPage,
     WelcomePageComponent,
     ProfessorCoursePageComponent,
     AddStudentsComponent,
