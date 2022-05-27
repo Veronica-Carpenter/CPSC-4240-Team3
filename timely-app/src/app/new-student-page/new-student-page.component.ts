@@ -103,9 +103,10 @@ export class NewStudentPageComponent implements OnInit {
    
     // Post API to create a new student 
     this.apiService.createAStudent(this.studentData).subscribe((result: any) => {
-      
       studentObjId = result?._id;
-
+      console.log('student object id: ' + studentObjId);
+      this.formDisplay = false;
+      this.successfulMessageDisplay = true;
 
       // call course model to get course object id on the basis of courseId
       this.apiService.courseObjIdByCourseId(this.courseId).subscribe((result: any) => {
@@ -123,8 +124,6 @@ export class NewStudentPageComponent implements OnInit {
         // Post API to map newly created student to the course
         this.apiService.mapCourseToStudent(this.mapCourseToStudentObject).subscribe((result: any) => {
           console.log("Mapped succesfully");
-          this.formDisplay = false;
-          this.successfulMessageDisplay = true;
         });
       });
     });
