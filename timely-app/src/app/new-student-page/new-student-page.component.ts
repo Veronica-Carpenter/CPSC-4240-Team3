@@ -48,49 +48,61 @@ export class NewStudentPageComponent implements OnInit {
   }
   
   getStudentfname(val: any){
-
-    //check if student id is number
-    if(typeof val == 'string' || val instanceof String) {
+    
+    if(!isNaN(Number(val))) {
+      console.log('Enter a string!')
+      this.invalidStudentnameMessageDisplay = true;
+    }
+    //check if student fname is a string
+    else if(typeof val == 'string' || val instanceof String) {
       this.invalidStudentnameMessageDisplay = false;
       this.studentfname = val;
       console.log('studentfname: ' + this.studentfname);
     }
-    else {
-      this.invalidStudentnameMessageDisplay = true;
-    }
   }
 
   getStudentlname(val: any){
-
-    //check if student id is number
-    if(typeof val == 'string' || val instanceof String) {
+ 
+    if(!isNaN(Number(val))) {
+      console.log('Enter a string!')
+      this.invalidStudentnameMessageDisplay = true;
+    }
+    //check if student lname is string
+    else if(typeof val == 'string' || val instanceof String) {
+      this.invalidStudentnameMessageDisplay = false;
       this.studentlname = val;
       console.log('studentlname: ' + this.studentlname);
-    }
-    else {
-      this.invalidStudentnameMessageDisplay = true;
     }
   }
 
   getStudentemail(val: any){
-
-    //check if student id is number
-    if(typeof val == 'string' || val instanceof String) {
-      this.invalidStudentemailMessageDisplay = false;
       this.studentemail = val;
       console.log('studentemail: ' + this.studentemail);
-    }
-    else {
-      this.invalidStudentemailMessageDisplay = true;
-    }
   }
 
   reloadPage(){
     window.location.reload();
   }
 
+  ValidateEmail(val: any) 
+  {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(val))
+    {
+      this.studentemail = val;
+      console.log('studentemail: ' + this.studentemail);
+      return (true)
+    }
+    console.log('Enter a email!')
+    this.invalidStudentemailMessageDisplay = true;
+    return (false)
+}
+
   submitButton() {
 
+    let returnVal = this.ValidateEmail(this.studentemail)
+    if (!returnVal) {
+      return;
+    }
     let studentObjId :any; 
     let courseObjId: any;
 

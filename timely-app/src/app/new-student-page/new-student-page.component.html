@@ -4,6 +4,8 @@
     </div>
 </div>
 
+<script src="email-validation.js"></script>
+
 <div class="container .ml-1 center">
 
     <div class = "row row-center">
@@ -12,7 +14,7 @@
         </div>
 
         <div *ngIf = "invalidStudentnameMessageDisplay">
-            <p class="warningMessage">Please enter string!</p>
+            <p class="warningMessage">Please enter a string!</p>
         </div>
         <div *ngIf = "invalidStudentemailMessageDisplay">
             <p class="warningMessage">Please enter valid email!</p>

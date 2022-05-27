@@ -301,7 +301,9 @@ var App = /** @class */ (function () {
                         return [4 /*yield*/, this.Students.model.findByIdAndUpdate({ _id: studentId }, student, { "new": true, runValidators: true })];
                     case 4:
                         _b.sent();
-                        res.status(200).send("Mapped");
+                        res.status(200).json({
+                            "result": "Mapped Successfully"
+                        });
                         return [3 /*break*/, 6];
                     case 5:
                         e_4 = _b.sent();
