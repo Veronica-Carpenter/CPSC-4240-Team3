@@ -2,13 +2,13 @@
     <h4 class="text-center">List of Lectures - {{courseName}}</h4>
 </div>
 <!-- Table -->
+
 <table class="table" style="font-size:10pt;">
     <thead>
         <tr>
             <td>
                 <div class = "text-center">
-
-                    <a [routerLink]="['/ViewStudentList']" class="btn btn-lg btn-warning" role="button">View Student List</a>
+                    <a [routerLink]="['/ViewStudentList', courseId]" class="btn btn-lg btn-warning" role="button">View Student List</a>
                 </div>
             </td>
             <td>
@@ -26,7 +26,7 @@
         <tr *ngFor="let lecture of lectureLists">
             <input class="form-check-input" type="radio" name="flexRadioDefault" id="radioButton" (click)="radioButtonClick(lecture.lectureId)">
             <th scope="row">{{ formatDate(lecture.date) }} </th>
-            <td colspan="1" class = "text-center">{{ lecture.secureCode}}</td>  
+            <td colspan="1" class = "text-center">{{ lecture.secureCode}}</td>
         </tr>
 
         <tr>

@@ -46,6 +46,10 @@ export class TimelyAPIService {
     return this.http.get<LectureClass[]>(this.hostURL + 'lectures/course/' + courseId)
   }
 
+  getStudentsByCourse(courseId: number) {
+    return this.http.get<Student[]>(this.hostURL + 'find/' + courseId)
+  }
+
   createAStudent(studentData: any) {
     return this.http.post<Student>(this.hostURL + 'students', studentData);
   }

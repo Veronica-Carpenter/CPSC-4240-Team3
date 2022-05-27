@@ -101,6 +101,15 @@ class App {
             this.Students.retrieveASingleStudenteByStudentId(res, {studentId: studentId});
         });
 
+        // Get Students By Course
+        router.route("/find/:courseId").get((req, res) => {
+            var courseId = req.params.courseId;
+            var findResult = this.Students.model.find({}).populate('courseList')
+            findResult.exec( (err, studentsList) => {
+                res.json(studentsList.filter((student) => student.courseList.filter((course) => course.courseId == courseId).length > 0))
+            });
+        });
+
         // Delete a student by student Id
         router.delete('/students/', async (req, res) => {
             var id = req.query.studentId;

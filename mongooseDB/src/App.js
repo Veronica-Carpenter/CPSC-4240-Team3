@@ -119,6 +119,14 @@ var App = /** @class */ (function () {
             console.log('Getting a student withs studentId: ' + studentId);
             _this.Students.retrieveASingleStudenteByStudentId(res, { studentId: studentId });
         });
+        // Get Students By Course
+        router.route("/find/:courseId").get(function (req, res) {
+            var courseId = req.params.courseId;
+            var findResult = _this.Students.model.find({}).populate('courseList');
+            findResult.exec(function (err, studentsList) {
+                res.json(studentsList.filter(function (student) { return student.courseList.filter(function (course) { return course.courseId == courseId; }).length > 0; }));
+            });
+        });
         // Delete a student by student Id
         router["delete"]('/students/', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var id, student, error_1;

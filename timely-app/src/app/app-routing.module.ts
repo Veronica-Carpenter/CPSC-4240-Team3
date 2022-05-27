@@ -13,22 +13,25 @@ import { UpdateStudentsComponent } from './update-students/update-students.compo
 import { UniqueCodeComponent } from './unique-code/unique-code.component';
 import { NewStudentPageComponent } from './new-student-page/new-student-page.component';
 import { LectureAttendancePageComponent } from './lecture-attendance-page/lecture-attendance-page.component';
+import { StudentDetailsPageComponent } from '../app/student-details-page/student-details-page.component';
 
 const routes: Routes = [
   { path: 'welcomePage', component: WelcomePageComponent },
   { path: '', redirectTo: '/welcomePage', pathMatch: 'full' },
-  { path: 'CourseListPage', component: CourseListPage},
-  { path: 'takeAttendance', component: TakeAttendancePageComponent},
-  { path: 'AddStudents/:courseId', component: AddStudentsComponent, pathMatch: 'full'},
-  { path: 'LectureList/:courseId', component: LectureListPageComponent, pathMatch: 'full'},
-  { path: 'DeleteStudents', component: DeleteStudentsComponent},
-  { path: 'ViewStudentList', component: ViewStudentListPageComponent},
-  { path: 'DeletionConfirm', component: DeletionConfirmComponent},
-  { path: 'attendanceSubmittedPage', component: AttendanceSubmittedPageComponent},
-  { path: 'UpdateStudents', component: UpdateStudentsComponent},
-  { path: 'UniqueCode', component: UniqueCodeComponent},
-  { path:  'NewStudentPage', component:NewStudentPageComponent},
-  {path: "LectureList/LectureId/:lectureId", component:LectureAttendancePageComponent}
+  { path: 'CourseListPage', component: CourseListPage },
+  { path: 'takeAttendance', component: TakeAttendancePageComponent },
+  { path: 'AddStudents/:courseId', component: AddStudentsComponent, pathMatch: 'full' },
+  { path: 'LectureList/:courseId', component: LectureListPageComponent, pathMatch: 'full' },
+  { path: 'DeleteStudents', component: DeleteStudentsComponent },
+  { path: 'ViewStudentList/:courseId', component: ViewStudentListPageComponent, pathMatch: 'full' },
+  { path: 'DeletionConfirm', component: DeletionConfirmComponent },
+  { path: 'attendanceSubmittedPage', component: AttendanceSubmittedPageComponent },
+  { path: 'UpdateStudents', component: UpdateStudentsComponent },
+  { path: 'UniqueCode', component: UniqueCodeComponent },
+  { path:  'NewStudentPage', component:NewStudentPageComponent },
+  { path: "LectureList/LectureId/:lectureId", component:LectureAttendancePageComponent },
+  { path: "StudentDetailsPageComponent/StudentId/:studentId", component:StudentDetailsPageComponent }
+
 ];
 
 @NgModule({

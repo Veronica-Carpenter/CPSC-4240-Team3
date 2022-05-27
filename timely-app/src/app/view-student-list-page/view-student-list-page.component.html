@@ -8,23 +8,33 @@
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
 <div class="alert alert-primary" role="alert">
-    <h4 class="text-center">List of Students</h4>
+    <h4 class="text-center">List of Students in {{courseId}} course</h4>
 </div>
 
 <a [routerLink]="['/NewStudentPage']" class="btn btn-lg btn-warning" role="button">Add a new Student to the course</a>
 <!-- Table -->
 <table class="table" style="font-size:10pt;">
     <thead>
+
         <tr>
             <th>Student ID</th>
             <th>Student FirstName</th>
             <th>Student LastName</th>
         </tr>
-        <tr *ngFor="let student of students">
+
+        <tr *ngFor="let student of studentLists">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="radioButton" (click)="radioButtonClick(student.studentId)">
             <th scope="row">{{ student.studentId }} </th>
             <td>{{ student.fname }}</td>
             <td>{{ student.lname }}</td>
         </tr>
+
+        <tr>
+            <div  *ngIf="radioClicked" class = "text-center">
+                <a routerLink = {{link()}} class="btn btn-lg btn-warning" role="button">View Student Details</a>
+            </div>
+        </tr>
+
     </thead>
     <tbody id='tasks'>
     </tbody>
