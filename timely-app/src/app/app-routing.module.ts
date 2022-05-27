@@ -30,6 +30,7 @@ const routes: Routes = [
   { path: 'UpdateStudents', component: UpdateStudentsComponent },
   { path: 'UniqueCode', component: UniqueCodeComponent },
   { path:  'NewStudentPage', component:NewStudentPageComponent },
+  { path:  'NewStudentPage/:courseId', component:NewStudentPageComponent },
   { path: "LectureList/LectureId/:lectureId", component:LectureAttendancePageComponent },
   { path: "StudentDetailsPageComponent/StudentId/:studentId", component:StudentDetailsPageComponent }
 

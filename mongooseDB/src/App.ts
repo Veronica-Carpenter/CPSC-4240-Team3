@@ -197,11 +197,9 @@ class App {
         // map courses to students
         router.post('/mapCourseToStudent', async (req, res) => {
             let { courseId, studentId } = req.body
-            
             let course = await this.Courses.model.findById(courseId)
             let student = await this.Students.model.findById(studentId)
-            
-            student.courseList.push(courseId)
+            student.courseList  = [...student.courseList, course]
             
             try 
             {
@@ -260,6 +258,24 @@ class App {
             console.log('Getting a course with id : ' + id);
             this.Courses.retrieveASingleCourse(res, {id});
         });
+
+         //Get a courseobjId by course id
+        router.get('/courses/obj/:courseId', (req, res) => {
+            var courseId = req.params.courseId;
+            var findResult = this.Courses.model.find({courseId});
+            findResult.exec( (err, courseObjId) => {
+                res.json(courseObjId);
+            });
+        });
+
+        router.route("/find/:courseId").get((req, res) => {
+            var courseId = req.params.courseId;
+            var findResult = this.Students.model.find({}).populate('courseList')
+            findResult.exec( (err, studentsList) => {
+                res.json(studentsList.filter((student) => student.courseList.filter((course) => course.courseId == courseId).length > 0))
+            });
+        });
+
 
          //Add a new lecture
          router.post('/lectures', (req, res) => {

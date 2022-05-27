@@ -13,8 +13,8 @@ export class CourseListPage implements OnInit {
   }
   ngOnInit(): void {
     this.apiService.getAllCourses().toPromise().then((result : any) => {
-      this.courses = result
-      console.log(result)
+      this.courses = result;
+      console.log(this.courses);
     })
   }
 }

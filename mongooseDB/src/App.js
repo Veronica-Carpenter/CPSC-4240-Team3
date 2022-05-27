@@ -35,6 +35,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 exports.__esModule = true;
 exports.App = void 0;
 var express = require("express");
@@ -285,7 +294,7 @@ var App = /** @class */ (function () {
                         return [4 /*yield*/, this.Students.model.findById(studentId)];
                     case 2:
                         student = _b.sent();
-                        student.courseList.push(courseId);
+                        student.courseList = __spreadArray(__spreadArray([], student.courseList, true), [course], false);
                         _b.label = 3;
                     case 3:
                         _b.trys.push([3, 5, , 6]);
@@ -362,6 +371,21 @@ var App = /** @class */ (function () {
             var id = req.params.id;
             console.log('Getting a course with id : ' + id);
             _this.Courses.retrieveASingleCourse(res, { id: id });
+        });
+        //Get a courseobjId by course id
+        router.get('/courses/obj/:courseId', function (req, res) {
+            var courseId = req.params.courseId;
+            var findResult = _this.Courses.model.find({ courseId: courseId });
+            findResult.exec(function (err, courseObjId) {
+                res.json(courseObjId);
+            });
+        });
+        router.route("/find/:courseId").get(function (req, res) {
+            var courseId = req.params.courseId;
+            var findResult = _this.Students.model.find({}).populate('courseList');
+            findResult.exec(function (err, studentsList) {
+                res.json(studentsList.filter(function (student) { return student.courseList.filter(function (course) { return course.courseId == courseId; }).length > 0; }));
+            });
         });
         //Add a new lecture
         router.post('/lectures', function (req, res) {

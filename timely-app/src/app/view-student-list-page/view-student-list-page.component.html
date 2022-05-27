@@ -11,7 +11,7 @@
     <h4 class="text-center">List of Students in {{courseId}} course</h4>
 </div>
 
-<a [routerLink]="['/NewStudentPage']" class="btn btn-lg btn-warning" role="button">Add a new Student to the course</a>
+<a [routerLink]="['/NewStudentPage', courseId]" class="btn btn-lg btn-warning" role="button">Add a new Student to the course</a>
 <!-- Table -->
 <table class="table" style="font-size:10pt;">
     <thead>

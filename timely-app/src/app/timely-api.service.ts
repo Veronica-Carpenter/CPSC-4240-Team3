@@ -6,6 +6,7 @@ import { Student } from './student';
 import { Course } from './course';
 import { Attendance } from './attendance';
 import {HttpHeaders} from '@angular/common/http';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -52,5 +53,13 @@ export class TimelyAPIService {
 
   createAStudent(studentData: any) {
     return this.http.post<Student>(this.hostURL + 'students', studentData);
+  }
+
+  courseObjIdByCourseId(courseId: number) {
+    return this.http.get<Course>(this.hostURL + 'courses/obj/' + courseId);
+  }
+
+  mapCourseToStudent(content: any) {
+    return this.http.post(this.hostURL + 'mapCourseToStudent' , content);
   }
 }
