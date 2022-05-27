@@ -24,6 +24,7 @@ const routes: Routes = [
   { path: 'LectureList/:courseId', component: LectureListPageComponent, pathMatch: 'full' },
   { path: 'DeleteStudents', component: DeleteStudentsComponent },
   { path: 'ViewStudentList/:courseId', component: ViewStudentListPageComponent, pathMatch: 'full' },
+  { path: 'ViewStudentList', component: ViewStudentListPageComponent },
   { path: 'DeletionConfirm', component: DeletionConfirmComponent },
   { path: 'attendanceSubmittedPage', component: AttendanceSubmittedPageComponent },
   { path: 'UpdateStudents', component: UpdateStudentsComponent },
