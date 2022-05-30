@@ -59,6 +59,11 @@ export class TakeAttendancePageComponent implements OnInit {
     window.location.reload();
   }
 
+  formatDate (date: string){
+    let tempDate = new Date(date);
+      return tempDate.toDateString();
+  }
+
   submitButton(){ 
     let studentObjId :any ; 
     let attendanceObjId;
@@ -120,12 +125,13 @@ export class TakeAttendancePageComponent implements OnInit {
                 "Student": this.studentResult,
                 "date": takenDate,
                 "lectureId": lectureId,
-                "status": "ontime"
+                "status": "Present"
               }
 
               //Call post API to add attendance record
               this.apiService.addAttendanceRecord(this.attendanceRecord).subscribe((result: any) =>{
                 attendanceObjId = result?._id;
+                this.attendanceResult = result;
                 console.log("Attendance Obj ID: "+ attendanceObjId);
                 console.log("successfully add attendance");
                 this.mapAttendancetoStudentContent = {

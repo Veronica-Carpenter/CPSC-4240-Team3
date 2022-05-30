@@ -44,6 +44,39 @@
 
     <div *ngIf="successfulMessageDisplay">
         <h4>Succesfully Submitted!</h4>
+        <h6>Attendance Details: </h6>
+        <div class="row row-center">
+            <div class="col-sm-4">
+                <p>Lecture ID: </p>
+            </div>
+            <div class="col-sm-8">
+                <p>{{attendanceResult.lectureId}}</p>
+            </div>
+        </div>
+        <div class="row row-center">
+            <div class="col-sm-4">
+                <p>Student ID: </p>
+            </div>
+            <div class="col-sm-8">
+                <p>{{studentID}}</p>
+            </div>
+        </div>
+        <div class="row row-center">
+            <div class="col-sm-4">
+                <p>Date Attend: </p>
+            </div>
+            <div class="col-sm-8">
+                <p>{{formatDate(attendanceResult.date)}}</p>
+            </div>
+        </div>
+        <div class="row row-center">
+            <div class="col-sm-4">
+                <p>Status: </p>
+            </div>
+            <div class="col-sm-8">
+                <p>{{attendanceResult.status}}</p>
+            </div>
+        </div>
         <button class="row backButton btn btn-md btn-warning" (click)="reloadPage()" >Back to take-attendance page</button>
     </div>
     
@@ -52,9 +85,6 @@
         <button class="row backButton btn btn-md btn-warning" (click)="reloadPage()" >Back to take-attendance page</button>
     </div>
     
-
-
-      
 </div>
 
 
