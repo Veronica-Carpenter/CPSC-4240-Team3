@@ -82,8 +82,13 @@ class lectureModel {
         });
     }
 
-    public retrieveLecturesByDate(res, date) {
-        var findResult = this.model.find({date: {$gte: new Date (new Date(date)).setHours(0,0,0) , $lt: new Date(new Date(date).setHours(23,59,59))}})
+    public retrieveLecturesByDate(res, data) {
+        var date = data[0];
+        var courseId = data[1];
+        console.log("date" +date);
+        console.log("courseId " + courseId);
+        var findResult = this.model.find({date: {$gte: new Date (new Date(date)).setHours(0,0,0) , $lt: new Date(new Date(date).setHours(23,59,59))},
+                                          courseId: courseId});
         findResult.exec( (err, lectureArray) => {
             if (err) {
                 res.status(500).send({error: 'enter a valid date'})

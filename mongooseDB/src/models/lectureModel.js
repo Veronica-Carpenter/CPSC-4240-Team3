@@ -71,13 +71,16 @@ var lectureModel = /** @class */ (function () {
             res.json(lectureArray);
         });
     };
-    lectureModel.prototype.retrieveLecturesByDate = function (res, date) {
-        //  console.log("date2: " , new Date(date));
-        //console.log("type " , typeof(new Date(date)));
-        var findResult = this.model.find({ date: { $gte: new Date(new Date(date)).setHours(0, 0, 0), $lt: new Date(new Date(date).setHours(23, 59, 59)) } });
+    lectureModel.prototype.retrieveLecturesByDate = function (res, data) {
+        var date = data[0];
+        var courseId = data[1];
+        console.log("date" + date);
+        console.log("courseId " + courseId);
+        var findResult = this.model.find({ date: { $gte: new Date(new Date(date)).setHours(0, 0, 0), $lt: new Date(new Date(date).setHours(23, 59, 59)) },
+            courseId: courseId });
         findResult.exec(function (err, lectureArray) {
             if (err) {
-                res.status(500).send({ error: 'enter a valid course Id' });
+                res.status(500).send({ error: 'enter a valid date' });
             }
             res.json(lectureArray);
         });

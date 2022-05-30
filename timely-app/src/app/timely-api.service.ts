@@ -62,4 +62,8 @@ export class TimelyAPIService {
   mapCourseToStudent(content: any) {
     return this.http.post(this.hostURL + 'mapCourseToStudent' , content);
   }
+
+  getLectureByDate(date: string, courseId: number){
+    return this.http.get<LectureClass>(this.hostURL + 'lectures/date/' + date + '/courseId/' +courseId);
+  }
 }

@@ -75,11 +75,10 @@ var studentModel = /** @class */ (function () {
         });
     };
     studentModel.prototype.retrieveStudentByfname = function (res, fName) {
-        console.log("date2: ", fName);
         var findResult = this.model.find({ fname: fName });
         findResult.exec(function (err, lectureArray) {
             if (err) {
-                res.status(500).send({ error: 'enter a valid course Id' });
+                res.status(500).send({ error: 'enter a valid student first name' });
             }
             res.json(lectureArray);
         });

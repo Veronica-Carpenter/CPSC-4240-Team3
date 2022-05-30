@@ -41,17 +41,33 @@ export class LectureListPageComponent implements OnInit {
   generateCodeClick(){
     //The today date 
     let todayDate = new Date();
-
+    console.log('today date: ' + todayDate)
     let lectureObject={
       "courseId" :this.courseId,
       "date": todayDate
     }
+   let todayString = todayDate.toUTCString(); 
+   console.log("today string: " + todayString);
     
-    //Call POST API to add new lecture 
-    this.apiService.addLecture(lectureObject).subscribe((result:any)=>{
-      console.log("Lecture Result: "+ JSON.stringify(result));
-      this.reloadPage();
+    //Validating so that no add new lecture with the same current date twice
+    this.apiService.getLectureByDate(todayString, this.courseId).subscribe((result: any)=>{
+      
+      if (result.length == 0){
+        console.log("yes");
+
+        //Call POST API to add new lecture 
+        this.apiService.addLecture(lectureObject).subscribe((result:any)=>{
+        console.log("Lecture Result: "+ JSON.stringify(result));
+        this.reloadPage();
+        });
+      }
+      else{
+        console.log("There exists a lecture with today's date");
+        console.log("Exists: " + JSON.stringify(result));
+      }
+      
     });
+    
 
   }
 

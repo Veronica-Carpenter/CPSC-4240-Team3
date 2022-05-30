@@ -414,14 +414,17 @@ var App = /** @class */ (function () {
         //Get a student by first name
         router.get('/students/studentFName/:fName', function (req, res) {
             var fName = req.params.fName;
-            console.log('Getting a lecture with date : ' + fName);
+            console.log('Getting a student with first name : ' + fName);
             _this.Students.retrieveStudentByfname(res, fName);
         });
         //Get a lecture by date
-        router.get('/lectures/date/:date', function (req, res) {
+        router.get('/lectures/date/:date/courseId/:courseId', function (req, res) {
             var date = req.params.date;
+            var courseId = req.params.courseId;
             console.log('Getting a lecture with date : ' + date);
-            _this.Lectures.retrieveLecturesByDate(res, date);
+            var temp = [date, courseId];
+            console.log("temp" + temp);
+            _this.Lectures.retrieveLecturesByDate(res, [date, courseId]);
         });
         //Get a lecture by secure code
         router.get('/lectures/code/:secureCode', function (req, res) {

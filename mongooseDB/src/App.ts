@@ -313,10 +313,13 @@ class App {
         });
 
         //Get a lecture by date
-        router.get('/lectures/date/:date', (req, res) => {
+        router.get('/lectures/date/:date/courseId/:courseId', (req, res) => {
             var date = req.params.date;
+            var courseId = req.params.courseId;
             console.log('Getting a lecture with date : ' + date);
-            this.Lectures.retrieveLecturesByDate(res, date);
+            var temp = [date, courseId];
+            console.log("temp" +temp)
+            this.Lectures.retrieveLecturesByDate(res, [date, courseId]);
         });
 
         //Get a lecture by secure code
