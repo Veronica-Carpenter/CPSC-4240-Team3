@@ -85,5 +85,16 @@ class studentModel {
             res.json(userArray);
         });
     }
+
+    public retrieveStudentByfname(res, fName) {
+        var findResult = this.model.find({fname: fName})
+        findResult.exec( (err, lectureArray) => {
+            if (err) {
+                res.status(500).send({error: 'enter a valid student first name'})
+            }
+            res.json(lectureArray);
+        });
+    }
+
 }
 export {studentModel};

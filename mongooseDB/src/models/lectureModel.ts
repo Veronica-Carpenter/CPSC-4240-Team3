@@ -76,10 +76,22 @@ class lectureModel {
         var findResult = this.model.find({courseId})
         findResult.exec( (err, lectureArray) => {
             if (err) {
-                res.status(500).send({error: 'enter a valid secure code'})
+                res.status(500).send({error: 'enter a valid course Id'})
             }
             res.json(lectureArray);
         });
     }
+
+    public retrieveLecturesByDate(res, date) {
+        var findResult = this.model.find({date: {$gte: new Date (new Date(date)).setHours(0,0,0) , $lt: new Date(new Date(date).setHours(23,59,59))}})
+        findResult.exec( (err, lectureArray) => {
+            if (err) {
+                res.status(500).send({error: 'enter a valid date'})
+            }
+            res.json(lectureArray);
+        });
+    }
+
+    
 }
 export {lectureModel};

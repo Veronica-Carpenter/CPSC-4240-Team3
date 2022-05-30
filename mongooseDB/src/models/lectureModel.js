@@ -66,7 +66,18 @@ var lectureModel = /** @class */ (function () {
         var findResult = this.model.find({ courseId: courseId });
         findResult.exec(function (err, lectureArray) {
             if (err) {
-                res.status(500).send({ error: 'enter a valid secure code' });
+                res.status(500).send({ error: 'enter a valid course Id' });
+            }
+            res.json(lectureArray);
+        });
+    };
+    lectureModel.prototype.retrieveLecturesByDate = function (res, date) {
+        //  console.log("date2: " , new Date(date));
+        //console.log("type " , typeof(new Date(date)));
+        var findResult = this.model.find({ date: { $gte: new Date(new Date(date)).setHours(0, 0, 0), $lt: new Date(new Date(date).setHours(23, 59, 59)) } });
+        findResult.exec(function (err, lectureArray) {
+            if (err) {
+                res.status(500).send({ error: 'enter a valid course Id' });
             }
             res.json(lectureArray);
         });

@@ -304,6 +304,21 @@ class App {
             this.Lectures.retrieveASingleLecture(res, {id});
         });
 
+
+        //Get a student by first name
+        router.get('/students/studentFName/:fName', (req, res) => {
+            var fName = req.params.fName;
+            console.log('Getting a student with first name : ' + fName);
+            this.Students.retrieveStudentByfname(res, fName);
+        });
+
+        //Get a lecture by date
+        router.get('/lectures/date/:date', (req, res) => {
+            var date = req.params.date;
+            console.log('Getting a lecture with date : ' + date);
+            this.Lectures.retrieveLecturesByDate(res, date);
+        });
+
         //Get a lecture by secure code
         router.get('/lectures/code/:secureCode', (req, res) => {
             var code = req.params.secureCode;

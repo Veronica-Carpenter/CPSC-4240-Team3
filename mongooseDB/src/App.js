@@ -411,6 +411,18 @@ var App = /** @class */ (function () {
             console.log('Getting a lecture with id : ' + id);
             _this.Lectures.retrieveASingleLecture(res, { id: id });
         });
+        //Get a student by first name
+        router.get('/students/studentFName/:fName', function (req, res) {
+            var fName = req.params.fName;
+            console.log('Getting a lecture with date : ' + fName);
+            _this.Students.retrieveStudentByfname(res, fName);
+        });
+        //Get a lecture by date
+        router.get('/lectures/date/:date', function (req, res) {
+            var date = req.params.date;
+            console.log('Getting a lecture with date : ' + date);
+            _this.Lectures.retrieveLecturesByDate(res, date);
+        });
         //Get a lecture by secure code
         router.get('/lectures/code/:secureCode', function (req, res) {
             var code = req.params.secureCode;
