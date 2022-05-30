@@ -38,3 +38,37 @@ To load scripts:
 
 To test server, try the following URL on the browser, while the server is running:
 * http://localhost:8080/
+
+
+STEPS TO ADD OAUTH SSO TO PROJECT
+
+Install passport package
+    npm install passport
+
+Install google auth
+    npm install passport-google-oauth
+
+For Google Oauth, open Google cloud platform and create a new Project
+    https://console.developers.google.com/apis/dashboard 
+
+Enable APIs and Services by adding Google+ API
+    Select Enable on the Google+ API
+
+Add credentials to your project from the dropdown, select the OAuth Client ID
+    Create your .env file to add your creds
+
+Configure the consent screen with the information about the web application
+
+Select the Web application.Give the 2 URLs http and https in authorized redirected URIs
+    http://localhost:8080/api/account/google
+
+Then run below commands:
+npm install cookie-session 
+npm install passport 
+npm install passport-google-oauth20 --save
+
+OR 
+
+npm install (to load all the dependencies)
+
+

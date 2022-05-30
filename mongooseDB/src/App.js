@@ -53,12 +53,19 @@ var professorModel_1 = require("./models/professorModel");
 var lectureModel_1 = require("./models/lectureModel");
 var studentModel_1 = require("./models/studentModel");
 var attendanceModel_1 = require("./models/attendanceModel");
+var cookieSession = require('cookie-session');
+var GooglePassport_1 = require("./GooglePassport");
+var session = require('express-session');
+var passport = require("passport");
+var cors = require('cors');
+var MongoStore = require('connect-mongo');
 // setting up endpoints
 var App = /** @class */ (function () {
     function App() {
         this.expressApp = express();
         this.middleware();
         this.routes();
+        this.googlePassportObj = new GooglePassport_1["default"]();
         this.Courses = new courseModel_1.courseModel();
         this.Professors = new professorModel_1.professorModel();
         this.Lectures = new lectureModel_1.lectureModel();
@@ -66,6 +73,17 @@ var App = /** @class */ (function () {
         this.Attendances = new attendanceModel_1.attendanceModel();
     }
     App.prototype.middleware = function () {
+        this.expressApp.use(cors());
+        // required for passport session
+        this.expressApp.use(session({
+            secret: 'my angular app',
+            saveUninitialized: true,
+            resave: true,
+            store: MongoStore.create({
+                mongoUrl: "mongodb://127.0.0.1:27017/attendance-tracker",
+                collection: 'sessions'
+            })
+        }));
         this.expressApp.use(bodyParser.json());
         this.expressApp.use(bodyParser.urlencoded({ extended: false }));
         //This will allow CORS permission for localhost:4200
@@ -74,10 +92,30 @@ var App = /** @class */ (function () {
             res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
             next();
         });
+        this.expressApp.use(passport.initialize());
+        this.expressApp.use(passport.session());
+        // this.expressApp.use(cookieSession({
+        //     name: 'google-auth-session',
+        //     keys: ['key1', 'key2']
+        // }))
     };
     App.prototype.routes = function () {
         var _this = this;
         var router = express.Router();
+        router.get('/auth', passport.authenticate('google', { scope: ['profile', 'email'] }));
+        router.get('/auth/error', function (req, res) { return res.send('Unknown Error'); });
+        router.get('/api/account/google', passport.authenticate('google', { failureRedirect: '/auth/error' }), function (req, res) {
+            var responseHTML = '<html><head><title>Main</title></head><body></body><script>res = %value%; window.opener.postMessage(res, "*");window.close();</script></html>';
+            responseHTML = responseHTML.replace('%value%', JSON.stringify({
+                user: req.user
+            }));
+            res.status(200).send(responseHTML);
+        });
+        //   router.get('/logout', (req, res) => {
+        //     session = null,
+        //     req.logout();
+        //     res.send('logged out');
+        //   });
         //create professor
         router.post('/professors', function (req, res) {
             var professor = req.body;
@@ -366,6 +404,8 @@ var App = /** @class */ (function () {
         });
         //Get all courses
         router.get('/courses', function (req, res) {
+            console.log("authenticating..");
+            console.log(req.isAuthenticated());
             _this.Courses.retrieveCourseLists(res);
         });
         // Get a course by id

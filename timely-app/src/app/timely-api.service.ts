@@ -19,6 +19,10 @@ export class TimelyAPIService {
     return this.http.get<LectureClass>(this.hostURL + 'lectures/code/' + code);
   }
 
+  authentication(){
+    return this.http.get(this.hostURL + 'auth');
+  }
+
   getStudentByStudentId(studentId: number){
     return this.http.get<StudentClass>(this.hostURL + 'students/studentId/' + studentId);
   }
@@ -38,7 +42,9 @@ export class TimelyAPIService {
     return this.http.get<Student>(this.hostURL + 'students');
   }
   getAllCourses() {
-    return this.http.get<Course>(this.hostURL + 'courses');
+    let headers: HttpHeaders = new HttpHeaders();
+    headers.append('Authorization', 'ya29.a0ARrdaM-uF-JExrIVbCJeX4sArxKU_Ww1z6IGQg4wWxcdPmFm1z67yV7NdKixXUW2fsTW2PxstW7eyWFq_OebuzQLl7TFNY0bzOApYQ8pwd7zFG5VGcry4sYNAOV73H-1Ba_VxLXWRWJ4d_JXyImuPhZstnMr')
+    return this.http.get<Course>(this.hostURL + 'courses', {headers});
   }
   getAllAttendance() {
     return this.http.get<Attendance>(this.hostURL + "attendances")

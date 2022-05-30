@@ -76,7 +76,7 @@ class studentModel {
     }
 
     public retrieveASingleStudenteByStudentId(res:any, filter: Object) {
-        var findResult = this.model.findOne(filter);
+        var findResult = this.model.findOne(filter).populate("attendanceList").populate("courseList");
         findResult.exec( (err, userArray) => {
             if (err) {
                 res.status(500).send({error: 'enter a valid student Id'})

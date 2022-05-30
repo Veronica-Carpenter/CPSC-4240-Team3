@@ -65,7 +65,7 @@ var studentModel = /** @class */ (function () {
         });
     };
     studentModel.prototype.retrieveASingleStudenteByStudentId = function (res, filter) {
-        var findResult = this.model.findOne(filter);
+        var findResult = this.model.findOne(filter).populate("attendanceList").populate("courseList");
         findResult.exec(function (err, userArray) {
             if (err) {
                 res.status(500).send({ error: 'enter a valid student Id' });

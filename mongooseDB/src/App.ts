@@ -5,6 +5,14 @@ import { professorModel } from './models/professorModel';
 import { lectureModel } from './models/lectureModel';
 import { studentModel } from './models/studentModel';
 import { attendanceModel } from './models/attendanceModel';
+let cookieSession = require('cookie-session')
+import GooglePassportObj from './GooglePassport';
+var session = require('express-session');
+import * as passport from 'passport';
+let cors = require('cors');
+import {AuthMiddleWare} from "./middleware-auth";
+const MongoStore = require('connect-mongo');
+
 
 // setting up endpoints
 
@@ -15,12 +23,13 @@ class App {
     public Lectures: lectureModel;
     public Students: studentModel;
     public Attendances: attendanceModel;
-
+    public googlePassportObj: GooglePassportObj;
 
     constructor() {
         this.expressApp = express();
         this.middleware();
         this.routes();
+        this.googlePassportObj = new GooglePassportObj();
 
         this.Courses = new courseModel();
         this.Professors = new professorModel();
@@ -30,6 +39,19 @@ class App {
     }
 
     private middleware(): void {
+        this.expressApp.use(cors());
+
+        // required for passport session
+        this.expressApp.use(session({
+        secret: 'my angular app',
+        saveUninitialized: true,
+        resave: true,
+        store: MongoStore.create({
+            mongoUrl: "mongodb://127.0.0.1:27017/attendance-tracker",
+            collection: 'sessions'
+            })
+        }));
+
         this.expressApp.use(bodyParser.json());
         this.expressApp.use(bodyParser.urlencoded({ extended: false }));
 
@@ -39,13 +61,39 @@ class App {
             res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
             next();
         });
+
+        this.expressApp.use(passport.initialize());
+        this.expressApp.use(passport.session());
+        // this.expressApp.use(cookieSession({
+        //     name: 'google-auth-session',
+        //     keys: ['key1', 'key2']
+        // }))
     }
 
     private routes(): void {
         let router = express.Router();
+
+        router.get('/auth', passport.authenticate('google', { scope: ['profile', 'email'] }));
+        router.get('/auth/error', (req, res) => res.send('Unknown Error'));
+        router.get('/api/account/google', passport.authenticate('google', { failureRedirect: '/auth/error' }),
+        function(req, res) {
+            var responseHTML = '<html><head><title>Main</title></head><body></body><script>res = %value%; window.opener.postMessage(res, "*");window.close();</script></html>'
+            responseHTML = responseHTML.replace('%value%', JSON.stringify({
+                user: req.user
+            }));
+            res.status(200).send(responseHTML);
+        }
+        );
         
-         //create professor
-         router.post('/professors', (req, res) => {
+
+        //   router.get('/logout', (req, res) => {
+        //     session = null,
+        //     req.logout();
+        //     res.send('logged out');
+        //   });
+
+        //create professor
+        router.post('/professors', (req, res) => {
             var professor = req.body
             let professorList = new this.Professors.model(professor);
             professorList.save().then(() => {
@@ -235,6 +283,7 @@ class App {
                 res.status(400).send(e);
             }
         });
+
         // Add a new course
         router.post('/courses', (req, res) => {
             var course = req.body
@@ -251,6 +300,8 @@ class App {
 
         //Get all courses
         router.get('/courses', (req, res) => {
+            console.log("authenticating..")
+            console.log(req.isAuthenticated())
             this.Courses.retrieveCourseLists(res);
         });
 
@@ -261,7 +312,7 @@ class App {
             this.Courses.retrieveASingleCourse(res, {id});
         });
 
-         //Get a courseobjId by course id
+        //Get a courseobjId by course id
         router.get('/courses/obj/:courseId', (req, res) => {
             var courseId = req.params.courseId;
             var findResult = this.Courses.model.find({courseId});
@@ -277,7 +328,6 @@ class App {
                 res.json(studentsList.filter((student) => student.courseList.filter((course) => course.courseId == courseId).length > 0))
             });
         });
-
 
          //Add a new lecture
          router.post('/lectures', (req, res) => {
@@ -328,6 +378,7 @@ class App {
             console.log('Getting a lecture with secure code: ' + code);
             this.Lectures.retrieveASingleLectureByCode(res, {secureCode: code});
         });
+
         // Get lectures by course Id
         router.get('/lectures/course/:courseId', (req, res) => {
             var courseId = req.params.courseId;
@@ -360,7 +411,7 @@ class App {
             console.log('Getting a attendance with id : ' + id);
             this.Attendances.retrieveASingleAttendance(res, {id});
         });
-
+        
         this.expressApp.use('/', router);
         this.expressApp.use('/', express.static("../public"));
     }

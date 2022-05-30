@@ -19,6 +19,7 @@ import { LectureListPageComponent } from './lecture-list-page/lecture-list-page.
 import { LectureAttendancePageComponent } from './lecture-attendance-page/lecture-attendance-page.component';
 import { ViewStudentListPageComponent } from './view-student-list-page/view-student-list-page.component';
 import { StudentDetailsPageComponent } from './student-details-page/student-details-page.component';
+import { NewWelcomePageComponent } from './new-welcome-page/new-welcome-page.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { StudentDetailsPageComponent } from './student-details-page/student-deta
     LectureListPageComponent,
     LectureAttendancePageComponent,
     ViewStudentListPageComponent,
-    StudentDetailsPageComponent
+    StudentDetailsPageComponent,
+    NewWelcomePageComponent
   ],
   imports: [
     BrowserModule,
