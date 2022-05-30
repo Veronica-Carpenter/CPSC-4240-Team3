@@ -21,6 +21,7 @@ export class NewStudentPageComponent implements OnInit {
 
   formDisplay = true;
   successfulMessageDisplay = false;
+  studentIdExistsMessageDisplay = false;
   invalidStudentIdMessageDisplay = false;
   invalidStudentnameMessageDisplay = false;
   invalidStudentemailMessageDisplay = false;
@@ -112,33 +113,73 @@ export class NewStudentPageComponent implements OnInit {
       "lname": this.studentlname,
       "email": this.studentemail
     }
-   
-    // Post API to create a new student 
-    this.apiService.createAStudent(this.studentData).subscribe((result: any) => {
-      studentObjId = result?._id;
-      console.log('student object id: ' + studentObjId);
-      this.formDisplay = false;
-      this.successfulMessageDisplay = true;
 
-      // call course model to get course object id on the basis of courseId
-      this.apiService.courseObjIdByCourseId(this.courseId).subscribe((result: any) => {
-        console.log(result);
-        courseObjId = result[0]?._id;
-        console.log('course object id: ' + courseObjId);
+    // validating if student exists by calling get student by studentID API
+    this.apiService.getStudentByStudentId(this.studentID).subscribe((result: any) => {
 
-        this.mapCourseToStudentObject = {
-          "courseId" : courseObjId,
-          "studentId" : studentObjId
-        }
+      this.studentResult = result;
+      console.log(this.studentResult);
 
-        console.log(this.mapCourseToStudentObject);
+      // if student exists already
+      if (result != null) {
+        studentObjId = result?._id;
 
-        // Post API to map newly created student to the course
-        this.apiService.mapCourseToStudent(this.mapCourseToStudentObject).subscribe((result: any) => {
-          console.log("Mapped succesfully");
+        // call course model to get course object id on the basis of courseId
+        this.apiService.courseObjIdByCourseId(this.courseId).subscribe((result: any) => {
+          console.log(result);
+          courseObjId = result[0]?._id;
+
+          console.log('student object id: ' + studentObjId);
+          console.log('course object id: ' + courseObjId);
+  
+          this.mapCourseToStudentObject = {
+            "courseId" : courseObjId,
+            "studentId" : studentObjId
+          }
+  
+          console.log(this.mapCourseToStudentObject);
+  
+          // Post API to map newly created student to the course
+          this.apiService.mapCourseToStudent(this.mapCourseToStudentObject).subscribe((result: any) => {
+            console.log("Mapped succesfully");
+            this.formDisplay = false;
+            this.successfulMessageDisplay = true;
+          });
+        });
+      }
+
+      // if student doesn't exist already
+
+      else {
+        
+        // Post API to create a new student 
+      this.apiService.createAStudent(this.studentData).subscribe((result: any) => {
+        studentObjId = result?._id;
+        console.log('student object id: ' + studentObjId);
+        this.formDisplay = false;
+        this.successfulMessageDisplay = true;
+
+        // call course model to get course object id on the basis of courseId
+        this.apiService.courseObjIdByCourseId(this.courseId).subscribe((result: any) => {
+          console.log(result);
+          courseObjId = result[0]?._id;
+          console.log('course object id: ' + courseObjId);
+
+          this.mapCourseToStudentObject = {
+            "courseId" : courseObjId,
+            "studentId" : studentObjId
+          }
+
+          console.log(this.mapCourseToStudentObject);
+
+          // Post API to map newly created student to the course
+          this.apiService.mapCourseToStudent(this.mapCourseToStudentObject).subscribe((result: any) => {
+            console.log("Mapped succesfully");
+          });
         });
       });
-    });
+      }
+    })
   }
 }
 
