@@ -7,3 +7,4 @@ node_modules/
 docs/
 db/
 .DS_Store
+.env
