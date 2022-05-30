@@ -1,10 +1,21 @@
 <div class="container theme-showcase d-flex justify-content-center">
-	<h1>Our Attendance Tracker for {{fullName.length > 0 ? fullName : ""}}</h1>
+	<h1>Our Attendance Tracker </h1>
 </div>
 
-<div class="container theme-showcase d-flex justify-content-center">
-    <button (click)="Login()" class="row submitButton btn btn-md btn-warning">
-        Login
-    </button>
-    <!-- <a [routerLink]="" (click)="Login()">Go to page</a> -->
+<div class = "row row-center">
+    <div *ngIf = "loggedIn">
+        <p class="successMessage">Logged in as {{fullName.length > 0 ? fullName : ""}}</p>
+        <p class="successMessage">userId: {{loggedInUser}}</p>
+        <p>Email: {{userEmail}}</p>
+        <a routerLink = {{link()}} class="btn btn-lg btn-warning" role="button">Next</a>
+    </div>
+</div>
+
+<div *ngIf = "formDisplay">
+    <div class="container theme-showcase d-flex justify-content-center">
+        <button (click)="Login()" class="row submitButton btn btn-md btn-warning">
+            Login
+        </button>
+        <!-- <a [routerLink]="" (click)="Login()">Go to page</a> -->
+    </div>
 </div>

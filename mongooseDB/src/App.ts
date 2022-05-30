@@ -5,13 +5,13 @@ import { professorModel } from './models/professorModel';
 import { lectureModel } from './models/lectureModel';
 import { studentModel } from './models/studentModel';
 import { attendanceModel } from './models/attendanceModel';
-let cookieSession = require('cookie-session')
 import GooglePassportObj from './GooglePassport';
-var session = require('express-session');
+var expressSession = require('express-session');
 import * as passport from 'passport';
 let cors = require('cors');
 import {AuthMiddleWare} from "./middleware-auth";
 const MongoStore = require('connect-mongo');
+let cookieParser = require('cookie-parser');
 
 
 // setting up endpoints
@@ -42,8 +42,8 @@ class App {
         this.expressApp.use(cors());
 
         // required for passport session
-        this.expressApp.use(session({
-        secret: 'my angular app',
+        this.expressApp.use(expressSession({
+        secret: 'My Express App',
         saveUninitialized: true,
         resave: true,
         store: MongoStore.create({
