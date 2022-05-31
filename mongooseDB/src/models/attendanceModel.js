@@ -43,6 +43,19 @@ var attendanceModel = /** @class */ (function () {
             res.json(userArray);
         });
     };
+    attendanceModel.prototype.retrieveAttendancesByLectureIdAndStudentId = function (res, data) {
+        var lectureId = data[0];
+        var studentId = data[1];
+        console.log("Lecture id: " + lectureId);
+        console.log("student object id: " + studentId);
+        var findResult = this.model.find({ lectureId: lectureId, Student: { _id: studentId } });
+        findResult.exec(function (err, lectureArray) {
+            if (err) {
+                res.status(500).send({ error: 'enter a valid student id' });
+            }
+            res.json(lectureArray);
+        });
+    };
     return attendanceModel;
 }());
 exports.attendanceModel = attendanceModel;

@@ -373,7 +373,7 @@ class App {
             this.Students.retrieveStudentByfname(res, fName);
         });
 
-        //Get a lecture by date
+        //Get a lecture by date and courseId
         router.get('/lectures/date/:date/courseId/:courseId', (req, res) => {
             var date = req.params.date;
             var courseId = req.params.courseId;
@@ -395,8 +395,6 @@ class App {
             var courseId = req.params.courseId;
             this.Lectures.retrieveLecturesByCourse(res, {courseId : courseId});
         })
-        
-        // get lectuers for a course and student id
 
         //Add a new attendance record 
         router.post('/attendances', (req, res) => {
@@ -421,6 +419,16 @@ class App {
             var id = req.params.id;
             console.log('Getting a attendance with id : ' + id);
             this.Attendances.retrieveASingleAttendance(res, {id});
+        });
+
+        //Get an attendance by lecture id and student object id
+        router.get('/attendances/lecture/:lectureId/student/:studentObjId', (req, res) => {
+            var lectureId = req.params.lectureId;
+            var studentObjId = req.params.studentObjId;
+            console.log('Getting a lecture with lecture id : ' + lectureId);
+            var temp = [lectureId, studentObjId];
+            console.log("temp" +temp)
+            this.Attendances.retrieveAttendancesByLectureIdAndStudentId(res, [lectureId, studentObjId]);
         });
         
         this.expressApp.use('/', router);

@@ -466,7 +466,7 @@ var App = /** @class */ (function () {
             console.log('Getting a student with first name : ' + fName);
             _this.Students.retrieveStudentByfname(res, fName);
         });
-        //Get a lecture by date
+        //Get a lecture by date and courseId
         router.get('/lectures/date/:date/courseId/:courseId', function (req, res) {
             var date = req.params.date;
             var courseId = req.params.courseId;
@@ -486,7 +486,6 @@ var App = /** @class */ (function () {
             var courseId = req.params.courseId;
             _this.Lectures.retrieveLecturesByCourse(res, { courseId: courseId });
         });
-        // get lectuers for a course and student id
         //Add a new attendance record 
         router.post('/attendances', function (req, res) {
             var attendance = req.body;
@@ -508,6 +507,15 @@ var App = /** @class */ (function () {
             var id = req.params.id;
             console.log('Getting a attendance with id : ' + id);
             _this.Attendances.retrieveASingleAttendance(res, { id: id });
+        });
+        //Get an attendance by lecture id and student object id
+        router.get('/attendances/lecture/:lectureId/student/:studentObjId', function (req, res) {
+            var lectureId = req.params.lectureId;
+            var studentObjId = req.params.studentObjId;
+            console.log('Getting a lecture with lecture id : ' + lectureId);
+            var temp = [lectureId, studentObjId];
+            console.log("temp" + temp);
+            _this.Attendances.retrieveAttendancesByLectureIdAndStudentId(res, [lectureId, studentObjId]);
         });
         this.expressApp.use('/', router);
         this.expressApp.use('/', express.static("../public"));
