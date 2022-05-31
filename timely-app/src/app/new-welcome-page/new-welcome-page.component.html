@@ -5,9 +5,9 @@
 <div class = "row row-center">
     <div *ngIf = "loggedIn">
         <p class="successMessage">Logged in as {{fullName.length > 0 ? fullName : ""}}</p>
-        <p class="successMessage">userId: {{loggedInUser}}</p>
+        <p class="successMessage">userId: {{loggedInUserId}}</p>
         <p>Email: {{userEmail}}</p>
-        <a routerLink = {{link()}} class="btn btn-lg btn-warning" role="button">Next</a>
+        <a routerLink = {{link()}} class="btn btn-lg btn-warning" role="button">Proceed with the app</a>
     </div>
 </div>
 

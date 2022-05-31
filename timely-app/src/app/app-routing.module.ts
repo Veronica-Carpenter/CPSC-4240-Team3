@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
 import { TakeAttendancePageComponent } from './take-attendance-page/take-attendance-page.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { NewWelcomePageComponent } from './new-welcome-page/new-welcome-page.component';
@@ -15,6 +16,7 @@ import { UniqueCodeComponent } from './unique-code/unique-code.component';
 import { NewStudentPageComponent } from './new-student-page/new-student-page.component';
 import { LectureAttendancePageComponent } from './lecture-attendance-page/lecture-attendance-page.component';
 import { StudentDetailsPageComponent } from '../app/student-details-page/student-details-page.component';
+import { CookieService } from './cookie.service';
 
 const routes: Routes = [
   { path: 'welcomePage', component: WelcomePageComponent },
@@ -39,7 +41,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  declarations: [],
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [CookieService],
 })
 export class AppRoutingModule { }
