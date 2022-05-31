@@ -37,7 +37,7 @@ export class ViewStudentListPageComponent implements OnInit {
   }
 
   link() {
-    return "/StudentDetailsPageComponent/StudentId/" + this.studentId;
+    return "/StudentDetailsPageComponent/CourseId/" + this.courseId + "/StudentId/" + this.studentId;
   }
 
 }

@@ -72,4 +72,9 @@ export class TimelyAPIService {
   getLectureByDate(date: string, courseId: number){
     return this.http.get<LectureClass>(this.hostURL + 'lectures/date/' + date + '/courseId/' +courseId);
   }
+
+  updateStudentInfo(studentId: number, studentData: any) {
+    return this.http.patch<Student>(this.hostURL + 'students/:id' + studentId, studentData);
+  }
+
 }

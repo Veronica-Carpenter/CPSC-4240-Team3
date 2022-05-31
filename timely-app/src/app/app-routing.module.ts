@@ -36,7 +36,8 @@ const routes: Routes = [
   { path:  'NewStudentPage', component:NewStudentPageComponent },
   { path:  'NewStudentPage/:courseId', component:NewStudentPageComponent },
   { path: "LectureList/LectureId/:lectureId", component:LectureAttendancePageComponent },
-  { path: "StudentDetailsPageComponent/StudentId/:studentId", component:StudentDetailsPageComponent }
+  { path: "StudentDetailsPageComponent/CourseId/:courseID/StudentId/:studentId", component:StudentDetailsPageComponent }
+
 
 ];
 
