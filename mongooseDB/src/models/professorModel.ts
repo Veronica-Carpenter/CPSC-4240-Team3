@@ -67,5 +67,16 @@ class professorModel {
             res.json(userArray);
         });
     }
+
+    public retrieveASingleProfessorByProfessorId(res:any, filter: Object) {
+        var findResult = this.model.findOne(filter).populate("courseList");
+        findResult.exec( (err, userArray) => {
+            if (err) {
+                res.status(500).send({error: 'enter a valid professor Id'})
+            }
+            console.log(userArray);
+            res.json(userArray);
+        });
+    }
 }
 export {professorModel};

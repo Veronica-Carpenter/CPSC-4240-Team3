@@ -8,14 +8,22 @@
         <p class="successMessage">userId: {{loggedInUserId}}</p>
         <p>Email: {{userEmail}}</p>
         <a routerLink = {{link()}} class="btn btn-lg btn-warning" role="button">Proceed with the app</a>
+        <a routerLink = {{logout()}} class="btn btn-lg btn-warning" role="button">Logout</a>
     </div>
 </div>
 
 <div *ngIf = "formDisplay">
     <div class="container theme-showcase d-flex justify-content-center">
-        <button (click)="Login()" class="row submitButton btn btn-md btn-warning">
-            Login
+        <button (click)="LoginAsAProfessor()" class="row submitButton btn btn-md btn-warning">
+            Login as a Professor
         </button>
-        <!-- <a [routerLink]="" (click)="Login()">Go to page</a> -->
     </div>
+
+    <div  class="container theme-showcase d-flex justify-content-center">
+        <a routerLink = {{LoginAsAStudent()}} class="row submitButton btn btn-md btn-warning" role="button">Login as a Stduent</a>
+    </div>
+    
 </div>
+
+
+

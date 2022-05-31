@@ -6,6 +6,7 @@ import { Student } from './student';
 import { Course } from './course';
 import { Attendance } from './attendance';
 import {HttpHeaders} from '@angular/common/http';
+import { Professor } from './professor';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +19,7 @@ export class TimelyAPIService {
   getLectureByCode(code:number){
     return this.http.get<LectureClass>(this.hostURL + 'lectures/code/' + code);
   }
-
-  authentication(){
-    return this.http.get(this.hostURL + 'auth');
-  }
-
+  
   getStudentByStudentId(studentId: number){
     return this.http.get<StudentClass>(this.hostURL + 'students/studentId/' + studentId);
   }
@@ -42,9 +39,7 @@ export class TimelyAPIService {
     return this.http.get<Student>(this.hostURL + 'students');
   }
   getAllCourses() {
-    let headers: HttpHeaders = new HttpHeaders();
-    headers.append('Authorization', 'ya29.a0ARrdaM-uF-JExrIVbCJeX4sArxKU_Ww1z6IGQg4wWxcdPmFm1z67yV7NdKixXUW2fsTW2PxstW7eyWFq_OebuzQLl7TFNY0bzOApYQ8pwd7zFG5VGcry4sYNAOV73H-1Ba_VxLXWRWJ4d_JXyImuPhZstnMr')
-    return this.http.get<Course>(this.hostURL + 'courses', {headers});
+    return this.http.get<Course>(this.hostURL + 'courses', { withCredentials: true });
   }
   getAllAttendance() {
     return this.http.get<Attendance>(this.hostURL + "attendances")
@@ -60,6 +55,18 @@ export class TimelyAPIService {
   createAStudent(studentData: any) {
     return this.http.post<Student>(this.hostURL + 'students', studentData);
   }
+
+  createAProfessor(professorData: any) {
+    return this.http.post<Professor>(this.hostURL + 'professors', professorData);
+  }
+
+  getProfessorByProfessorId(professorId: number) {
+    return this.http.get<Professor>(this.hostURL + 'professors/professorId/' + professorId);
+  }
+
+  // logout(content: any) {
+  //   return this.http.post(this.hostURL + 'logout', content);
+  // }
 
   courseObjIdByCourseId(courseId: number) {
     return this.http.get<Course>(this.hostURL + 'courses/obj/' + courseId);

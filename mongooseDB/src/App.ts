@@ -8,11 +8,11 @@ import { attendanceModel } from './models/attendanceModel';
 import GooglePassportObj from './GooglePassport';
 var expressSession = require('express-session');
 import * as passport from 'passport';
-let cors = require('cors');
+
 import {AuthMiddleWare} from "./middleware-auth";
+
 const MongoStore = require('connect-mongo');
 let cookieParser = require('cookie-parser');
-
 
 // setting up endpoints
 
@@ -39,7 +39,8 @@ class App {
     }
 
     private middleware(): void {
-        this.expressApp.use(cors());
+
+        this.expressApp.use(cookieParser());
 
         // required for passport session
         this.expressApp.use(expressSession({
@@ -57,17 +58,20 @@ class App {
 
         //This will allow CORS permission for localhost:4200
         this.expressApp.use(function(req, res, next){
-            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Origin", "http://localhost:4200");
             res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+            res.header('Access-Control-Allow-Credentials', "true");
             next();
         });
 
         this.expressApp.use(passport.initialize());
         this.expressApp.use(passport.session());
-        // this.expressApp.use(cookieSession({
-        //     name: 'google-auth-session',
-        //     keys: ['key1', 'key2']
-        // }))
+
+        //current User
+        this.expressApp.use(function (req, res,next){
+            res.locals.currentUser = req.user;
+        next();
+        });
     }
 
     private routes(): void {
@@ -84,13 +88,13 @@ class App {
             res.status(200).send(responseHTML);
         }
         );
-        
 
-        //   router.get('/logout', (req, res) => {
-        //     session = null,
-        //     req.logout();
-        //     res.send('logged out');
-        //   });
+        // logout
+        // router.post("/logout", (req,res) => {
+        //     req.logOut()
+        //     res.redirect("/api/account/google")
+        //     console.log(`-------> User Logged out`)
+        //  })
 
         //create professor
         router.post('/professors', (req, res) => {
@@ -115,6 +119,13 @@ class App {
             var id = req.params.id;
             console.log('Getting a professor with id : ' + id);
             this.Professors.retrieveASingleProfessor(res, {id});
+        });
+
+        //Get a professor by professor id
+        router.get('/professors/professorId/:professorId', (req, res) => {
+            var professorId = req.params.professorId;
+            console.log('Getting a professor with professorId: ' + professorId);
+            this.Professors.retrieveASingleProfessorByProfessorId(res, {professorId: professorId});
         });
 
         //Add a new student
@@ -299,7 +310,7 @@ class App {
         });
 
         //Get all courses
-        router.get('/courses', (req, res) => {
+        router.get('/courses', AuthMiddleWare.ensureAuth, (req, res) => {
             console.log("authenticating..")
             console.log(req.isAuthenticated())
             this.Courses.retrieveCourseLists(res);

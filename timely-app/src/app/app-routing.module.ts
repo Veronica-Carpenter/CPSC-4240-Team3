@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BrowserModule } from '@angular/platform-browser';
 import { TakeAttendancePageComponent } from './take-attendance-page/take-attendance-page.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { NewWelcomePageComponent } from './new-welcome-page/new-welcome-page.component';
