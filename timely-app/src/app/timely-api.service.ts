@@ -74,7 +74,7 @@ export class TimelyAPIService {
   }
 
   updateStudentInfo(studentId: number, studentData: any) {
-    return this.http.patch<Student>(this.hostURL + 'students/:id' + studentId, studentData);
+    return this.http.patch<Student>(this.hostURL + 'students/update?studentId=' + studentId, studentData);
   }
 
 }
