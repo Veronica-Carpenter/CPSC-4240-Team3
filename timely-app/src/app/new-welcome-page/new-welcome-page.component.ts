@@ -11,7 +11,7 @@ import { Professor } from '../professor';
 })
 
 export class NewWelcomePageComponent implements OnInit {
-  public loggedInUserId: number;
+  public loggedInUserId: string;
   public fullName = "";
   public firstName = "";
   public lastName = "";
@@ -40,6 +40,21 @@ export class NewWelcomePageComponent implements OnInit {
         this.lastName = message.data.user.name.familyName
         this.loggedInUserId = message.data.user.id
         this.userEmail = message.data.user.emails[0].value
+
+        this.cookie.setCookie({
+          'name': 'timelyAppfullNameCookie',
+          'value': this.fullName
+         });
+
+         this.cookie.setCookie({
+          'name': 'timelyAppUserIdCookie',
+          'value': this.loggedInUserId
+        });
+
+        this.cookie.setCookie({
+          'name': 'timelyAppemailCookie',
+          'value': this.userEmail
+        });
 
         console.log('going to check a professor' + this.loggedInUserId);
         this.apiService.getProfessorByProfessorId(this.loggedInUserId).subscribe((result: any) => {

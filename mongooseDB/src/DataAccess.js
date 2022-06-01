@@ -5,7 +5,7 @@ var Mongoose = require("mongoose");
 var dotenv = require('dotenv');
 dotenv.config();
 var DataAccess = /** @class */ (function () {
-    //static DB_CONNECTION_STRING: string = 'mongodb+srv://' + this.mongoUsername +':' + this.mongoPassword + '@cluster0.ztcdq.mongodb.net/attendance-tracker?retryWrites=true&w=majority';
+    // static DB_CONNECTION_STRING: string = 'mongodb+srv://' + this.mongoUsername +':' + this.mongoPassword + '@cluster0.ztcdq.mongodb.net/attendance-tracker?retryWrites=true&w=majority';
     function DataAccess() {
         DataAccess.connect();
     }

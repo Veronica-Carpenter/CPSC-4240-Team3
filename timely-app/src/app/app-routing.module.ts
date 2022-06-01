@@ -20,7 +20,7 @@ import { CookieService } from './cookie.service';
 const routes: Routes = [
   { path: 'welcomePage', component: WelcomePageComponent },
   { path: 'NewWelcomePageComponent', component: NewWelcomePageComponent },
-  { path: '', redirectTo: '/welcomePage', pathMatch: 'full' },
+  { path: '', redirectTo: '/NewWelcomePageComponent', pathMatch: 'full' },
   { path: 'CourseListPage', component: CourseListPage },
   { path: 'takeAttendance', component: TakeAttendancePageComponent },
   { path: 'AddStudents/:courseId', component: AddStudentsComponent, pathMatch: 'full' },

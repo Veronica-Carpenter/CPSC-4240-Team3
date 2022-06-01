@@ -9,6 +9,9 @@
 
 <div class="alert alert-primary" role="alert">
     <h4 class="text-center">List of Courses</h4>
+    Logged In User: {{ name }}
+	<br>User Id: {{ userId }}
+	<br>Email: {{ email }}
 </div>
 <!-- Table -->
 <table class="table" style="font-size:10pt;">
@@ -20,8 +23,8 @@
         </tr>
         <tr *ngFor="let course of courses">
             <th scope="row">{{ course.courseName }} </th>
-            <td colspan="1" class = "text-center">{{ course.courseDays.day1}} / {{course.courseDays.day2}}</td>  
-            <td>{{course.courseTime}}</td>
+            <td colspan="1" class = "text-center">{{ course.courseDays.day1 }} / {{ course.courseDays.day2 }}</td>  
+            <td>{{ course.courseTime }}</td>
             <a [routerLink]="['/LectureList', course.courseId]" class="btn btn-lg btn-warning" role="button">View Lectures</a>
         </tr>
     </thead>

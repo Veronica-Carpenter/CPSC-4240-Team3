@@ -8,7 +8,7 @@ class DataAccess {
     static mongoUsername: string = process.env.mongoUsername;
     static mongoPassword: string = process.env.mongoPassword; 
     static DB_CONNECTION_STRING:string = 'mongodb://127.0.0.1:27017/attendance-tracker';
-    //static DB_CONNECTION_STRING: string = 'mongodb+srv://' + this.mongoUsername +':' + this.mongoPassword + '@cluster0.ztcdq.mongodb.net/attendance-tracker?retryWrites=true&w=majority';
+    // static DB_CONNECTION_STRING: string = 'mongodb+srv://' + this.mongoUsername +':' + this.mongoPassword + '@cluster0.ztcdq.mongodb.net/attendance-tracker?retryWrites=true&w=majority';
     
     constructor () {
         DataAccess.connect();

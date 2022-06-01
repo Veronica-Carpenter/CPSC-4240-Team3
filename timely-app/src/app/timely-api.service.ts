@@ -66,7 +66,7 @@ export class TimelyAPIService {
     return this.http.post<Professor>(this.hostURL + 'professors', professorData);
   }
 
-  getProfessorByProfessorId(professorId: number) {
+  getProfessorByProfessorId(professorId: string) {
     return this.http.get<Professor>(this.hostURL + 'professors/professorId/' + professorId);
   }
 
