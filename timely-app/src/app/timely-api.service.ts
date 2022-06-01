@@ -38,9 +38,14 @@ export class TimelyAPIService {
   getAllStudents() {
     return this.http.get<Student>(this.hostURL + 'students');
   }
+  // getAllCourses() {
+  //   return this.http.get<Course>(this.hostURL + 'courses', { withCredentials: true });
+  // }
+
   getAllCourses() {
-    return this.http.get<Course>(this.hostURL + 'courses', { withCredentials: true });
+    return this.http.get<Course>(this.hostURL + 'courses');
   }
+
   getAllAttendance() {
     return this.http.get<Attendance>(this.hostURL + "attendances")
   }

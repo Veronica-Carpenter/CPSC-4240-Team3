@@ -56,7 +56,6 @@ var attendanceModel_1 = require("./models/attendanceModel");
 var GooglePassport_1 = require("./GooglePassport");
 var expressSession = require('express-session');
 var passport = require("passport");
-var middleware_auth_1 = require("./middleware-auth");
 var MongoStore = require('connect-mongo');
 var cookieParser = require('cookie-parser');
 // setting up endpoints
@@ -89,8 +88,9 @@ var App = /** @class */ (function () {
         //This will allow CORS permission for localhost:4200
         this.expressApp.use(function (req, res, next) {
             res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+            res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,PATCH,DELETE');
             res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-            res.header('Access-Control-Allow-Credentials', "true");
+            // res.header('Access-Control-Allow-Credentials', "true");
             next();
         });
         this.expressApp.use(passport.initialize());
@@ -412,7 +412,12 @@ var App = /** @class */ (function () {
             });
         });
         //Get all courses
-        router.get('/courses', middleware_auth_1.AuthMiddleWare.ensureAuth, function (req, res) {
+        // router.get('/courses', AuthMiddleWare.ensureAuth, (req, res) => {
+        //     console.log("authenticating..")
+        //     console.log(req.isAuthenticated())
+        //     this.Courses.retrieveCourseLists(res);
+        // });
+        router.get('/courses', function (req, res) {
             console.log("authenticating..");
             console.log(req.isAuthenticated());
             _this.Courses.retrieveCourseLists(res);
