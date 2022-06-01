@@ -84,4 +84,8 @@ export class TimelyAPIService {
     return this.http.patch<Student>(this.hostURL + 'students/update?studentId=' + studentId, studentData);
   }
 
+  getAttendanceByLectureIdAndStudentObjId(lectureId: number, studentObjId: string){
+    return this.http.get<Attendance>(this.hostURL+ 'attendances/lecture/' + lectureId + '/student/' + studentObjId);
+  }
+
 }

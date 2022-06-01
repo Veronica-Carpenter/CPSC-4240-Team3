@@ -25,6 +25,7 @@ export class TakeAttendancePageComponent implements OnInit {
   invalidCodeMessageDisplay = false;
   invalidStudentIdMessageDisplay = false;
   deniedSubmissionDisplay = false;
+  duplicateAttendanceDisplay = false;
 
   constructor(private apiService: TimelyAPIService) { 
     this.apiService.getAllStudents().toPromise().then((result : any) => {
@@ -128,26 +129,39 @@ export class TakeAttendancePageComponent implements OnInit {
                 "status": "Present"
               }
 
-              //Call post API to add attendance record
-              this.apiService.addAttendanceRecord(this.attendanceRecord).subscribe((result: any) =>{
-                attendanceObjId = result?._id;
-                this.attendanceResult = result;
-                console.log("Attendance Obj ID: "+ attendanceObjId);
-                console.log("successfully add attendance");
-                this.mapAttendancetoStudentContent = {
-                  "attendanceId" : attendanceObjId,
-                  "studentId" : studentObjId
-                }
-                console.log(this.mapAttendancetoStudentContent);
+              //Check to not allow to take attendance twice for same lecture Id and same student id
+              this.apiService.getAttendanceByLectureIdAndStudentObjId(lectureId,studentObjId).subscribe((result: any)=>{
+                console.log("take attendance twice's result: " + JSON.stringify(result));
+                if(result.length == 0){
+                  console.log("add new lecture");
+                  //Call post API to add attendance record
+                  this.apiService.addAttendanceRecord(this.attendanceRecord).subscribe((result: any) =>{
+                    attendanceObjId = result?._id;
+                    this.attendanceResult = result;
+                    console.log("Attendance Obj ID: "+ attendanceObjId);
+                    console.log("successfully add attendance");
+                    this.mapAttendancetoStudentContent = {
+                      "attendanceId" : attendanceObjId,
+                      "studentId" : studentObjId
+                    }
+                    console.log(this.mapAttendancetoStudentContent);
 
-                //Call post API to map attendance to student
-                this.apiService.mapAttendanceToStudent(this.mapAttendancetoStudentContent).subscribe((result:any) =>{
-                  console.log("Mapped succesfully");
+                    //Call post API to map attendance to student
+                    this.apiService.mapAttendanceToStudent(this.mapAttendancetoStudentContent).subscribe((result:any) =>{
+                      console.log("Mapped succesfully");
+                      this.formDisplay = false;
+                      this.successfulMessageDisplay = true;
+                    });
+                  
+                  });
+                }
+                else{
+                  console.log("Not add new lecture");
                   this.formDisplay = false;
-                  this.successfulMessageDisplay = true;
-                });
-                
+                  this.duplicateAttendanceDisplay = true;
+                }
               });
+              
             }
             else{
               console.log("taken date != lecture date");

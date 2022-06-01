@@ -84,6 +84,11 @@
         <h4>Sorry! The time for taking attendance for this class has been expired. </h4>
         <button class="row backButton btn btn-md btn-warning" (click)="reloadPage()" >Back to take-attendance page</button>
     </div>
+
+    <div *ngIf = "duplicateAttendanceDisplay">
+        <h4>You have already taken attendance for this class session. </h4>
+        <button class="row backButton btn btn-md btn-warning" (click)="reloadPage()" >Back to take-attendance page</button>
+    </div>
     
 </div>
 
