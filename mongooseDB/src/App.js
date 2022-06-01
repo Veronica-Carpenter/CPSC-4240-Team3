@@ -76,8 +76,8 @@ var App = /** @class */ (function () {
         // required for passport session
         this.expressApp.use(expressSession({
             secret: 'My Express App',
-            saveUninitialized: true,
-            resave: true,
+            saveUninitialized: false,
+            resave: false,
             store: MongoStore.create({
                 mongoUrl: "mongodb://127.0.0.1:27017/attendance-tracker",
                 collection: 'sessions'
@@ -114,10 +114,11 @@ var App = /** @class */ (function () {
             res.status(200).send(responseHTML);
         });
         // logout
-        // router.post('/logout', function(req, res, next) {
-        //     req.logout();
-        //       res.redirect('/');
-        //     });
+        // router.post('/logout', (req, res) => {
+        //     req.logOut();
+        //     console.log('logged out');
+        //     res.redirect('/auth');
+        // });
         //create professor
         router.post('/professors', function (req, res) {
             var professor = req.body;

@@ -7,7 +7,7 @@ import { studentModel } from './models/studentModel';
 import { attendanceModel } from './models/attendanceModel';
 import GooglePassportObj from './GooglePassport';
 var expressSession = require('express-session');
-import * as passport from 'passport';
+import * as passport from 'passport'; 
 
 import {AuthMiddleWare} from "./middleware-auth";
 
@@ -45,8 +45,8 @@ class App {
         // required for passport session
         this.expressApp.use(expressSession({
         secret: 'My Express App',
-        saveUninitialized: true,
-        resave: true,
+        saveUninitialized: false,
+        resave: false,
         store: MongoStore.create({
             mongoUrl: "mongodb://127.0.0.1:27017/attendance-tracker",
             collection: 'sessions'
@@ -91,10 +91,11 @@ class App {
         );
 
         // logout
-        // router.post('/logout', function(req, res, next) {
-        //     req.logout();
-        //       res.redirect('/');
-        //     });
+        // router.post('/logout', (req, res) => {
+        //     req.logOut();
+        //     console.log('logged out');
+        //     res.redirect('/auth');
+        // });
 
         //create professor
         router.post('/professors', (req, res) => {
