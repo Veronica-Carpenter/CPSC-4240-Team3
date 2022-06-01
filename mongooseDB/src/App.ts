@@ -91,11 +91,10 @@ class App {
         );
 
         // logout
-        // router.post("/logout", (req,res) => {
-        //     req.logOut()
-        //     res.redirect("/api/account/google")
-        //     console.log(`-------> User Logged out`)
-        //  })
+        // router.post('/logout', function(req, res, next) {
+        //     req.logout();
+        //       res.redirect('/');
+        //     });
 
         //create professor
         router.post('/professors', (req, res) => {

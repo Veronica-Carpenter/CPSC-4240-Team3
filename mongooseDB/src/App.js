@@ -114,11 +114,10 @@ var App = /** @class */ (function () {
             res.status(200).send(responseHTML);
         });
         // logout
-        // router.post("/logout", (req,res) => {
-        //     req.logOut()
-        //     res.redirect("/api/account/google")
-        //     console.log(`-------> User Logged out`)
-        //  })
+        // router.post('/logout', function(req, res, next) {
+        //     req.logout();
+        //       res.redirect('/');
+        //     });
         //create professor
         router.post('/professors', function (req, res) {
             var professor = req.body;

@@ -3,10 +3,11 @@ import { HttpClient, HttpRequest } from '@angular/common/http';
 import { LectureClass } from './lecture-class';
 import { StudentClass } from './student-class';
 import { Student } from './student';
+import { Professor } from './professor';
 import { Course } from './course';
 import { Attendance } from './attendance';
 import {HttpHeaders} from '@angular/common/http';
-import { Professor } from './professor';
+
 
 @Injectable({
   providedIn: 'root'

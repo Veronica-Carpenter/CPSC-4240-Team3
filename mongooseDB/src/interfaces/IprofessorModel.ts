@@ -1,7 +1,7 @@
 import Mongoose from "mongoose";
 
 interface IprofessorModel extends Mongoose.Document{
-    professorId: Number;
+    professorId: String;
     fName: String;
     lName: String;
     email: String;

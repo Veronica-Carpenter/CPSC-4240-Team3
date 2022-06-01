@@ -1,5 +1,5 @@
 export interface Professor{
-    professorId: number;
+    professorId: string;
     fname: string;
     lname: string;
     email: string;
