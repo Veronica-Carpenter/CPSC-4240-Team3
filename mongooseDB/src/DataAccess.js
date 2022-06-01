@@ -16,7 +16,8 @@ var DataAccess = /** @class */ (function () {
         this.mongooseInstance = Mongoose.connect(this.DB_CONNECTION_STRING);
         return this.mongooseInstance;
     };
-    DataAccess.DB_CONNECTION_STRING = 'mongodb://127.0.0.1:27017/attendance-tracker';
+    //static DB_CONNECTION_STRING:string = 'mongodb://127.0.0.1:27017/attendance-tracker';
+    DataAccess.DB_CONNECTION_STRING = 'mongodb+srv://phuongtang:8582188@cluster0.ztcdq.mongodb.net/attendance-tracker?retryWrites=true&w=majority';
     return DataAccess;
 }());
 exports.DataAccess = DataAccess;
