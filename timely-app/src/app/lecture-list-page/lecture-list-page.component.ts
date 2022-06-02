@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TimelyAPIService } from '../timely-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { LectureClass } from '../lecture-class';
+import { CookieService } from '../cookie.service';
+
 @Component({
   selector: 'app-lecture-list-page',
   templateUrl: './lecture-list-page.component.html',
@@ -15,11 +17,18 @@ export class LectureListPageComponent implements OnInit {
   courseName: string;
   lectureId: number;
   radioClicked: boolean = false;
+  public name = ""
+  public userId = ""
+  public email = ""
   
-
-  constructor(private apiService: TimelyAPIService, private activatedRoute: ActivatedRoute) { }
+  constructor(private apiService: TimelyAPIService, private activatedRoute: ActivatedRoute, public cookie: CookieService) { }
 
   ngOnInit(): void {
+
+    this.name = this.cookie.getCookie('timelyAppfullNameCookie');
+    this.userId = this.cookie.getCookie('timelyAppUserIdCookie');
+    this.email = this.cookie.getCookie('timelyAppemailCookie');
+    
     this.activatedRoute.params.forEach((route) => this.courseId = route["courseId"]);
     console.log("courseID: " + this.courseId);
     this.apiService.getLecturesByCourse(this.courseId).subscribe((result: any)=>{

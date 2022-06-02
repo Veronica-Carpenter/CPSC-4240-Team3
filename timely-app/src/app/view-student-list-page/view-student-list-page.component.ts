@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Student } from '../student';
 import { ActivatedRoute } from '@angular/router';
 import { TimelyAPIService } from '../timely-api.service';
+import { CookieService } from '../cookie.service';
 
 @Component({
   selector: 'app-view-student-list-page',
@@ -15,11 +16,19 @@ export class ViewStudentListPageComponent implements OnInit {
   courseId: number = 0;
   studentLists: Student[];
   radioClicked: boolean = false;
+  public name = ""
+  public userId = ""
+  public email = ""
 
-  constructor(private apiService: TimelyAPIService, private activatedRoute: ActivatedRoute) { 
+  constructor(private apiService: TimelyAPIService, private activatedRoute: ActivatedRoute, public cookie: CookieService) { 
   }
 
   ngOnInit(): void {
+
+    this.name = this.cookie.getCookie('timelyAppfullNameCookie');
+    this.userId = this.cookie.getCookie('timelyAppUserIdCookie');
+    this.email = this.cookie.getCookie('timelyAppemailCookie');
+
     this.activatedRoute.params.forEach((route) => {
       this.courseId = route["courseId"]
     });

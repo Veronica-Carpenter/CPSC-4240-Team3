@@ -3,6 +3,8 @@ import { StudentClass } from '../student-class';
 import { Course } from '../course';
 import { ActivatedRoute } from '@angular/router';
 import { TimelyAPIService } from '../timely-api.service';
+import { CookieService } from '../cookie.service';
+
 @Component({
   selector: 'app-student-details-page',
   templateUrl: './student-details-page.component.html',
@@ -15,8 +17,20 @@ export class StudentDetailsPageComponent implements OnInit {
   email: string;
   studentId: number = 1;
   courseList: Course[];
-  constructor(private apiService: TimelyAPIService, private activatedRoute: ActivatedRoute) { }
+
+  public name = ""
+  public userId = ""
+  public useremail = ""
+
+  constructor(private apiService: TimelyAPIService, private activatedRoute: ActivatedRoute, public cookie: CookieService) { }
+
   ngOnInit(): void {
+
+    this.name = this.cookie.getCookie('timelyAppfullNameCookie');
+    this.userId = this.cookie.getCookie('timelyAppUserIdCookie');
+    this.useremail = this.cookie.getCookie('timelyAppemailCookie');
+
+
     this.activatedRoute.params.forEach((route) => this.studentId = route["studentId"]);
     this.apiService.getStudentByStudentId(this.studentId).subscribe((result: any) => {
       this.fname = result.fname;

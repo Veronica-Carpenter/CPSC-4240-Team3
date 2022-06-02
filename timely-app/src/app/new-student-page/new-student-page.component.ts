@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Student } from '../student';
 import { TimelyAPIService } from '../timely-api.service';
+import { CookieService } from '../cookie.service';
 
 @Component({
   selector: 'app-new-student-page',
@@ -18,6 +19,9 @@ export class NewStudentPageComponent implements OnInit {
   studentData: any;
   courseId: number;
   mapCourseToStudentObject: any;
+  public name = ""
+  public userId = ""
+  public email = ""
 
   formDisplay = true;
   successfulMessageDisplay = false;
@@ -26,10 +30,15 @@ export class NewStudentPageComponent implements OnInit {
   invalidStudentnameMessageDisplay = false;
   invalidStudentemailMessageDisplay = false;
 
-  constructor(private apiService: TimelyAPIService, private activatedRoute: ActivatedRoute) {
+  constructor(private apiService: TimelyAPIService, private activatedRoute: ActivatedRoute, public cookie: CookieService) {
   }
 
   ngOnInit(): void {
+    
+    this.name = this.cookie.getCookie('timelyAppfullNameCookie');
+    this.userId = this.cookie.getCookie('timelyAppUserIdCookie');
+    this.email = this.cookie.getCookie('timelyAppemailCookie');
+
     this.activatedRoute.params.forEach((route) => {
       this.courseId = route["courseId"]
     });
