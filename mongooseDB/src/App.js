@@ -114,11 +114,11 @@ var App = /** @class */ (function () {
             res.status(200).send(responseHTML);
         });
         // logout
-        // router.post('/logout', (req, res) => {
-        //     req.logOut();
-        //     console.log('logged out');
-        //     res.redirect('/auth');
-        // });
+        router.post('/logout', function (req, res) {
+            req.logout();
+            console.log('logged out');
+            res.redirect('/auth');
+        });
         //create professor
         router.post('/professors', function (req, res) {
             var professor = req.body;

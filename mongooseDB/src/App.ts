@@ -85,6 +85,7 @@ class App {
             var responseHTML = '<html><head><title>Main</title></head><body></body><script>res = %value%; window.opener.postMessage(res, "*");window.close();</script></html>'
             responseHTML = responseHTML.replace('%value%', JSON.stringify({
                 user: req.user
+                
             }));
             res.status(200).send(responseHTML);
         }
@@ -92,7 +93,7 @@ class App {
 
         // logout
         // router.post('/logout', (req, res) => {
-        //     req.logOut();
+        //     req.logout();
         //     console.log('logged out');
         //     res.redirect('/auth');
         // });

@@ -2,9 +2,10 @@
   "name": "cpsc-4240-team3",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./src/AppServer.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "start": "node AppServer.js"
   },
   "repository": {
     "type": "git",
