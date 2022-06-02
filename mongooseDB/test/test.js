@@ -143,7 +143,6 @@ describe('Testing API routes', () => {
             it('should return array of object with more than 1 object', () => {
                 response.should.have.status(200);
                 response.body.should.be.an('array');
-                // response.body.length.should.be.eq(4);
                 response.body.length.should.be.above(0);
                 response.body.should.not.be.a('string');
             });
@@ -157,50 +156,6 @@ describe('Testing API routes', () => {
         });
     });
 
-    // Test GET/ routes with wrong URL
-    describe('Test GET/ routes if URL is wrong', () => {
-
-        it('should not get all the students if the route is wrong', (done) => {
-            chai.request("http://localhost:8080")
-                .get("/student")
-                .end((err, response) => {
-                    console.log('status: ' + response.status)
-                    response.should.have.status(404);
-                done();
-            });
-        });
-    
-        it('should not get all the professors if the route is wrong', (done) => {
-            chai.request("http://localhost:8080")
-                .get("/professor")
-                .end((err, response) => {
-                    console.log('status: ' + response.status)
-                    response.should.have.status(404);
-                done();
-            });
-        });
-    
-        it('should not get all the courses if the route is wrong', (done) => {
-            chai.request("http://localhost:8080")
-                .get("/course")
-                .end((err, response) => {
-                    console.log('status: ' + response.status)
-                    response.should.have.status(404);
-                done();
-            });
-        });
-    
-        it('should not get all the lectures if the route is wrong', (done) => {
-            chai.request("http://localhost:8080")
-                .get("/lecture")
-                .end((err, response) => {
-                    console.log('status: ' + response.status)
-                    response.should.have.status(404);
-                done();
-            });
-        });
-    });
-
     // Tets GET/:id routes
     describe('Test GET/:id routes', () => {
 
@@ -208,7 +163,7 @@ describe('Testing API routes', () => {
         it('get a student by id', (done) => {
             let student = new studentModel();
             let studenttobeInserted = {
-                studentId : 202,
+                studentId : 101,
                 fname: "Shipra",
                 lname: "Shipra",
                 email: "shipra@sample.edu"
@@ -233,7 +188,7 @@ describe('Testing API routes', () => {
         it('get a professor by id', (done) => {
             let professor = new professorModel();
             let professorToBeInserted = {
-                professorId : 999,
+                professorId : "101",
                 fname: "ABC",
                 lname: "ABC",
                 email: "abc@sample.edu"
@@ -255,53 +210,53 @@ describe('Testing API routes', () => {
         });
     });
 
-     // Test POST/ routes
-    // describe('Test POST/ routes', () => {
+    // Test POST/ routes
+    describe('Test POST/ routes', () => {
 
-    //     // Test the POST student route
-    //     describe("Post a student", () => {
+        // Test the POST student route
+        describe("Post a student", () => {
 
-    //         it('should post a student', (done) => {
-    //             let student = {
-    //                 studentId : 201,
-    //                 fname: "Shipra",
-    //                 lname: "Shipra",
-    //                 email: "shipra@sample.edu"
-    //             }
+            it('should post a student', (done) => {
+                let student = {
+                    studentId : 201,
+                    fname: "Shipra",
+                    lname: "Shipra",
+                    email: "shipra@sample.edu"
+                }
     
-    //             chai.request("http://localhost:8080")
-    //                 .post('/students')
-    //                 .send(student)
-    //                 .end((err, res) => {
-    //                     res.should.have.status(200);
-    //                     res.body.should.be.a('object');
-    //                     res.body.should.have.property('studentId');
-    //                     res.body.should.have.property('fname');
-    //                     res.body.should.have.property('lname');
-    //                     res.body.should.have.property('email');
-    //                 done();
-    //             });
-    //         });
+                chai.request("http://localhost:8080")
+                    .post('/students')
+                    .send(student)
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('studentId');
+                        res.body.should.have.property('fname');
+                        res.body.should.have.property('lname');
+                        res.body.should.have.property('email');
+                    done();
+                });
+            });
     
-    //         it('should not post a student without studentId, fname, lname and email', (done) => {
-    //             let student = {
-    //                 studentId : 999,
-    //                 fname: "Shipra",
-    //                 lname: "Shipra"
-    //             }
+            it('should not post a student without studentId, fname, lname and email', (done) => {
+                let student = {
+                    studentId : 999,
+                    fname: "Shipra",
+                    lname: "Shipra"
+                }
     
-    //             chai.request("http://localhost:8080")
-    //                 .post('/students')
-    //                 .send(student)
-    //                 .end((err, res) => {
-    //                     res.should.have.status(400);
-    //                     res.body.should.be.a('object');
-    //                     res.body.should.have.property('errors');
-    //                     res.body.errors.should.have.property('email');
-    //                     res.body.errors.email.should.have.property('kind').eq('required');
-    //                 done();
-    //             });
-    //         });
-    //     });
-    // });
+                chai.request("http://localhost:8080")
+                    .post('/students')
+                    .send(student)
+                    .end((err, res) => {
+                        res.should.have.status(400);
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('errors');
+                        res.body.errors.should.have.property('email');
+                        res.body.errors.email.should.have.property('kind').eq('required');
+                    done();
+                });
+            });
+        });
+    });
 });
