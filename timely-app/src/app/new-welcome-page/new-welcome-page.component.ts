@@ -89,7 +89,7 @@ export class NewWelcomePageComponent implements OnInit {
     }
 
     link() {
-      return "/welcomePage";
+      return "/CourseListPage";
     }
 
     logout() {

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TakeAttendancePageComponent } from './take-attendance-page/take-attendance-page.component';
-import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { NewWelcomePageComponent } from './new-welcome-page/new-welcome-page.component';
 import { CourseListPage } from './course-list-page/course-list-page.component';
 import { AddStudentsComponent} from './add-students/add-students.component';
@@ -18,7 +17,6 @@ import { StudentDetailsPageComponent } from '../app/student-details-page/student
 import { CookieService } from './cookie.service';
 
 const routes: Routes = [
-  { path: 'welcomePage', component: WelcomePageComponent },
   { path: 'NewWelcomePageComponent', component: NewWelcomePageComponent },
   { path: '', redirectTo: '/NewWelcomePageComponent', pathMatch: 'full' },
   { path: 'CourseListPage', component: CourseListPage },

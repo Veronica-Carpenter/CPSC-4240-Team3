@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TakeAttendancePageComponent } from './take-attendance-page/take-attendance-page.component';
 import { CourseListPage } from './course-list-page/course-list-page.component';
-import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { ProfessorCoursePageComponent } from './professor-course-page/professor-course-page.component';
 import { AddStudentsComponent } from './add-students/add-students.component';
 import { DeleteStudentsComponent } from './delete-students/delete-students.component';
@@ -27,7 +26,6 @@ import { NewWelcomePageComponent } from './new-welcome-page/new-welcome-page.com
     AppComponent,
     TakeAttendancePageComponent,
     CourseListPage,
-    WelcomePageComponent,
     ProfessorCoursePageComponent,
     AddStudentsComponent,
     DeleteStudentsComponent,
