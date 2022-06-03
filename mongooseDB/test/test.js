@@ -163,7 +163,7 @@ describe('Testing API routes', () => {
         it('get a student by id', (done) => {
             let student = new studentModel();
             let studenttobeInserted = {
-                studentId : 101,
+                studentId : "101",
                 fname: "Shipra",
                 lname: "Shipra",
                 email: "shipra@sample.edu"
@@ -218,7 +218,7 @@ describe('Testing API routes', () => {
 
             it('should post a student', (done) => {
                 let student = {
-                    studentId : 201,
+                    studentId : "201",
                     fname: "Shipra",
                     lname: "Shipra",
                     email: "shipra@sample.edu"
@@ -240,7 +240,7 @@ describe('Testing API routes', () => {
     
             it('should not post a student without studentId, fname, lname and email', (done) => {
                 let student = {
-                    studentId : 999,
+                    studentId : "999",
                     fname: "Shipra",
                     lname: "Shipra"
                 }
