@@ -17,9 +17,9 @@
                 <input 
                 type = "text" 
                 class="form-control form-control-sm"
+                [disabled]="true"
                 #boxStudentID   
-                (keyup) ="getStudentId(boxStudentID.value)" 
-                placeholder="Student ID" 
+                placeholder="{{studentuserId}}" 
                 name="studentId"/>
             </div>
         </div>
@@ -58,7 +58,7 @@
                 <p>Student ID: </p>
             </div>
             <div class="col-sm-8">
-                <p>{{studentID}}</p>
+                <p>{{studentuserId}}</p>
             </div>
         </div>
         <div class="row row-center">

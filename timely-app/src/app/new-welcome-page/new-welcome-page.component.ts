@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TimelyAPIService } from '../timely-api.service';
 import { CookieService } from '../cookie.service';
 import { Professor } from '../professor';
+import { Student } from '../student';
 
 @Component({
   selector: 'app-new-welcome-page',
@@ -12,12 +13,22 @@ import { Professor } from '../professor';
 
 export class NewWelcomePageComponent implements OnInit {
   public loggedInUserId: string;
-  public fullName = "";
-  public firstName = "";
-  public lastName = "";
-  public userEmail = "";
+  public fullName: string;
+  public firstName: string;
+  public lastName: string;
+  public userEmail: string;
+  studentResult: Student;
+  studentData: any;
+
+  public studentfullName: string;
+  public studentfirstName: string;
+  public studentlastName: string;
+  public studentuserEmail: string;
+  public studentloggenInUserId: string;
+
   professorData: any;
   loggedIn = false;
+  studentloggedIn = false;
   loggedOut = false;
   formDisplay = true;
   content: any;
@@ -80,18 +91,74 @@ export class NewWelcomePageComponent implements OnInit {
           this.formDisplay = false;
           this.loggedOut = false;
           this.loggedIn = true;
-          
+          this.studentloggedIn = false;
         });
       }
    });
    }
 
     LoginAsAStudent() {
-      return "/takeAttendance"
+      window.open('http://localhost:8080/studentAuth',"mywindow","location=1,status=1,scrollbars=1, width=800,height=800");
+      let listener = window.addEventListener('message', (message) => {
+        if (message) {
+          this.studentfullName = message.data.user.displayName
+          this.studentfirstName = message.data.user.name.givenName
+          this.studentlastName = message.data.user.name.familyName
+          this.studentloggenInUserId = message.data.user.id
+          this.studentuserEmail = message.data.user.emails[0].value
+
+          this.cookie.setCookie({
+            'name': 'studentfullNameCookie',
+            'value': this.studentfullName
+           });
+
+           this.cookie.setCookie({
+            'name': 'studentloggenInUserIdCookie',
+            'value': this.studentloggenInUserId
+           });
+
+           this.cookie.setCookie({
+            'name': 'studentuserEmailCookie',
+            'value': this.studentuserEmail
+           });
+
+           console.log('going to check a student' + this.studentloggenInUserId);
+           this.apiService.getStudentByStudentId(this.studentloggenInUserId).subscribe((result: any) => {
+
+            this.studentResult = result;
+            console.log(this.studentResult);
+
+            if (result != null) {
+              console.log('in if');
+              console.log('Student is already registered')
+            } else {
+
+              this.studentData = {
+                "studentId": this.studentloggenInUserId,
+                "fname": this.studentfirstName,
+                "lname": this.studentlastName,
+                "email": this.studentuserEmail
+              }
+
+              this.apiService.createAStudent(this.studentData).subscribe((result: any) => {
+                console.log("Student added succesfully");
+              });
+            }
+            this.formDisplay = false;
+            this.loggedOut = false;
+            this.loggedIn = false;
+            this.studentloggedIn = true;
+           });
+        }
+      })
     }
 
     link() {
       return "/CourseListPage";
+    }
+
+    studentlink() {
+      return "/takeAttendance";
     }
 
     logout() {
@@ -103,9 +170,14 @@ export class NewWelcomePageComponent implements OnInit {
         this.cookie.deleteCookie('timelyAppUserIdCookie');
         this.cookie.deleteCookie('timelyAppemailCookie');
 
+        this.cookie.deleteCookie('studentfullNameCookie');
+        this.cookie.deleteCookie('studentloggenInUserIdCookie');
+        this.cookie.deleteCookie('studentuserEmailCookie');
+
         this.formDisplay = true;
         this.loggedOut = true;
         this.loggedIn = false;
+        this.studentloggedIn = false;
       });
     }
 }

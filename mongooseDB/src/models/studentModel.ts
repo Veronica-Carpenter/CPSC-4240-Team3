@@ -19,7 +19,7 @@ class studentModel {
         this.schema = new Mongoose.Schema(
             {
                 studentId: {
-                    type: Number,
+                    type: String,
                     required: true,
                     unique: true
                 },

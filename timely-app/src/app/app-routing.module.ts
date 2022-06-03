@@ -10,7 +10,6 @@ import { ViewStudentListPageComponent } from '../app/view-student-list-page/view
 import { DeletionConfirmComponent} from './deletion-confirm/deletion-confirm.component';
 import { AttendanceSubmittedPageComponent } from './attendance-submitted-page/attendance-submitted-page.component';
 import { UpdateStudentsComponent } from './update-students/update-students.component';
-import { UniqueCodeComponent } from './unique-code/unique-code.component';
 import { NewStudentPageComponent } from './new-student-page/new-student-page.component';
 import { LectureAttendancePageComponent } from './lecture-attendance-page/lecture-attendance-page.component';
 import { StudentDetailsPageComponent } from '../app/student-details-page/student-details-page.component';
@@ -29,12 +28,10 @@ const routes: Routes = [
   { path: 'DeletionConfirm', component: DeletionConfirmComponent },
   { path: 'attendanceSubmittedPage', component: AttendanceSubmittedPageComponent },
   { path: 'UpdateStudents', component: UpdateStudentsComponent },
-  { path: 'UniqueCode', component: UniqueCodeComponent },
   { path:  'NewStudentPage', component:NewStudentPageComponent },
   { path:  'NewStudentPage/:courseId', component:NewStudentPageComponent },
   { path: "LectureList/LectureId/:lectureId", component:LectureAttendancePageComponent },
   { path: "StudentDetailsPageComponent/CourseId/:courseID/StudentId/:studentId", component:StudentDetailsPageComponent }
-
 
 ];
 

@@ -114,6 +114,15 @@ var App = /** @class */ (function () {
             }));
             res.status(200).send(responseHTML);
         });
+        router.get('/studentAuth', passport.authenticate('google', { scope: ['profile', 'email'] }));
+        router.get('/studentAuth/error', function (req, res) { return res.send('Unknown Error'); });
+        router.get('/api/studentAccount/google', passport.authenticate('google', { failureRedirect: '/studentAuth/error' }), function (req, res) {
+            var responseHTML = '<html><head><title>Main</title></head><body></body><script>res = %value%; window.opener.postMessage(res, "*");window.close();</script></html>';
+            responseHTML = responseHTML.replace('%value%', JSON.stringify({
+                user: req.user
+            }));
+            res.status(200).send(responseHTML);
+        });
         // logout
         router.post('/logout', function (req, res) {
             req.logOut(function (err) {

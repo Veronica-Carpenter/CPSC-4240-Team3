@@ -10,6 +10,16 @@
         <a routerLink = {{link()}} class="btn btn-lg btn-warning" role="button">Proceed with the app</a>
         <button (click)="logout()" class="btn btn-lg btn-warning" role="button">Logout</button>
     </div>
+
+
+    <div *ngIf = "studentloggedIn">
+        <p class="successMessage">Logged in as {{studentfullName.length > 0 ? studentfullName : ""}}</p>
+        <p class="successMessage">userId: {{studentloggenInUserId}}</p>
+        <p>Email: {{studentuserEmail}}</p>
+        <a routerLink = {{studentlink()}} class="btn btn-lg btn-warning" role="button">Take Attendance</a>
+        <button (click)="logout()" class="btn btn-lg btn-warning" role="button">Logout</button>
+    </div>
+
 </div>
 
 <div *ngIf = "formDisplay">
@@ -19,8 +29,10 @@
         </button>
     </div>
 
-    <div  class="container theme-showcase d-flex justify-content-center">
-        <a routerLink = {{LoginAsAStudent()}} class="row submitButton btn btn-md btn-warning" role="button">Login as a Stduent</a>
+    <div class="container theme-showcase d-flex justify-content-center">
+        <button (click)="LoginAsAStudent()" class="row submitButton btn btn-md btn-warning">
+            Login as a Student
+        </button>
     </div>
     
 </div>
@@ -30,7 +42,3 @@
         <h1>Logged Out Sucessfully!!!</h1>
     </div>
 </div>
-
-
-
-

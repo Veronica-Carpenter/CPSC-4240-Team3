@@ -13,7 +13,6 @@ import { DeleteStudentsComponent } from './delete-students/delete-students.compo
 import { DeletionConfirmComponent } from './deletion-confirm/deletion-confirm.component';
 import { AttendanceSubmittedPageComponent } from './attendance-submitted-page/attendance-submitted-page.component';
 import { UpdateStudentsComponent } from './update-students/update-students.component';
-import { UniqueCodeComponent } from './unique-code/unique-code.component';
 import { NewStudentPageComponent } from './new-student-page/new-student-page.component';
 import { LectureListPageComponent } from './lecture-list-page/lecture-list-page.component';
 import { LectureAttendancePageComponent } from './lecture-attendance-page/lecture-attendance-page.component';
@@ -32,7 +31,6 @@ import { NewWelcomePageComponent } from './new-welcome-page/new-welcome-page.com
     DeletionConfirmComponent,
     AttendanceSubmittedPageComponent,
     UpdateStudentsComponent,
-    UniqueCodeComponent,
     NewStudentPageComponent,
     LectureListPageComponent,
     LectureAttendancePageComponent,

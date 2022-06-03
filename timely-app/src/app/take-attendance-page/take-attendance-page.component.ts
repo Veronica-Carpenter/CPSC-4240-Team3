@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { take } from 'rxjs';
+import { CookieService } from '../cookie.service';
 import { LectureClass } from '../lecture-class';
-import { StudentClass } from '../student-class';
+import { Student } from '../student';
 import { TimelyAPIService } from '../timely-api.service';
 
 @Component({
@@ -11,14 +12,18 @@ import { TimelyAPIService } from '../timely-api.service';
 })
 export class TakeAttendancePageComponent implements OnInit {
 
-  studentID: number = 0;
+  studentID: string;
   code: number = 0;
   lectureResult: LectureClass;
-  studentResult: StudentClass;
+  studentResult: Student;
   lectureDate: number = 0;
   attendanceRecord: any;
   attendanceResult: any;
   mapAttendancetoStudentContent: any;
+
+  public studentname: string;
+  public studentuserId: string;
+  public studentemail: string;
 
   formDisplay = true;
   successfulMessageDisplay = false;
@@ -27,23 +32,15 @@ export class TakeAttendancePageComponent implements OnInit {
   deniedSubmissionDisplay = false;
   duplicateAttendanceDisplay = false;
 
-  constructor(private apiService: TimelyAPIService) { 
-    this.apiService.getAllStudents().toPromise().then((result : any) => {
-    })
+  constructor(private apiService: TimelyAPIService, public cookie: CookieService) { 
   }
 
   ngOnInit() {
-  }
+    this.studentname = this.cookie.getCookie('studentfullNameCookie');
+    this.studentuserId = this.cookie.getCookie('studentloggenInUserIdCookie');
+    this.studentemail = this.cookie.getCookie('studentuserEmailCookie');
 
-  getStudentId(val: string){
-    //check if student id is number
-    if(!isNaN(Number(val))){
-      this.studentID = parseInt(val);
-      //console.log("Student ID: " + this.studentID);
-    }
-    else(
-      console.log("Student ID need to be number")
-    )
+    console.log('student Id: ' + this.studentuserId);
   }
 
   getCode(val: string){
@@ -89,13 +86,12 @@ export class TakeAttendancePageComponent implements OnInit {
     let lectureYear;
 
     //Validating student id by getting student object by id
-    this.apiService.getStudentByStudentId(this.studentID).subscribe((result: any)=>{
+    this.apiService.getStudentByStudentId(this.studentuserId).subscribe((result: any)=>{
       this.studentResult = result;
       //let studentJSON = JSON.stringify(this.studentResult);
-      console.log(this.studentResult)
+      console.log('this student id is: ');
+      console.log(this.studentResult);
       
-      
-
       if(result != null){
         studentObjId = result?._id;
         console.log("OBject id: " + studentObjId);
@@ -185,7 +181,4 @@ export class TakeAttendancePageComponent implements OnInit {
 
     });
   }
-
-  
-
 }

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { LectureClass } from './lecture-class';
-import { StudentClass } from './student-class';
 import { Student } from './student';
 import { Professor } from './professor';
 import { Course } from './course';
@@ -21,8 +20,8 @@ export class TimelyAPIService {
     return this.http.get<LectureClass>(this.hostURL + 'lectures/code/' + code);
   }
   
-  getStudentByStudentId(studentId: number){
-    return this.http.get<StudentClass>(this.hostURL + 'students/studentId/' + studentId);
+  getStudentByStudentId(studentId: string){
+    return this.http.get<Student>(this.hostURL + 'students/studentId/' + studentId);
   }
 
   addAttendanceRecord(content:any){
@@ -36,12 +35,10 @@ export class TimelyAPIService {
   addLecture(content: any){
     return this.http.post(this.hostURL + 'lectures', content);
   }
+
   getAllStudents() {
     return this.http.get<Student>(this.hostURL + 'students');
   }
-  // getAllCourses() {
-  //   return this.http.get<Course>(this.hostURL + 'courses', { withCredentials: true });
-  // }
 
   getAllCourses() {
     return this.http.get<Course>(this.hostURL + 'courses');
@@ -50,6 +47,7 @@ export class TimelyAPIService {
   getAllAttendance() {
     return this.http.get<Attendance>(this.hostURL + "attendances")
   }
+  
   getLecturesByCourse(courseId : number) {
     return this.http.get<LectureClass[]>(this.hostURL + 'lectures/course/' + courseId)
   }
@@ -86,7 +84,7 @@ export class TimelyAPIService {
     return this.http.get<LectureClass>(this.hostURL + 'lectures/date/' + date + '/courseId/' +courseId);
   }
 
-  updateStudentInfo(studentId: number, studentData: any) {
+  updateStudentInfo(studentId: string, studentData: any) {
     return this.http.patch<Student>(this.hostURL + 'students/update?studentId=' + studentId, studentData);
   }
 

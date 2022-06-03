@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { StudentClass } from '../student-class';
 import { Course } from '../course';
 import { ActivatedRoute } from '@angular/router';
 import { TimelyAPIService } from '../timely-api.service';
@@ -15,12 +14,12 @@ export class StudentDetailsPageComponent implements OnInit {
   fname: string;
   lname: string;
   email: string;
-  studentId: number = 1;
+  studentId: string;
   courseList: Course[];
 
-  public name = ""
-  public userId = ""
-  public useremail = ""
+  public name: string;
+  public userId: string;
+  public useremail: string;
 
   constructor(private apiService: TimelyAPIService, private activatedRoute: ActivatedRoute, public cookie: CookieService) { }
 

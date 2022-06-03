@@ -1,9 +1,7 @@
 "use strict";
 exports.__esModule = true;
 var googleOAuth_1 = require("./googleOAuth");
-// let passport = require('passport');
 var passport = require("passport");
-// let GoogleStrategy = require('passport-google-oauth20-with-people-api').Strategy;
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 var GooglePassport = /** @class */ (function () {
     function GooglePassport() {

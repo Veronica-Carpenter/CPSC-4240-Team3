@@ -5,21 +5,11 @@
 	<br>Email: {{ email }}
 </div>
 
-<script src="email-validation.js"></script>
-
 <div class="container .ml-1 center">
 
     <div class = "row row-center">
-        <div *ngIf = "invalidStudentIdMessageDisplay">
-            <p class="warningMessage">Please enter a number!</p>
-        </div>
-
-        <div *ngIf = "invalidStudentnameMessageDisplay">
-            <p class="warningMessage">Please enter a string!</p>
-        </div>
-
-        <div *ngIf = "invalidStudentemailMessageDisplay">
-            <p class="warningMessage">Please enter valid email!</p>
+        <div *ngIf = "errorMessage">
+            <p class="warningMessage">Student ID does not exist!</p>
         </div>
     </div>
 
@@ -36,45 +26,6 @@
                 (keyup) ="getStudentId(boxStudentID.value)" 
                 placeholder="Student ID" 
                 name="studentId"/>
-            </div>
-        </div>
-
-        <div class="row row-center">
-            <label for="boxStudentfname" class="col-sm-4">Student FirstName</label>
-            <div class="col-sm-8">
-                <input 
-                type = "text" 
-                class="form-control form-control-sm"
-                #boxStudentfname
-                (keyup) ="getStudentfname(boxStudentfname.value)" 
-                placeholder="Student FirstName" 
-                name="fname"/>
-            </div>
-        </div>
-
-        <div class="row row-center">
-            <label for="boxStudentlname" class="col-sm-4">Student LastName</label>
-            <div class="col-sm-8">
-                <input 
-                type = "text" 
-                class="form-control form-control-sm"
-                #boxStudentlname   
-                (keyup) ="getStudentlname(boxStudentlname.value)" 
-                placeholder="Student LastName" 
-                name="lname"/>
-            </div>
-        </div>
-
-        <div class="row row-center">
-            <label for="boxStudentEmail" class="col-sm-4">Email ID</label>
-            <div class="col-sm-8">
-                <input 
-                type = "text" 
-                class="form-control form-control-sm"
-                #boxStudentEmail   
-                (keyup) ="getStudentemail(boxStudentEmail.value)" 
-                placeholder="Email ID"
-                name="email"/>
             </div>
         </div>
 

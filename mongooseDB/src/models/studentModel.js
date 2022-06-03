@@ -13,7 +13,7 @@ var studentModel = /** @class */ (function () {
     studentModel.prototype.createSchema = function () {
         this.schema = new Mongoose.Schema({
             studentId: {
-                type: Number,
+                type: String,
                 required: true,
                 unique: true
             },

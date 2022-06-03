@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StudentClass } from '../student-class';
+import { Student } from '../student';
 import { TimelyAPIService } from '../timely-api.service'; 
 
 @Component({
@@ -9,8 +9,8 @@ import { TimelyAPIService } from '../timely-api.service';
 })
 export class UpdateStudentsComponent implements OnInit {
 
-  studentID: number = 0;
-  studentResult: StudentClass;
+  studentID: string;
+  studentResult: Student;
 
   formDisplay = true;
   successfulMessageDisplay = false;
@@ -27,12 +27,12 @@ export class UpdateStudentsComponent implements OnInit {
   getStudentId(val: string){
 
     //check if student id is number
-    if(!isNaN(Number(val))){
-      this.studentID = parseInt(val);
-    }
-    else(
-      console.log("Student ID should be a number")
-    )
+    // if(!isNaN(Number(val))){
+    //   this.studentID = parseInt(val);
+    // }
+    // else(
+    //   console.log("Student ID should be a number")
+    // )
   }
 
   reloadPage(){

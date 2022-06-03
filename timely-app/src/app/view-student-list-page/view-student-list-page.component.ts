@@ -12,7 +12,7 @@ import { CookieService } from '../cookie.service';
 
 export class ViewStudentListPageComponent implements OnInit {
 
-  studentId: number;
+  studentId: string;
   courseId: number = 0;
   studentLists: Student[];
   radioClicked: boolean = false;
@@ -40,7 +40,7 @@ export class ViewStudentListPageComponent implements OnInit {
     });
   }
 
-  radioButtonClick(studentId: number){
+  radioButtonClick(studentId: string){
     this.studentId = studentId;
     this.radioClicked = true;
   }
