@@ -4,7 +4,6 @@ exports.AuthMiddleWare = void 0;
 var AuthMiddleWare = /** @class */ (function () {
     function AuthMiddleWare() {
     }
-    // if user is authenticated the redirected to next page else redirect to login page
     AuthMiddleWare.ensureAuth = function (req, res, next) {
         if (req.isAuthenticated()) {
             console.log("yes authenticated");
@@ -12,7 +11,10 @@ var AuthMiddleWare = /** @class */ (function () {
         }
         else {
             console.log("not authenticated");
-            res.redirect('/');
+            res.json({
+                "message": "Not Authorized",
+                "statusCode": 403
+            });
         }
     };
     AuthMiddleWare.ensureGuest = function (req, res, next) {

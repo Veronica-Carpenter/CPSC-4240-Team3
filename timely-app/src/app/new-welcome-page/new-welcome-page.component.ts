@@ -18,6 +18,7 @@ export class NewWelcomePageComponent implements OnInit {
   public userEmail = "";
   professorData: any;
   loggedIn = false;
+  loggedOut = false;
   formDisplay = true;
   content: any;
   professorResult: Professor;
@@ -77,6 +78,7 @@ export class NewWelcomePageComponent implements OnInit {
             });
           }
           this.formDisplay = false;
+          this.loggedOut = false;
           this.loggedIn = true;
           
         });
@@ -93,8 +95,17 @@ export class NewWelcomePageComponent implements OnInit {
     }
 
     logout() {
-      // this.apiService.logout(this.content).subscribe((result: any) => {
-      //   console.log("Logged out succesfully");
-      // });
+      this.apiService.logout(this.content).subscribe((result: any) => {
+        
+        console.log("Logged out succesfully");
+        
+        this.cookie.deleteCookie('timelyAppfullNameCookie');
+        this.cookie.deleteCookie('timelyAppUserIdCookie');
+        this.cookie.deleteCookie('timelyAppemailCookie');
+
+        this.formDisplay = true;
+        this.loggedOut = true;
+        this.loggedIn = false;
+      });
     }
 }

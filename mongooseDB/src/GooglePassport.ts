@@ -1,8 +1,6 @@
 import googleOAuth from './googleOAuth';
-// let passport = require('passport');
 import * as passport from 'passport';
 
-// let GoogleStrategy = require('passport-google-oauth20-with-people-api').Strategy;
 let GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 class GooglePassport 

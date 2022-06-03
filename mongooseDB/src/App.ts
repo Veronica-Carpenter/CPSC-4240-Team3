@@ -61,7 +61,7 @@ class App {
             res.header("Access-Control-Allow-Origin", "http://localhost:4200");
             res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,PATCH,DELETE');
             res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-            // res.header('Access-Control-Allow-Credentials', "true");
+            res.header('Access-Control-Allow-Credentials', "true");
             next();
         });
 
@@ -92,11 +92,16 @@ class App {
         );
 
         // logout
-        // router.post('/logout', (req, res) => {
-        //     req.logout();
-        //     console.log('logged out');
-        //     res.redirect('/auth');
-        // });
+        router.post('/logout', (req, res) => {
+            req.logOut((err) => {
+                if(err) {
+                    console.log("Error logging out " + err)
+                } 
+                res.json({
+                    "message" : "Successfully logged out!!"
+                })
+            });
+        });
 
         //create professor
         router.post('/professors', (req, res) => {
@@ -124,7 +129,7 @@ class App {
         });
 
         //Get a professor by professor id
-        router.get('/professors/professorId/:professorId', (req, res) => {
+        router.get('/professors/professorId/:professorId', AuthMiddleWare.ensureAuth, (req, res) => {
             var professorId = req.params.professorId;
             console.log('Getting a professor with professorId: ' + professorId);
             this.Professors.retrieveASingleProfessorByProfessorId(res, {professorId: professorId});

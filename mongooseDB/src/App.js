@@ -56,6 +56,7 @@ var attendanceModel_1 = require("./models/attendanceModel");
 var GooglePassport_1 = require("./GooglePassport");
 var expressSession = require('express-session');
 var passport = require("passport");
+var middleware_auth_1 = require("./middleware-auth");
 var MongoStore = require('connect-mongo');
 var cookieParser = require('cookie-parser');
 // setting up endpoints
@@ -90,7 +91,7 @@ var App = /** @class */ (function () {
             res.header("Access-Control-Allow-Origin", "http://localhost:4200");
             res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,PATCH,DELETE');
             res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-            // res.header('Access-Control-Allow-Credentials', "true");
+            res.header('Access-Control-Allow-Credentials', "true");
             next();
         });
         this.expressApp.use(passport.initialize());
@@ -114,11 +115,16 @@ var App = /** @class */ (function () {
             res.status(200).send(responseHTML);
         });
         // logout
-        // router.post('/logout', (req, res) => {
-        //     req.logout();
-        //     console.log('logged out');
-        //     res.redirect('/auth');
-        // });
+        router.post('/logout', function (req, res) {
+            req.logOut(function (err) {
+                if (err) {
+                    console.log("Error logging out " + err);
+                }
+                res.json({
+                    "message": "Successfully logged out!!"
+                });
+            });
+        });
         //create professor
         router.post('/professors', function (req, res) {
             var professor = req.body;
@@ -142,7 +148,7 @@ var App = /** @class */ (function () {
             _this.Professors.retrieveASingleProfessor(res, { id: id });
         });
         //Get a professor by professor id
-        router.get('/professors/professorId/:professorId', function (req, res) {
+        router.get('/professors/professorId/:professorId', middleware_auth_1.AuthMiddleWare.ensureAuth, function (req, res) {
             var professorId = req.params.professorId;
             console.log('Getting a professor with professorId: ' + professorId);
             _this.Professors.retrieveASingleProfessorByProfessorId(res, { professorId: professorId });

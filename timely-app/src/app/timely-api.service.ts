@@ -67,12 +67,12 @@ export class TimelyAPIService {
   }
 
   getProfessorByProfessorId(professorId: string) {
-    return this.http.get<Professor>(this.hostURL + 'professors/professorId/' + professorId);
+    return this.http.get<Professor>(this.hostURL + 'professors/professorId/' + professorId, { withCredentials: true });
   }
 
-  // logout(content: any) {
-  //   return this.http.post(this.hostURL + 'logout', content);
-  // }
+  logout(content: any) {
+    return this.http.post(this.hostURL + 'logout', content, {withCredentials : true});
+  }
 
   courseObjIdByCourseId(courseId: number) {
     return this.http.get<Course>(this.hostURL + 'courses/obj/' + courseId);

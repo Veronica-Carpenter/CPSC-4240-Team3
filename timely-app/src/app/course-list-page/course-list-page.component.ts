@@ -26,6 +26,9 @@ export class CourseListPage implements OnInit {
     this.email = this.cookie.getCookie('timelyAppemailCookie');
 
     this.apiService.getProfessorByProfessorId(this.userId).subscribe((result: any) => {
+      if(result.statusCode == 403) {
+        window.location.href = "/"
+      }
       this.professorResult = result;
       this.courses = this.professorResult.courseList;
       console.log(this.courses);
