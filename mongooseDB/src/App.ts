@@ -78,6 +78,7 @@ class App {
     private routes(): void {
         let router = express.Router();
 
+        // professor Google SSO routes
         router.get('/auth', passport.authenticate('google', { scope: ['profile', 'email'] }));
         router.get('/auth/error', (req, res) => res.send('Unknown Error'));
         router.get('/api/account/google', passport.authenticate('google', { failureRedirect: '/auth/error' }),
@@ -91,6 +92,7 @@ class App {
         }
         );
 
+        // student Google SSO routes
         router.get('/studentAuth', passport.authenticate('google', { scope: ['profile', 'email'] }));
         router.get('/studentAuth/error', (req, res) => res.send('Unknown Error'));
         router.get('/api/studentAccount/google', passport.authenticate('google', { failureRedirect: '/studentAuth/error' }),

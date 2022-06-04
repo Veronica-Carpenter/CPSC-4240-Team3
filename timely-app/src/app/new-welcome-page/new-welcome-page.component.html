@@ -2,26 +2,6 @@
 	<h1>Our Attendance Tracker </h1>
 </div>
 
-<div class = "row row-center">
-    <div *ngIf = "loggedIn">
-        <p class="successMessage">Logged in as {{fullName.length > 0 ? fullName : ""}}</p>
-        <p class="successMessage">userId: {{loggedInUserId}}</p>
-        <p>Email: {{userEmail}}</p>
-        <a routerLink = {{link()}} class="btn btn-lg btn-warning" role="button">Proceed with the app</a>
-        <button (click)="logout()" class="btn btn-lg btn-warning" role="button">Logout</button>
-    </div>
-
-
-    <div *ngIf = "studentloggedIn">
-        <p class="successMessage">Logged in as {{studentfullName.length > 0 ? studentfullName : ""}}</p>
-        <p class="successMessage">userId: {{studentloggenInUserId}}</p>
-        <p>Email: {{studentuserEmail}}</p>
-        <a routerLink = {{studentlink()}} class="btn btn-lg btn-warning" role="button">Take Attendance</a>
-        <button (click)="logout()" class="btn btn-lg btn-warning" role="button">Logout</button>
-    </div>
-
-</div>
-
 <div *ngIf = "formDisplay">
     <div class="container theme-showcase d-flex justify-content-center">
         <button (click)="LoginAsAProfessor()" class="row submitButton btn btn-md btn-warning">
@@ -35,10 +15,4 @@
         </button>
     </div>
     
-</div>
-
-<div class = "row row-center">
-    <div *ngIf = "loggedOut" class="alert alert-success">
-        <h1>Logged Out Sucessfully!!!</h1>
-    </div>
 </div>

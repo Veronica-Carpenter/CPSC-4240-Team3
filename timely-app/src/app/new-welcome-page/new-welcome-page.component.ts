@@ -4,6 +4,7 @@ import { TimelyAPIService } from '../timely-api.service';
 import { CookieService } from '../cookie.service';
 import { Professor } from '../professor';
 import { Student } from '../student';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-welcome-page',
@@ -17,8 +18,6 @@ export class NewWelcomePageComponent implements OnInit {
   public firstName: string;
   public lastName: string;
   public userEmail: string;
-  studentResult: Student;
-  studentData: any;
 
   public studentfullName: string;
   public studentfirstName: string;
@@ -27,22 +26,36 @@ export class NewWelcomePageComponent implements OnInit {
   public studentloggenInUserId: string;
 
   professorData: any;
-  loggedIn = false;
-  studentloggedIn = false;
-  loggedOut = false;
   formDisplay = true;
-  content: any;
   professorResult: Professor;
+  studentResult: Student;
+  studentData: any;
 
-  constructor(private apiService: TimelyAPIService, private activatedRoute: ActivatedRoute, public cookie: CookieService) {
+  constructor(private apiService: TimelyAPIService, private activatedRoute: ActivatedRoute, public cookie: CookieService, private router: Router) {
   }
   
   ngOnInit(): void {
+    if(this.getLoggedIn()) {
+      if(this.cookie.getCookie("timelyAppUserType") == "P") {
+        this.router.navigate(['/CourseListPage']);
+      }
+      if(this.cookie.getCookie("timelyAppUserType") == "S") {
+        this.router.navigate(['/takeAttendance']);
+      }
+    }
   }
 
+  getLoggedIn() {
+    if (this.cookie.getCookie('timelyAppfullNameCookie') && this.cookie.getCookie('timelyAppUserIdCookie')){
+      return true
+    }
+    return false
+  }
+
+  // login as a professor
   LoginAsAProfessor(){
     window.open('http://localhost:8080/auth',"mywindow","location=1,status=1,scrollbars=1, width=800,height=800");
-   let listener = window.addEventListener('message', (message) => {
+    let listener = window.addEventListener('message', (message) => {
 
      //message will contain logged in user and details
       console.log(message)
@@ -67,6 +80,10 @@ export class NewWelcomePageComponent implements OnInit {
           'name': 'timelyAppemailCookie',
           'value': this.userEmail
         });
+        this.cookie.setCookie({
+          'name': 'timelyAppUserType',
+          'value': "P"
+        })
 
         console.log('going to check a professor' + this.loggedInUserId);
         this.apiService.getProfessorByProfessorId(this.loggedInUserId).subscribe((result: any) => {
@@ -88,15 +105,14 @@ export class NewWelcomePageComponent implements OnInit {
               console.log("Professor added succesfully");
             });
           }
-          this.formDisplay = false;
-          this.loggedOut = false;
-          this.loggedIn = true;
-          this.studentloggedIn = false;
+         
+          this.router.navigate(['/CourseListPage']);
         });
       }
    });
    }
 
+   // login as a professor
     LoginAsAStudent() {
       window.open('http://localhost:8080/studentAuth',"mywindow","location=1,status=1,scrollbars=1, width=800,height=800");
       let listener = window.addEventListener('message', (message) => {
@@ -108,19 +124,24 @@ export class NewWelcomePageComponent implements OnInit {
           this.studentuserEmail = message.data.user.emails[0].value
 
           this.cookie.setCookie({
-            'name': 'studentfullNameCookie',
+            'name': 'timelyAppfullNameCookie',
             'value': this.studentfullName
            });
-
+  
            this.cookie.setCookie({
-            'name': 'studentloggenInUserIdCookie',
+            'name': 'timelyAppUserIdCookie',
             'value': this.studentloggenInUserId
-           });
-
-           this.cookie.setCookie({
-            'name': 'studentuserEmailCookie',
+          });
+  
+          this.cookie.setCookie({
+            'name': 'timelyAppemailCookie',
             'value': this.studentuserEmail
-           });
+          });
+
+          this.cookie.setCookie({
+            'name': 'timelyAppUserType',
+            'value': "S"
+          })
 
            console.log('going to check a student' + this.studentloggenInUserId);
            this.apiService.getStudentByStudentId(this.studentloggenInUserId).subscribe((result: any) => {
@@ -144,40 +165,10 @@ export class NewWelcomePageComponent implements OnInit {
                 console.log("Student added succesfully");
               });
             }
-            this.formDisplay = false;
-            this.loggedOut = false;
-            this.loggedIn = false;
-            this.studentloggedIn = true;
+        
+            this.router.navigate(['/takeAttendance']);
            });
         }
       })
-    }
-
-    link() {
-      return "/CourseListPage";
-    }
-
-    studentlink() {
-      return "/takeAttendance";
-    }
-
-    logout() {
-      this.apiService.logout(this.content).subscribe((result: any) => {
-        
-        console.log("Logged out succesfully");
-        
-        this.cookie.deleteCookie('timelyAppfullNameCookie');
-        this.cookie.deleteCookie('timelyAppUserIdCookie');
-        this.cookie.deleteCookie('timelyAppemailCookie');
-
-        this.cookie.deleteCookie('studentfullNameCookie');
-        this.cookie.deleteCookie('studentloggenInUserIdCookie');
-        this.cookie.deleteCookie('studentuserEmailCookie');
-
-        this.formDisplay = true;
-        this.loggedOut = true;
-        this.loggedIn = false;
-        this.studentloggedIn = false;
-      });
     }
 }

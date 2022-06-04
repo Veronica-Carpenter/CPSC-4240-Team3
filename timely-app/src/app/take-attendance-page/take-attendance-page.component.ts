@@ -36,9 +36,9 @@ export class TakeAttendancePageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.studentname = this.cookie.getCookie('studentfullNameCookie');
-    this.studentuserId = this.cookie.getCookie('studentloggenInUserIdCookie');
-    this.studentemail = this.cookie.getCookie('studentuserEmailCookie');
+    this.studentname = this.cookie.getCookie('timelyAppfullNameCookie');
+    this.studentuserId = this.cookie.getCookie('timelyAppUserIdCookie');
+    this.studentemail = this.cookie.getCookie('timelyAppemailCookie');
 
     console.log('student Id: ' + this.studentuserId);
   }

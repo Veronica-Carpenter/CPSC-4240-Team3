@@ -17,7 +17,7 @@ export class CourseListPage implements OnInit {
   public email = ""
   professorResult: Professor;
 
-  constructor(private apiService: TimelyAPIService, public cookie: CookieService) { 
+  constructor(private apiService: TimelyAPIService, public cookie: CookieService, ) { 
   }
 
   ngOnInit(): void {
@@ -29,6 +29,7 @@ export class CourseListPage implements OnInit {
       if(result.statusCode == 403) {
         window.location.href = "/"
       }
+
       this.professorResult = result;
       this.courses = this.professorResult.courseList;
       console.log(this.courses);
