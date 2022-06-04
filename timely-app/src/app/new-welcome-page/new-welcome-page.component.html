@@ -16,3 +16,12 @@
     </div>
     
 </div>
+
+    <div *ngIf = "sameStudentIdExistsMessage" class="d-flex justify-content-center alert alert-success alert-dismissible fade show" role="alert">
+        ID is already registered as a Student! Please sign in with other account.
+      </div>
+
+      <div *ngIf = "sameProfessorIdExistsMessage" class="d-flex justify-content-center alert alert-success alert-dismissible fade show" role="alert">
+        ID is already registered as a Professor! Please sign in with other account.
+      </div>
+

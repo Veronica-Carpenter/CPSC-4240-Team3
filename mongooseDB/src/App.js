@@ -105,6 +105,7 @@ var App = /** @class */ (function () {
     App.prototype.routes = function () {
         var _this = this;
         var router = express.Router();
+        // professor Google SSO routes
         router.get('/auth', passport.authenticate('google', { scope: ['profile', 'email'] }));
         router.get('/auth/error', function (req, res) { return res.send('Unknown Error'); });
         router.get('/api/account/google', passport.authenticate('google', { failureRedirect: '/auth/error' }), function (req, res) {
@@ -114,6 +115,7 @@ var App = /** @class */ (function () {
             }));
             res.status(200).send(responseHTML);
         });
+        // student Google SSO routes
         router.get('/studentAuth', passport.authenticate('google', { scope: ['profile', 'email'] }));
         router.get('/studentAuth/error', function (req, res) { return res.send('Unknown Error'); });
         router.get('/api/studentAccount/google', passport.authenticate('google', { failureRedirect: '/studentAuth/error' }), function (req, res) {

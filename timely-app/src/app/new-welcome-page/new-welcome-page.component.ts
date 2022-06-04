@@ -27,6 +27,8 @@ export class NewWelcomePageComponent implements OnInit {
 
   professorData: any;
   formDisplay = true;
+  sameStudentIdExistsMessage = false;
+  sameProfessorIdExistsMessage = false;
   professorResult: Professor;
   studentResult: Student;
   studentData: any;
@@ -47,9 +49,9 @@ export class NewWelcomePageComponent implements OnInit {
 
   getLoggedIn() {
     if (this.cookie.getCookie('timelyAppfullNameCookie') && this.cookie.getCookie('timelyAppUserIdCookie')){
-      return true
+      return true;
     }
-    return false
+    return false;
   }
 
   // login as a professor
@@ -80,39 +82,56 @@ export class NewWelcomePageComponent implements OnInit {
           'name': 'timelyAppemailCookie',
           'value': this.userEmail
         });
+
         this.cookie.setCookie({
           'name': 'timelyAppUserType',
           'value': "P"
-        })
+        });
 
-        console.log('going to check a professor' + this.loggedInUserId);
-        this.apiService.getProfessorByProfessorId(this.loggedInUserId).subscribe((result: any) => {
-          this.professorResult = result;
-          
+        this.apiService.getStudentByStudentId(this.loggedInUserId).subscribe((result: any) => {
+          console.log('in same mesage API call');
+          this.sameProfessorIdExistsMessage = false;
+
           if (result != null) {
-            console.log('in if');
-            console.log('Professor is already registered')
-          } 
-          else {
-            console.log('in else');
-            this.professorData = {
-              "professorId": this.loggedInUserId,
-              "fname": this.firstName,
-              "lname": this.lastName,
-              "email": this.userEmail
-            }
-            this.apiService.createAProfessor(this.professorData).subscribe((result: any) => {
-              console.log("Professor added succesfully");
+            this.sameStudentIdExistsMessage = true;
+
+            this.cookie.deleteCookie('timelyAppfullNameCookie');
+            this.cookie.deleteCookie('timelyAppUserIdCookie');
+            this.cookie.deleteCookie('timelyAppemailCookie');
+            this.cookie.deleteCookie('timelyAppUserType');
+
+          } else {
+            console.log('going to check a professor' + this.loggedInUserId); 
+
+            this.apiService.getProfessorByProfessorId(this.loggedInUserId).subscribe((result: any) => {
+              this.professorResult = result;
+              
+              if (result != null) {
+                console.log('in if');
+                console.log('Professor is already registered')
+              } 
+              else {
+                console.log('in else');
+                this.professorData = {
+                  "professorId": this.loggedInUserId,
+                  "fname": this.firstName,
+                  "lname": this.lastName,
+                  "email": this.userEmail
+                }
+                this.apiService.createAProfessor(this.professorData).subscribe((result: any) => {
+                  console.log("Professor added succesfully");
+                });
+              }
+             
+              this.router.navigate(['/CourseListPage']);
             });
           }
-         
-          this.router.navigate(['/CourseListPage']);
         });
       }
    });
    }
 
-   // login as a professor
+   // login as a student
     LoginAsAStudent() {
       window.open('http://localhost:8080/studentAuth',"mywindow","location=1,status=1,scrollbars=1, width=800,height=800");
       let listener = window.addEventListener('message', (message) => {
@@ -141,33 +160,49 @@ export class NewWelcomePageComponent implements OnInit {
           this.cookie.setCookie({
             'name': 'timelyAppUserType',
             'value': "S"
-          })
+          });
 
-           console.log('going to check a student' + this.studentloggenInUserId);
-           this.apiService.getStudentByStudentId(this.studentloggenInUserId).subscribe((result: any) => {
-
-            this.studentResult = result;
-            console.log(this.studentResult);
+          this.apiService.getProfessorByProfessorId(this.studentloggenInUserId).subscribe((result: any) => {
+            console.log('in same mesage API call');
+            this.sameStudentIdExistsMessage = false;
 
             if (result != null) {
-              console.log('in if');
-              console.log('Student is already registered')
-            } else {
+              this.sameProfessorIdExistsMessage = true;
 
-              this.studentData = {
-                "studentId": this.studentloggenInUserId,
-                "fname": this.studentfirstName,
-                "lname": this.studentlastName,
-                "email": this.studentuserEmail
-              }
+              this.cookie.deleteCookie('timelyAppfullNameCookie');
+              this.cookie.deleteCookie('timelyAppUserIdCookie');
+              this.cookie.deleteCookie('timelyAppemailCookie');
+              this.cookie.deleteCookie('timelyAppUserType');
+            }
+            else {
 
-              this.apiService.createAStudent(this.studentData).subscribe((result: any) => {
-                console.log("Student added succesfully");
+              console.log('going to check a student' + this.studentloggenInUserId);
+              this.apiService.getStudentByStudentId(this.studentloggenInUserId).subscribe((result: any) => {
+
+                this.studentResult = result;
+                console.log(this.studentResult);
+
+                if (result != null) {
+                  console.log('in if');
+                  console.log('Student is already registered')
+                } else {
+
+                  this.studentData = {
+                    "studentId": this.studentloggenInUserId,
+                    "fname": this.studentfirstName,
+                    "lname": this.studentlastName,
+                    "email": this.studentuserEmail
+                  }
+
+                  this.apiService.createAStudent(this.studentData).subscribe((result: any) => {
+                    console.log("Student added succesfully");
+                  });
+                }
+            
+                this.router.navigate(['/takeAttendance']);
               });
             }
-        
-            this.router.navigate(['/takeAttendance']);
-           });
+          });
         }
       })
     }

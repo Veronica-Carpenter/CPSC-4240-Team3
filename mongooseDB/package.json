@@ -5,7 +5,7 @@
   "main": "./src/AppServer.js",
   "scripts": {
     "test": "mocha",
-    "start": "node AppServer.js"
+    "start": "node ./src/AppServer.js"
   },
   "repository": {
     "type": "git",
