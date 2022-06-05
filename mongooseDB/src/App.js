@@ -539,6 +539,14 @@ var App = /** @class */ (function () {
             console.log("temp" + temp);
             _this.Attendances.retrieveAttendancesByLectureIdAndStudentId(res, [lectureId, studentObjId]);
         });
+        //Get an attendance by lecture id
+        router.get('/attendances/lecture/:lectureId', function (req, res) {
+            var lectureId = req.params.lectureId;
+            console.log('Getting a lecture with lecture id : ' + lectureId);
+            var temp = lectureId;
+            console.log("temp" + temp);
+            _this.Attendances.retrieveAttendancesByLectureId(res, lectureId);
+        });
         this.expressApp.use('/', router);
         this.expressApp.use('/', express.static("../public"));
     };

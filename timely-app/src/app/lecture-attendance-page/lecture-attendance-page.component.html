@@ -1,1 +1,35 @@
-<p>lecture-attendance-page works!</p>
+<!doctype html>
+<html lang="en">
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<div class="alert alert-primary" role="alert">
+    <h4 class="text-center">Lecture Attendance for {{ lectureDate }} </h4>
+</div>
+<!-- Table -->
+<table class="table" style="font-size:10pt;">
+    <thead>
+        <tr>
+            <th>Student ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Status</th>
+        </tr>
+        <ng-container *ngFor="let student of studentObjList; let i=index">
+            <tr>
+                    <td> {{ student.studentId}} </td>
+                    <td> {{ student.fname }} </td>
+                    <td> {{ student.lname }} </td>
+                    <td> {{ attendances[i].status }} </td>
+            </tr>
+        </ng-container>
+       
+    </thead>
+    <tbody id='tasks'>
+    </tbody>
+</table>
+</html>
+

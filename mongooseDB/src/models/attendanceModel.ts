@@ -67,5 +67,16 @@ class attendanceModel {
         });
     }
 
+    public retrieveAttendancesByLectureId(res, data) {
+        var lectureId = data;
+        console.log("Lecture id: " + lectureId);
+        var findResult = this.model.find({lectureId: lectureId});
+        findResult.exec( (err, attendanceArray) => {
+            if (err) {
+                res.status(500).send({error: 'enter a valid lecture id'})
+            }
+            res.json(attendanceArray);
+        });
+    }
 }
 export {attendanceModel};

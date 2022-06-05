@@ -92,4 +92,11 @@ export class TimelyAPIService {
     return this.http.get<Attendance>(this.hostURL+ 'attendances/lecture/' + lectureId + '/student/' + studentObjId);
   }
 
+  getAttendancesByLectureId(lectureId: number){
+    return this.http.get<Attendance>(this.hostURL+ 'attendances/lecture/' + lectureId);
+  }
+  getStudentByObjecId(studentObjId: Student){
+    return this.http.get<Student>(this.hostURL + "students/" + studentObjId);
+  }
+
 }
