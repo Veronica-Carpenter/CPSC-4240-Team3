@@ -1,6 +1,47 @@
-<div class="container theme-showcase d-flex justify-content-center">
+<!--<div class="container theme-showcase d-flex justify-content-center">
 	<h1>Our Attendance Tracker </h1>
-</div>
+</div>-->
+<div class="alert alert-dark " role="alert"> 
+
+<div class="container theme-showcase d-flex justify-content-left"> 
+
+        <marquee style="text-align:center; font-size: 25px; padding: 10px; font-style: oblique;"> 
+        
+         An easy way to track attendance!</marquee> 
+        
+ </div> 
+ <div class="row"> 
+
+     <div class="column"> 
+        <a routerLink = {{LoginAsAStudent()}} class="btn btn-lg btn-secondary" 
+
+        role="button">Login as a Stduent <img src="../assets/images/pro.jpg" height="250vh" width="400"></a> 
+    </div>
+    <div class="column"> 
+
+         <img src="../assets/images/clock.jpg" class="laptop" alt="laptop" height="300vh" width="350" > 
+        
+         <h1 style="text-align:center; font-size: 55px; padding: 5px; font-style: oblique; ">Timely</h1> 
+        
+        <br> 
+        
+        </div> 
+        
+        </div> 
+            
+            
+<div *ngIf = "formDisplay">
+   
+        <button (click)="LoginAsAProfessor()" class="btn btn-md btn-secondary ms-1"
+        role="button">
+                        Login as a Professor
+                        <img src="../assets/images/pro.jpg" height="250vh" width="400"> 
+                    
+            </button>
+</div>        
+
+
+ <!-----------Version 1 of New welcome Component below-->
 
 <div *ngIf = "formDisplay">
     <div class="container theme-showcase d-flex justify-content-center">
@@ -17,11 +58,13 @@
     
 </div>
 
-    <div *ngIf = "sameStudentIdExistsMessage" class="d-flex justify-content-center alert alert-success alert-dismissible fade show" role="alert">
+    <div *ngIf = "sameStudentIdExistsMessage" class="d-flex justify-content-center alert alert-success alert-dismissible fade show" 
+    role="alert">
         ID is already registered as a Student! Please sign in with other account.
       </div>
 
-      <div *ngIf = "sameProfessorIdExistsMessage" class="d-flex justify-content-center alert alert-success alert-dismissible fade show" role="alert">
+      <div *ngIf = "sameProfessorIdExistsMessage" class="d-flex justify-content-center alert alert-success alert-dismissible fade show"
+       role="alert">
         ID is already registered as a Professor! Please sign in with other account.
       </div>
 
