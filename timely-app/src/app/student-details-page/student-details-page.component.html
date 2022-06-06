@@ -1,40 +1,31 @@
- 
+
 <div class="alert alert-primary" role="alert">
-   
+    <h4 class="text-center">Student Information</h4>
+
     Logged in as: {{ name }}
     <br>User Id: {{ userId }}
     <br>Email: {{ useremail }}
+
+    <div *ngIf = "displaydeleteconfirmation" class="d-flex justify-content-center alert alert-success alert-dismissible fade show" 
+    role="alert">
+        Student deleted sucessfully!
+      </div>
  
     <img src="../assets/images/student.avif" height="400vh" width="1500">
-    <div style="text-align:center">
-	<br>User Id: {{ userId }}
-	<br>Email: {{ useremail }}
-</div>
+   
 
 <div style="text-align:center">
 
-    <div *ngIf = "displaydeleteconfirmation" class="d-flex justify-content-center alert alert-success alert-dismissible fade show" 
- role="alert">
-     Student deleted sucessfully!
-   </div>
-
-    <h5> Student Information</h5>
-    <div class="row row-center">
-        <div> Name: {{ fname }} {{ lname }} </div>
-        <div> Student ID: {{ studentId }} </div>
-        <div> Email ID: {{ email }} </div>
-        <br>
-        <h5> Student Information</h5>
         <div class="row row-center">
             <div> Name: {{ fname }} {{ lname }} </div>
             <div> Student ID: {{ studentId }} </div>
             <div> Email ID: {{ email }} </div>
             <br>
-            <br>
         </div>
  
         <div class="text-center">
-            <a (click)="RemoveStudentFromCourseClick()" class="btn btn-lg btn-warning" role="button">Remove Student from
+
+            <a (click)="RemoveStudentFromCourseClick()" style="background-color:#5580cc; border-color:#5580cc" class="btn btn-lg btn-warning" role="button">Remove Student from
                 Course</a>
         </div>
     </div>
