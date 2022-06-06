@@ -24,7 +24,7 @@
  <div class="row"> 
 
      <div class="column"> 
-        <button (click)="LoginAsAStudent()" class="btn btn-md btn-secondary ms-1" role="button">
+        <button (click)="Login('S')" class="btn btn-md btn-secondary ms-1" role="button">
             Login as a Student <img src="../assets/images/pro.jpg" height="250vh" width="400">
         </button> 
     </div>
@@ -43,7 +43,7 @@
             
 <div *ngIf = "formDisplay">
    
-        <button (click)="LoginAsAProfessor()" class="btn btn-md btn-secondary ms-1" role="button">
+        <button (click)="Login('P')" class="btn btn-md btn-secondary ms-1" role="button">
             Login as a Professor
             <img src="../assets/images/pro.jpg" height="250vh" width="400">      
         </button>

@@ -54,12 +54,35 @@ export class NewWelcomePageComponent implements OnInit {
     return false;
   }
 
-  // login as a professor
-  LoginAsAProfessor(){
-    window.open('http://localhost:8080/auth',"mywindow","location=1,status=1,scrollbars=1, width=800,height=800");
-    let listener = window.addEventListener('message', (message) => {
+  profListener = (message : any) => {
+    console.log("professor loginin...")
+    this.LoginAsAProfessor(message)
+  }
 
+  studentListener = (message : any) => {
+    console.log("student loginin...")
+    this.LoginAsAStudent(message)
+  }
+
+  Login(type : String) {
+
+    window.open('http://localhost:8080/auth',"mywindow","location=1,status=1,scrollbars=1, width=800,height=800");
+
+    if(type == "P") {
+      console.log("in professor")
+      window.addEventListener('message', this.profListener)
+    }
+    
+    if(type == "S") {
+      console.log("in student")
+      window.addEventListener('message', this.studentListener)
+    }
+  }
+
+  // login as a professor
+  LoginAsAProfessor(message : any){
      //message will contain logged in user and details
+      console.log("message in professor ")
       console.log(message)
       if (message) {
         this.fullName = message.data.user.displayName
@@ -67,6 +90,7 @@ export class NewWelcomePageComponent implements OnInit {
         this.lastName = message.data.user.name.familyName
         this.loggedInUserId = message.data.user.id
         this.userEmail = message.data.user.emails[0].value
+        
 
         this.cookie.setCookie({
           'name': 'timelyAppfullNameCookie',
@@ -89,10 +113,12 @@ export class NewWelcomePageComponent implements OnInit {
         });
 
         this.apiService.getStudentByStudentId(this.loggedInUserId).subscribe((result: any) => {
-          console.log('in same mesage API call');
+          console.log('in same mesage API call Professor');
           this.sameProfessorIdExistsMessage = false;
-
+          console.log("logged in user id is ")
+          console.log(this.loggedInUserId)
           if (result != null) {
+          
             this.sameStudentIdExistsMessage = true;
 
             this.cookie.deleteCookie('timelyAppfullNameCookie');
@@ -122,19 +148,16 @@ export class NewWelcomePageComponent implements OnInit {
                   console.log("Professor added succesfully");
                 });
               }
-             
+              window.removeEventListener('message', this.profListener)
               this.router.navigate(['/CourseListPage']);
             });
           }
         });
       }
-   });
    }
 
    // login as a student
-    LoginAsAStudent() {
-      window.open('http://localhost:8080/studentAuth',"mywindow","location=1,status=1,scrollbars=1, width=800,height=800");
-      let listener = window.addEventListener('message', (message) => {
+    LoginAsAStudent(message : any) {
         if (message) {
           this.studentfullName = message.data.user.displayName
           this.studentfirstName = message.data.user.name.givenName
@@ -163,7 +186,7 @@ export class NewWelcomePageComponent implements OnInit {
           });
 
           this.apiService.getProfessorByProfessorId(this.studentloggenInUserId).subscribe((result: any) => {
-            console.log('in same mesage API call');
+            console.log('in same mesage API call Student');
             this.sameStudentIdExistsMessage = false;
 
             if (result != null) {
@@ -198,12 +221,11 @@ export class NewWelcomePageComponent implements OnInit {
                     console.log("Student added succesfully");
                   });
                 }
-            
+                window.removeEventListener('message', this.studentListener)
                 this.router.navigate(['/takeAttendance']);
               });
             }
           });
         }
-      })
     }
 }

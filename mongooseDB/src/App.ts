@@ -92,20 +92,6 @@ class App {
         }
         );
 
-        // student Google SSO routes
-        router.get('/studentAuth', passport.authenticate('google', { scope: ['profile', 'email'] }));
-        router.get('/studentAuth/error', (req, res) => res.send('Unknown Error'));
-        router.get('/api/studentAccount/google', passport.authenticate('google', { failureRedirect: '/studentAuth/error' }),
-        function(req, res) {
-            var responseHTML = '<html><head><title>Main</title></head><body></body><script>res = %value%; window.opener.postMessage(res, "*");window.close();</script></html>'
-            responseHTML = responseHTML.replace('%value%', JSON.stringify({
-                user: req.user
-                
-            }));
-            res.status(200).send(responseHTML);
-        }
-        );
-
         // logout
         router.post('/logout', (req, res) => {
             req.logOut((err) => {
