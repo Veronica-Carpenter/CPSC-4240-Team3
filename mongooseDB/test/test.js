@@ -156,60 +156,6 @@ describe('Testing API routes', () => {
         });
     });
 
-    // Tets GET/:id routes
-    describe('Test GET/:id routes', () => {
-
-        // get a student by Id
-        it('get a student by id', (done) => {
-            let student = new studentModel();
-            let studenttobeInserted = {
-                studentId : "101",
-                fname: "Shipra",
-                lname: "Shipra",
-                email: "shipra@sample.edu"
-            };
-            student.model(studenttobeInserted).save((err, res) => {
-                chai.request("http://localhost:8080")
-                    .get('/students/' + res._id)
-                    .send(student)
-                    .end((err, res) => {
-                        res.should.have.status(200);
-                        res.body.should.be.a('object');
-                        res.body.should.have.property('studentId');
-                        res.body.should.have.property('fname');
-                        res.body.should.have.property('lname');
-                        res.body.should.have.property('email');
-                    done();    
-                });
-           });
-        });
-
-        // get a professor by Id
-        it('get a professor by id', (done) => {
-            let professor = new professorModel();
-            let professorToBeInserted = {
-                professorId : "101",
-                fname: "ABC",
-                lname: "ABC",
-                email: "abc@sample.edu"
-            };
-            professor.model(professorToBeInserted).save((err, res) => {
-                chai.request("http://localhost:8080")
-                    .get('/professors/' + res._id)
-                    .send(professor)
-                    .end((err, res) => {
-                        res.should.have.status(200);
-                        res.body.should.be.a('object');
-                        res.body.should.have.property('professorId');
-                        res.body.should.have.property('fname');
-                        res.body.should.have.property('lname');
-                        res.body.should.have.property('email');
-                    done();    
-                });
-           });
-        });
-    });
-
     // Test POST/ routes
     describe('Test POST/ routes', () => {
 
@@ -218,7 +164,7 @@ describe('Testing API routes', () => {
 
             it('should post a student', (done) => {
                 let student = {
-                    studentId : "201",
+                    studentId : "101",
                     fname: "Shipra",
                     lname: "Shipra",
                     email: "shipra@sample.edu"
@@ -256,6 +202,27 @@ describe('Testing API routes', () => {
                         res.body.errors.email.should.have.property('kind').eq('required');
                     done();
                 });
+            });
+        });
+    });
+
+    // Tets GET/:id routes
+    describe('Test GET/:id routes', () => {
+
+        var studentId = "101";
+
+        // get a student by Id
+        it('get a student by id', (done) => {
+            chai.request("http://localhost:8080")
+            .get("/students/studentId/" + studentId)
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('studentId');
+                res.body.should.have.property('fname');
+                res.body.should.have.property('lname');
+                res.body.should.have.property('email');
+                done();    
             });
         });
     });
