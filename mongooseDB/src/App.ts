@@ -235,6 +235,7 @@ class App {
                 console.log(student)
                 res.status(200).send(student)
             } catch(e) {
+                console.log(e)
                 res.status(400).send(e);
             }
         });

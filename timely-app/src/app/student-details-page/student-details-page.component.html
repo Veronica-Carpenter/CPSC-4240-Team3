@@ -7,6 +7,22 @@
  
     <img src="../assets/images/student.avif" height="400vh" width="1500">
     <div style="text-align:center">
+	<br>User Id: {{ userId }}
+	<br>Email: {{ useremail }}
+</div>
+
+<div style="text-align:center">
+
+    <div *ngIf = "displaydeleteconfirmation" class="d-flex justify-content-center alert alert-success alert-dismissible fade show" 
+ role="alert">
+     Student deleted sucessfully!
+   </div>
+
+    <h5> Student Information</h5>
+    <div class="row row-center">
+        <div> Name: {{ fname }} {{ lname }} </div>
+        <div> Student ID: {{ studentId }} </div>
+        <div> Email ID: {{ email }} </div>
         <br>
         <h5> Student Information</h5>
         <div class="row row-center">

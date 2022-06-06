@@ -3,6 +3,7 @@ import { Course } from '../course';
 import { ActivatedRoute } from '@angular/router';
 import { TimelyAPIService } from '../timely-api.service';
 import { CookieService } from '../cookie.service';
+import { Student } from '../student';
 
 @Component({
   selector: 'app-student-details-page',
@@ -16,6 +17,8 @@ export class StudentDetailsPageComponent implements OnInit {
   email: string;
   studentId: string;
   courseList: Course[];
+  student : Student;
+  displaydeleteconfirmation = false;
 
   public name: string;
   public userId: string;
@@ -29,27 +32,31 @@ export class StudentDetailsPageComponent implements OnInit {
     this.userId = this.cookie.getCookie('timelyAppUserIdCookie');
     this.useremail = this.cookie.getCookie('timelyAppemailCookie');
 
-
     this.activatedRoute.params.forEach((route) => this.studentId = route["studentId"]);
+    this.activatedRoute.params.forEach((route) => this.courseId = route["courseID"] );
+
     this.apiService.getStudentByStudentId(this.studentId).subscribe((result: any) => {
       this.fname = result.fname;
       this.lname = result.lname;
       this.email = result.email;
       this.courseList = result.courseList;
+      this.student = result
       console.log("Student Information: " + JSON.stringify(result));
     })
   }
+
   RemoveStudentFromCourseClick(){
     let courseName: string = '';
-    for(var i = this.courseList.length - 1; i >= 0; i--) {
-      if(this.courseList[i].courseId === this.courseId) {
-        courseName = this.courseList[i].courseName;
-        this.courseList.splice(i, 1);
-      }
-    }
-    // Call PATCH API to remove a student from the course
-    this.apiService.updateStudentInfo(this.studentId, this.courseList).subscribe((result:any)=>{
-      console.log(this.fname + " " + this.lname + "(" + this.studentId + ") was removed from " + courseName);
+    let newCourseList : Course[]= this.courseList.filter((course) => {
+     return course.courseId!=this.courseId
     })
+
+    this.student.courseList = newCourseList
+
+    // Call PATCH API to remove a student from the course
+    this.apiService.updateStudentInfo(this.studentId, this.student).subscribe((result:any)=>{
+      console.log(this.fname + " " + this .lname + "(" + this.studentId + ") was removed from " + courseName);
+    });
+    this.displaydeleteconfirmation = true;
   }
 }

@@ -1,14 +1,11 @@
+import { Course } from "./course";
+
 export interface Student{
     studentId: string;
     fname: string;
     lname: string;
     email: string;
-    courseList?:[
-        {
-            courseId: number,
-            courseName: string
-        }
-    ];
+    courseList?:Course[],
     attendanceList?:[
         {
             lectureId: Number;
