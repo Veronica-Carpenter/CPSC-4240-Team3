@@ -24,8 +24,10 @@ export class LectureAttendancePageComponent implements OnInit {
       this.lectureDate = new Date (this.attendances[0].date);
       for (var i = 0; i < this.attendances.length; i++) {
         this.apiService.getStudentByObjecId(this.attendances[i].Student).subscribe((result: any) => {
+          if(result) {
           console.log("Student object: " + result);
           this.studentObjList.push(result);
+          }
         });
       }
     })

@@ -13,6 +13,7 @@ import {AuthMiddleWare} from "./middleware-auth";
 
 const MongoStore = require('connect-mongo');
 let cookieParser = require('cookie-parser');
+import Mongoose = require("mongoose");
 
 // setting up endpoints
 
@@ -24,6 +25,14 @@ class App {
     public Students: studentModel;
     public Attendances: attendanceModel;
     public googlePassportObj: GooglePassportObj;
+
+    static mongooseInstance: any;
+    static mongooseConnection: Mongoose.Connection;
+    static mongoUsername: string = process.env.mongoUsername;
+    static mongoPassword: string = process.env.mongoPassword; 
+
+    static DB_CONNECTION_STRING: string = 'mongodb+srv://' + this.mongoUsername +':' + this.mongoPassword + '@cluster0.ztcdq.mongodb.net/attendance-tracker?retryWrites=true&w=majority';
+
 
     constructor() {
         this.expressApp = express();
@@ -49,6 +58,7 @@ class App {
         resave: false,
         store: MongoStore.create({
             mongoUrl: "mongodb://127.0.0.1:27017/attendance-tracker",
+            // mongoUrl: App.DB_CONNECTION_STRING,
             collection: 'sessions'
             })
         }));

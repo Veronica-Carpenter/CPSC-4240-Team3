@@ -5,7 +5,6 @@ var Mongoose = require("mongoose");
 var dotenv = require('dotenv');
 dotenv.config();
 var DataAccess = /** @class */ (function () {
-    // static DB_CONNECTION_STRING: string = 'mongodb+srv://' + this.mongoUsername +':' + this.mongoPassword + '@cluster0.ztcdq.mongodb.net/attendance-tracker?retryWrites=true&w=majority';
     function DataAccess() {
         DataAccess.connect();
     }
@@ -19,9 +18,12 @@ var DataAccess = /** @class */ (function () {
         this.mongooseInstance = Mongoose.connect(this.DB_CONNECTION_STRING);
         return this.mongooseInstance;
     };
+    var _a;
+    _a = DataAccess;
     DataAccess.mongoUsername = process.env.mongoUsername;
     DataAccess.mongoPassword = process.env.mongoPassword;
-    DataAccess.DB_CONNECTION_STRING = 'mongodb://127.0.0.1:27017/attendance-tracker';
+    // static DB_CONNECTION_STRING:string = 'mongodb://127.0.0.1:27017/attendance-tracker';
+    DataAccess.DB_CONNECTION_STRING = 'mongodb+srv://' + _a.mongoUsername + ':' + _a.mongoPassword + '@cluster0.ztcdq.mongodb.net/attendance-tracker?retryWrites=true&w=majority';
     return DataAccess;
 }());
 exports.DataAccess = DataAccess;

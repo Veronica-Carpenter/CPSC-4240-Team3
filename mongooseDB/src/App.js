@@ -80,7 +80,8 @@ var App = /** @class */ (function () {
             saveUninitialized: false,
             resave: false,
             store: MongoStore.create({
-                mongoUrl: "mongodb://127.0.0.1:27017/attendance-tracker",
+                // mongoUrl: "mongodb://127.0.0.1:27017/attendance-tracker",
+                mongoUrl: App.DB_CONNECTION_STRING,
                 collection: 'sessions'
             })
         }));
@@ -193,17 +194,17 @@ var App = /** @class */ (function () {
         // Delete a student by student Id
         router["delete"]('/students/', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var id, student, error_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         id = req.query.studentId;
                         console.log('Deleting a student by Student ID: ' + id);
-                        _a.label = 1;
+                        _b.label = 1;
                     case 1:
-                        _a.trys.push([1, 3, , 4]);
+                        _b.trys.push([1, 3, , 4]);
                         return [4 /*yield*/, this.Students.model.remove({ studentId: id })];
                     case 2:
-                        student = _a.sent();
+                        student = _b.sent();
                         if (!student) {
                             return [2 /*return*/, res.status(404).send()];
                         }
@@ -211,7 +212,7 @@ var App = /** @class */ (function () {
                         res.status(200).send('Student deleted!');
                         return [3 /*break*/, 4];
                     case 3:
-                        error_1 = _a.sent();
+                        error_1 = _b.sent();
                         res.status(500).send();
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/];
@@ -221,24 +222,24 @@ var App = /** @class */ (function () {
         // Delete a student by its Id
         router["delete"]('/students/:id', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var id, student, error_2;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         id = req.params.id;
                         console.log('Deleting a student by ID: ' + id);
-                        _a.label = 1;
+                        _b.label = 1;
                     case 1:
-                        _a.trys.push([1, 3, , 4]);
+                        _b.trys.push([1, 3, , 4]);
                         return [4 /*yield*/, this.Students.model.findByIdAndDelete(id)];
                     case 2:
-                        student = _a.sent();
+                        student = _b.sent();
                         if (!student) {
                             return [2 /*return*/, res.status(404).send()];
                         }
                         res.status(200).send(student);
                         return [3 /*break*/, 4];
                     case 3:
-                        error_2 = _a.sent();
+                        error_2 = _b.sent();
                         res.status(500).send();
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/];
@@ -248,17 +249,17 @@ var App = /** @class */ (function () {
         //Update a student by its student Id
         router.patch('/students/update', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var id, student, e_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         id = req.query.studentId;
                         console.log('Updating a student by its ID: ' + id);
-                        _a.label = 1;
+                        _b.label = 1;
                     case 1:
-                        _a.trys.push([1, 3, , 4]);
+                        _b.trys.push([1, 3, , 4]);
                         return [4 /*yield*/, this.Students.model.update({ studentId: id }, req.body, { "new": true, runValidators: true })];
                     case 2:
-                        student = _a.sent();
+                        student = _b.sent();
                         if (!student) {
                             return [2 /*return*/, res.status(404).send()];
                         }
@@ -266,7 +267,7 @@ var App = /** @class */ (function () {
                         res.status(200).send(student);
                         return [3 /*break*/, 4];
                     case 3:
-                        e_1 = _a.sent();
+                        e_1 = _b.sent();
                         console.log(e_1);
                         res.status(400).send(e_1);
                         return [3 /*break*/, 4];
@@ -277,17 +278,17 @@ var App = /** @class */ (function () {
         //Update a student by its Id
         router.patch('/students/:id', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var id, student, e_2;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         id = req.params.id;
                         console.log('Updating a student by its ID: ' + id);
-                        _a.label = 1;
+                        _b.label = 1;
                     case 1:
-                        _a.trys.push([1, 3, , 4]);
+                        _b.trys.push([1, 3, , 4]);
                         return [4 /*yield*/, this.Students.model.findByIdAndUpdate(id, req.body, { "new": true, runValidators: true })];
                     case 2:
-                        student = _a.sent();
+                        student = _b.sent();
                         if (!student) {
                             return [2 /*return*/, res.status(404).send()];
                         }
@@ -295,7 +296,7 @@ var App = /** @class */ (function () {
                         res.status(200).send(student);
                         return [3 /*break*/, 4];
                     case 3:
-                        e_2 = _a.sent();
+                        e_2 = _b.sent();
                         res.status(400).send(e_2);
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/];
@@ -304,32 +305,32 @@ var App = /** @class */ (function () {
         }); });
         // map courses to professors
         router.post('/mapCourseToProfessor', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var _a, courseId, professorId, course, professor, e_3;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _b, courseId, professorId, course, professor, e_3;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
-                        _a = req.body, courseId = _a.courseId, professorId = _a.professorId;
+                        _b = req.body, courseId = _b.courseId, professorId = _b.professorId;
                         return [4 /*yield*/, this.Courses.model.findById(courseId)];
                     case 1:
-                        course = _b.sent();
+                        course = _c.sent();
                         return [4 /*yield*/, this.Professors.model.findById(professorId)];
                     case 2:
-                        professor = _b.sent();
+                        professor = _c.sent();
                         course.Professor = professorId;
                         professor.courseList.push(courseId);
-                        _b.label = 3;
+                        _c.label = 3;
                     case 3:
-                        _b.trys.push([3, 6, , 7]);
+                        _c.trys.push([3, 6, , 7]);
                         return [4 /*yield*/, this.Courses.model.findByIdAndUpdate({ _id: courseId }, course, { "new": true, runValidators: true })];
                     case 4:
-                        _b.sent();
+                        _c.sent();
                         return [4 /*yield*/, this.Professors.model.findByIdAndUpdate({ _id: professorId }, professor, { "new": true, runValidators: true })];
                     case 5:
-                        _b.sent();
+                        _c.sent();
                         res.status(200).send("Mapped");
                         return [3 /*break*/, 7];
                     case 6:
-                        e_3 = _b.sent();
+                        e_3 = _c.sent();
                         res.status(400).send(e_3);
                         return [3 /*break*/, 7];
                     case 7: return [2 /*return*/];
@@ -338,30 +339,30 @@ var App = /** @class */ (function () {
         }); });
         // map courses to students
         router.post('/mapCourseToStudent', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var _a, courseId, studentId, course, student, e_4;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _b, courseId, studentId, course, student, e_4;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
-                        _a = req.body, courseId = _a.courseId, studentId = _a.studentId;
+                        _b = req.body, courseId = _b.courseId, studentId = _b.studentId;
                         return [4 /*yield*/, this.Courses.model.findById(courseId)];
                     case 1:
-                        course = _b.sent();
+                        course = _c.sent();
                         return [4 /*yield*/, this.Students.model.findById(studentId)];
                     case 2:
-                        student = _b.sent();
+                        student = _c.sent();
                         student.courseList = __spreadArray(__spreadArray([], student.courseList, true), [course], false);
-                        _b.label = 3;
+                        _c.label = 3;
                     case 3:
-                        _b.trys.push([3, 5, , 6]);
+                        _c.trys.push([3, 5, , 6]);
                         return [4 /*yield*/, this.Students.model.findByIdAndUpdate({ _id: studentId }, student, { "new": true, runValidators: true })];
                     case 4:
-                        _b.sent();
+                        _c.sent();
                         res.status(200).json({
                             "result": "Mapped Successfully"
                         });
                         return [3 /*break*/, 6];
                     case 5:
-                        e_4 = _b.sent();
+                        e_4 = _c.sent();
                         res.status(400).send(e_4);
                         return [3 /*break*/, 6];
                     case 6: return [2 /*return*/];
@@ -370,37 +371,37 @@ var App = /** @class */ (function () {
         }); });
         // map attendances to students
         router.post('/mapStudenttoAttendance', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var _a, attendanceId, studentId, attendance, student, e_5;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _b, attendanceId, studentId, attendance, student, e_5;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
-                        _a = req.body, attendanceId = _a.attendanceId, studentId = _a.studentId;
+                        _b = req.body, attendanceId = _b.attendanceId, studentId = _b.studentId;
                         return [4 /*yield*/, this.Attendances.model.findById(attendanceId)];
                     case 1:
-                        attendance = _b.sent();
+                        attendance = _c.sent();
                         return [4 /*yield*/, this.Students.model.findById(studentId)];
                     case 2:
-                        student = _b.sent();
+                        student = _c.sent();
                         attendance.Student = studentId;
                         student.attendanceList.push(attendanceId);
-                        _b.label = 3;
+                        _c.label = 3;
                     case 3:
-                        _b.trys.push([3, 6, , 7]);
+                        _c.trys.push([3, 6, , 7]);
                         return [4 /*yield*/, this.Attendances.model.findByIdAndUpdate({ _id: attendanceId }, attendance, { "new": true, runValidators: true })];
                     case 4:
-                        _b.sent();
+                        _c.sent();
                         return [4 /*yield*/, this.Students.model.findByIdAndUpdate({ _id: studentId }, student, { "new": true, runValidators: true })
                             //res.status(200).send("Mapped")
                         ];
                     case 5:
-                        _b.sent();
+                        _c.sent();
                         //res.status(200).send("Mapped")
                         res.status(201).json({
                             message: 'Mapped'
                         });
                         return [3 /*break*/, 7];
                     case 6:
-                        e_5 = _b.sent();
+                        e_5 = _c.sent();
                         res.status(400).send(e_5);
                         return [3 /*break*/, 7];
                     case 7: return [2 /*return*/];
@@ -541,6 +542,11 @@ var App = /** @class */ (function () {
         this.expressApp.use('/', router);
         this.expressApp.use('/', express.static("../public"));
     };
+    var _a;
+    _a = App;
+    App.mongoUsername = process.env.mongoUsername;
+    App.mongoPassword = process.env.mongoPassword;
+    App.DB_CONNECTION_STRING = 'mongodb+srv://' + _a.mongoUsername + ':' + _a.mongoPassword + '@cluster0.ztcdq.mongodb.net/attendance-tracker?retryWrites=true&w=majority';
     return App;
 }());
 exports.App = App;
