@@ -71,6 +71,7 @@ export class LectureListPageComponent implements OnInit {
         });
       }
       else{
+        setTimeout(() => { alert('There exists a lecture with today date') }, 1000)
         console.log("There exists a lecture with today's date");
         console.log("Exists: " + JSON.stringify(result));
       }
