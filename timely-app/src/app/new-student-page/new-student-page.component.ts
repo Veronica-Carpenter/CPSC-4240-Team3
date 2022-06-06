@@ -85,6 +85,7 @@ export class NewStudentPageComponent implements OnInit {
           this.apiService.mapCourseToStudent(this.mapCourseToStudentObject).subscribe((result: any) => {
             console.log("Mapped succesfully");
             this.formDisplay = false;
+            this.errorMessage = false;
             this.successfulMessageDisplay = true;
           });
         });
